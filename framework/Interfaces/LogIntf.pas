@@ -10,14 +10,14 @@ interface
 
 uses SysUtils;
 
-Type
-  ILog=Interface
+type
+  ILog = interface
     ['{472FD4AD-F589-4D4D-9051-A20D37B7E236}']
-    procedure WriteLog(const Str:String);
-    procedure WriteLogFmt(const Str:String;const Args: array of const);
-    function GetLogFileName:String;
-  End;
-  
+    procedure WriteLog(const Str: String);
+    procedure WriteLogFmt(const Str: String; const Args: array of const);
+    function GetLogFileName: String;
+  end;
+
 implementation
 
 end.

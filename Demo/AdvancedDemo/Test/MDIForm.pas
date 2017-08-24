@@ -4,10 +4,10 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls,SvcInfoIntf,uBaseForm,ModuleInfoIntf, ExtCtrls;
+  Dialogs, StdCtrls, SvcInfoIntf, uBaseForm, ModuleInfoIntf, ExtCtrls;
 
 type
-  TfrmMDI = class(TBaseForm,IModuleInfoGetter,ISvcInfoGetter)
+  TfrmMDI = class(TBaseForm, IModuleInfoGetter, ISvcInfoGetter)
     Memo1: TMemo;
     Panel1: TPanel;
     Button2: TButton;
@@ -19,9 +19,9 @@ type
     procedure Button1Click(Sender: TObject);
   private
     {IModuleInfoGetter}
-    procedure ModuleInfo(ModuleInfo:TModuleInfo);
+    procedure ModuleInfo(ModuleInfo: TModuleInfo);
     {ISvcInfoGetter}
-    procedure SvcInfo(SvcInfo:TSvcInfoRec);
+    procedure SvcInfo(SvcInfo: TSvcInfoRec);
   public
     { Public declarations }
   end;
@@ -31,19 +31,19 @@ var
 
 implementation
 
-uses SysFactoryMgr,SysSvc,SysInfoIntf,MainFormIntf;
+uses SysFactoryMgr, SysSvc, SysInfoIntf, MainFormIntf;
 
 {$R *.dfm}
 
 procedure TfrmMDI.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  Action:=caFree;
+  Action := caFree;
 end;
 
 procedure TfrmMDI.Button2Click(Sender: TObject);
-var SvcInfoEx:ISvcInfoEx;
+var SvcInfoEx: ISvcInfoEx;
 begin
-  if SysService.QueryInterface(ISvcInfoEx,SvcInfoEx)=S_OK then
+  if SysService.QueryInterface(ISvcInfoEx, SvcInfoEx) = S_OK then
   begin
     self.Memo1.Clear;
     SvcInfoEx.GetSvcInfo(self);
@@ -52,7 +52,7 @@ end;
 
 procedure TfrmMDI.ModuleInfo(ModuleInfo: TModuleInfo);
 begin
-    Memo1.Lines.Add(Format('%s  %s',[ModuleInfo.PackageName,ModuleInfo.Description]));
+  Memo1.Lines.Add(Format('%s  %s', [ModuleInfo.PackageName, ModuleInfo.Description]));
 end;
 
 procedure TfrmMDI.Button3Click(Sender: TObject);
@@ -63,7 +63,8 @@ end;
 
 procedure TfrmMDI.SvcInfo(SvcInfo: TSvcInfoRec);
 begin
-  self.Memo1.Lines.Add(Format('%s %s %s %s %s',[SvcInfo.GUID,SvcInfo.ModuleName,SvcInfo.Title,SvcInfo.Version,SvcInfo.Comments]));
+  self.Memo1.Lines.Add(Format('%s %s %s %s %s', [SvcInfo.GUID, SvcInfo.ModuleName, SvcInfo.Title,
+    SvcInfo.Version, SvcInfo.Comments]));
 end;
 
 procedure TfrmMDI.Button1Click(Sender: TObject);

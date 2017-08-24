@@ -12,8 +12,8 @@ interface
 uses SysUtils, Classes, RegIntf, XMLDoc, XMLIntf, Variants, ActiveX,
   SvcInfoIntf, MenuRegIntf;
 
-Type
-  TRegObj = Class(TInterfacedObject, IRegistry, ISvcInfo,
+type
+  TRegObj = class(TInterfacedObject, IRegistry, ISvcInfo,
     IMenuReg)
   private
     FRegFile: String;
@@ -69,11 +69,11 @@ Type
     procedure RegToolItem(const key, aCaption, aHint: Widestring);
     procedure UnRegToolItem(const key: Widestring);
   public
-    constructor Create(const FileName:Widestring);
-    Destructor Destroy; override;
-  End;
+    constructor Create(const FileName: Widestring);
+    destructor Destroy; override;
+  end;
 
-  ERegistryException = Class(Exception);
+  ERegistryException = class(Exception);
 
 implementation
 
@@ -83,7 +83,7 @@ const
   MenuKey = 'SYSTEM\MENU';
   ToolKey = 'SYSTEM\TOOL';
 
-constructor TRegObj.Create(const FileName:Widestring);
+constructor TRegObj.Create(const FileName: Widestring);
 begin
   CoInitialize(nil);
   self.LoadRegistryFile(FileName);
@@ -176,15 +176,15 @@ function TRegObj.GetNode(const key: Widestring; CanCreate: Boolean): IXMLNode;
 var
   aList: TStrings;
   ParentNode, FoundNode: IXMLNode;
-  i: Integer;
+  i:     Integer;
   tmpKey: String;
 begin
   tmpKey := UpperCase(Trim(key)); // WideUpperCase
   if tmpKey = '' then
-  Begin
+  begin
     Result := FXMLDoc.DocumentElement;
     exit;
-  End;
+  end;
   ParentNode := FXMLDoc.DocumentElement;
   aList := TStringList.Create;
   try
@@ -197,7 +197,7 @@ begin
       ParentNode := FoundNode;
     end;
     Result := FoundNode; // 同上
-  Finally
+  finally
     aList.Free;
   end;
 end;
@@ -235,20 +235,21 @@ end;
 
 procedure TRegObj.LoadRegistryFile(const FileName: Widestring);
 begin
-  Try
+  try
     FRegFile := FileName;
     if FileExists(FRegFile) then
       FXMLDoc := LoadXMLDocument(FileName)
-    else begin
-      FXMLDoc:=NewXMLDocument;
-      FXMLDoc.Encoding:='UTF-8';
-      FXMLDoc.DocumentElement:=FXMLDoc.CreateNode('Doc');
+    else
+    begin
+      FXMLDoc := NewXMLDocument;
+      FXMLDoc.Encoding := 'UTF-8';
+      FXMLDoc.DocumentElement := FXMLDoc.CreateNode('Doc');
       FXMLDoc.SaveToFile(FRegFile);
     end;
-  Except
+  except
     on E: Exception do
-      Raise ERegistryException.CreateFmt('打开注册表出错：%s', [E.Message]);
-  End;
+      raise ERegistryException.CreateFmt('打开注册表出错：%s', [E.Message]);
+  end;
 end;
 
 function TRegObj.OpenKey(const key: Widestring; CanCreate: Boolean): Boolean;
@@ -271,8 +272,8 @@ end;
 function TRegObj.ReadBoolDef(const aName: Widestring;
   Default: Boolean): Boolean;
 begin
-  if not self.ReadBool(aName,Result) then
-    Result:=Default;
+  if not self.ReadBool(aName, Result) then
+    Result := Default;
 end;
 
 function TRegObj.ReadDateTime(const aName: Widestring;
@@ -290,8 +291,8 @@ end;
 function TRegObj.ReadDateTimeDef(const aName: Widestring;
   Default: TDateTime): TDateTime;
 begin
-  if not self.ReadDateTime(aName,Result) then
-    Result:=Default;
+  if not self.ReadDateTime(aName, Result) then
+    Result := Default;
 end;
 
 function TRegObj.ReadFloat(const aName: Widestring; out Value: Double): Boolean;
@@ -307,8 +308,8 @@ end;
 
 function TRegObj.ReadFloatDef(const aName: Widestring; Default: Double): Double;
 begin
-  if not self.ReadFloat(aName,Result) then
-    Result:=Default;
+  if not self.ReadFloat(aName, Result) then
+    Result := Default;
 end;
 
 function TRegObj.ReadInteger(const aName: Widestring;
@@ -326,8 +327,8 @@ end;
 function TRegObj.ReadIntegerDef(const aName: Widestring;
   Default: Integer): Integer;
 begin
-  if not self.ReadInteger(aName,Result) then
-    Result:=Default;
+  if not self.ReadInteger(aName, Result) then
+    Result := Default;
 end;
 
 function TRegObj.ReadString(const aName: Widestring;
@@ -345,8 +346,8 @@ end;
 function TRegObj.ReadStringDef(const aName: Widestring;
   Default: Widestring): Widestring;
 begin
-  if not self.ReadString(aName,Result) then
-    Result:=Default;
+  if not self.ReadString(aName, Result) then
+    Result := Default;
 end;
 
 function TRegObj.ReadValue(const aName: Widestring;

@@ -8,7 +8,7 @@ unit uHashList;
 
 interface
 uses IniFiles;
-Type
+type
   PPHashItem = ^PHashItem;
   PHashItem = ^THashItem;
 
@@ -18,7 +18,7 @@ Type
     Value: Pointer;
   end;
 
-  TDeletionEvent = Procedure(var Value: Pointer) of Object;
+  TDeletionEvent = procedure(var Value: Pointer) of object;
 
   THashList = class
   private
@@ -42,7 +42,7 @@ Type
     // ап╬ы
     procedure StartEnum;
     function EnumValue(out Value: Pointer): Boolean;
-    property OnDeletion: TDeletionEvent Read FOnDeletion Write FOnDeletion;
+    property OnDeletion: TDeletionEvent read FOnDeletion write FOnDeletion;
   end;
 
 implementation

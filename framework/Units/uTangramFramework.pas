@@ -9,12 +9,12 @@ unit uTangramFramework;
 
 interface
 
-uses SysUtils,Classes,Forms,Windows,SysModuleMgr;
+uses SysUtils, Classes, Forms, Windows, SysModuleMgr;
 
-Type
-  TTangramApp=Class
+type
+  TTangramApp = class
   private
-    FModuleMgr:TModuleMgr;
+    FModuleMgr: TModuleMgr;
     FLoadModuleFromRegistry: Boolean;
 
     function GetFormApp: TApplication;
@@ -30,15 +30,15 @@ Type
     procedure Initialize;
     procedure CreateForm(InstanceClass: TComponentClass; var Reference);
     procedure Run;
-    property FormApp:TApplication Read GetFormApp;
-    property MainFormOnTaskbar:Boolean Read GetMainFormOnTaskbar Write SetMainFormOnTaskbar;
-    Constructor Create;
-    Destructor Destroy;override;
+    property FormApp: TApplication read GetFormApp;
+    property MainFormOnTaskbar: Boolean read GetMainFormOnTaskbar write SetMainFormOnTaskbar;
+    constructor Create;
+    destructor Destroy; override;
 
-    property LoadModuleFromRegistry:Boolean Read FLoadModuleFromRegistry Write FLoadModuleFromRegistry;
+    property LoadModuleFromRegistry: Boolean read FLoadModuleFromRegistry write FLoadModuleFromRegistry;
   end;
 var
-  Application:TTangramApp;
+  Application: TTangramApp;
 implementation
 
 {$i tangram.inc}
@@ -47,14 +47,14 @@ implementation
 
 constructor TTangramApp.Create;
 begin
-  FLoadModuleFromRegistry:=True;
-  FModuleMgr:=TModuleMgr.Create;
+  FLoadModuleFromRegistry := True;
+  FModuleMgr := TModuleMgr.Create;
 end;
 
 procedure TTangramApp.CreateForm(InstanceClass: TComponentClass;
   var Reference);
 begin
-  Forms.Application.CreateForm(InstanceClass,Reference);
+  Forms.Application.CreateForm(InstanceClass, Reference);
 end;
 
 destructor TTangramApp.Destroy;
@@ -65,7 +65,7 @@ end;
 
 function TTangramApp.GetFormApp: TApplication;
 begin
-  Result:=Forms.Application;
+  Result := Forms.Application;
 end;
 
 function TTangramApp.GetMainFormOnTaskbar: Boolean;
@@ -77,7 +77,7 @@ end;
 
 function TTangramApp.GetTitle: string;
 begin
-  Result:=Forms.Application.Title;
+  Result := Forms.Application.Title;
 end;
 
 procedure TTangramApp.Initialize;
@@ -87,7 +87,7 @@ end;
 
 function TTangramApp.ReadHintHidePause: Integer;
 begin
-  Result:=Forms.Application.HintHidePause;
+  Result := Forms.Application.HintHidePause;
 end;
 
 procedure TTangramApp.Run;
@@ -110,16 +110,16 @@ end;
 
 procedure TTangramApp.SetTitle(const Value: string);
 begin
-  Forms.Application.Title:=Value;
+  Forms.Application.Title := Value;
 end;
 
 procedure TTangramApp.WriteHintHidePause(const Value: Integer);
 begin
-  Forms.Application.HintHidePause:=Value;
+  Forms.Application.HintHidePause := Value;
 end;
 
 initialization
-  Application:=TTangramApp.Create;
+  Application := TTangramApp.Create;
 finalization
   Application.Free;
 end.

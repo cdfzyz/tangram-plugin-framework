@@ -13,7 +13,7 @@ type
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
   private
-    procedure ShowForm(param:Integer);
+    procedure ShowForm(param: Integer);
   public
     { Public declarations }
   end;
@@ -21,16 +21,16 @@ type
 var
   FrmMain: TFrmMain;
 
-implementation 
+implementation
 
-uses SysSvc,ObjRefIntf,TestIntf;
+uses SysSvc, ObjRefIntf, TestIntf;
 
 {$R *.dfm}
 
 procedure TFrmMain.ShowForm(param: Integer);
-var ObjRef:IObjRef;
+var ObjRef: IObjRef;
 begin
-  if SysService('',param).GetObjRef(Itest,ObjRef) then
+  if SysService('', param).GetObjRef(Itest, ObjRef) then
   begin
     if not ObjRef.ObjIsNil then
       TForm(ObjRef.Obj).ShowModal;

@@ -27,9 +27,9 @@ type
     function GetExceptionMsg: String;
     { Private declarations }
   public
-    property ExceptionClass:String Read GetExceptionClass Write SetExceptionClass;
-    property SourceClass:string Read GetSourceClass Write SetSourceClass;
-    property ExceptionMsg:String Read GetExceptionMsg Write SetExceptionMsg;
+    property ExceptionClass: String read GetExceptionClass write SetExceptionClass;
+    property SourceClass: string read GetSourceClass write SetSourceClass;
+    property ExceptionMsg: String read GetExceptionMsg write SetExceptionMsg;
   end;
 
 var
@@ -41,7 +41,7 @@ implementation
 
 procedure Tfrm_Exception.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  Action:=caFree;
+  Action := caFree;
 end;
 
 procedure Tfrm_Exception.FormShow(Sender: TObject);
@@ -51,32 +51,32 @@ end;
 
 function Tfrm_Exception.GetExceptionClass: String;
 begin
-  Result:=self.edt_Exceptionclass.Text;
+  Result := self.edt_Exceptionclass.Text;
 end;
 
 function Tfrm_Exception.GetExceptionMsg: String;
 begin
-  Result:=mm_ExceptionMsg.Text;
+  Result := mm_ExceptionMsg.Text;
 end;
 
 function Tfrm_Exception.GetSourceClass: string;
 begin
-  Result:=edt_Sourceclass.Text;
+  Result := edt_Sourceclass.Text;
 end;
 
 procedure Tfrm_Exception.SetExceptionClass(const Value: String);
 begin
-  edt_ExceptionClass.Text:=Value;
+  edt_ExceptionClass.Text := Value;
 end;
 
 procedure Tfrm_Exception.SetExceptionMsg(const Value: String);
 begin
-  mm_ExceptionMsg.text:=Value;
+  mm_ExceptionMsg.text := Value;
 end;
 
 procedure Tfrm_Exception.SetSourceClass(const Value: string);
 begin
-  edt_SourceClass.text:=Value;
+  edt_SourceClass.text := Value;
 end;
 
 end.

@@ -25,22 +25,22 @@ var
 
 implementation
 
-uses SysSvc,uIntf;
+uses SysSvc, uIntf;
 {$R *.dfm}
 
 procedure TfrmBPL.Button1Click(Sender: TObject);
-var Intf:IIntf2;
+var Intf: IIntf2;
 begin
-  Intf:=SysService as IIntf2; //获取IIntf2接口，IIntf2在DLL模块实现
+  Intf := SysService as IIntf2; //获取IIntf2接口，IIntf2在DLL模块实现
   Intf.ShowDLlForm;
 end;
 
 procedure TfrmBPL.Button2Click(Sender: TObject);
-var Intf:IIntf1;
-    s:String;
+var Intf: IIntf1;
+  s:      String;
 begin
-  Intf:=SysService as IIntf1;//获取IIntf1接口,IIntf1是主窗体实现的
-  s:=InputBox('设备主窗口标题','请输入标题名字','abcde');
+  Intf := SysService as IIntf1;//获取IIntf1接口,IIntf1是主窗体实现的
+  s := InputBox('设备主窗口标题', '请输入标题名字', 'abcde');
   Intf.SetMainFormCaption(s);
 end;
 

@@ -31,7 +31,7 @@ unit MidServer_TLB;
 interface
 
 uses Windows, ActiveX, Classes, Graphics, Midas, StdVCL, Variants;
-  
+
 
 // *********************************************************************//
 // GUIDS declared in the TypeLibrary. Following prefixes are used:        
@@ -88,18 +88,18 @@ type
     function ApplyUpdate(const Tablename: WideString; Delta: OleVariant): {??Shortint}OleVariant; dispid 302;
     function ExecSQL(const SQL: WideString): {??Shortint}OleVariant; dispid 303;
     function GetDateTime: TDateTime; dispid 304;
-    function AS_ApplyUpdates(const ProviderName: WideString; Delta: OleVariant; MaxErrors: Integer; 
-                             out ErrorCount: Integer; var OwnerData: OleVariant): OleVariant; dispid 20000000;
-    function AS_GetRecords(const ProviderName: WideString; Count: Integer; out RecsOut: Integer; 
-                           Options: Integer; const CommandText: WideString; var Params: OleVariant; 
-                           var OwnerData: OleVariant): OleVariant; dispid 20000001;
+    function AS_ApplyUpdates(const ProviderName: WideString; Delta: OleVariant; MaxErrors: Integer;
+      out ErrorCount: Integer; var OwnerData: OleVariant): OleVariant; dispid 20000000;
+    function AS_GetRecords(const ProviderName: WideString; Count: Integer; out RecsOut: Integer;
+      Options: Integer; const CommandText: WideString; var Params: OleVariant;
+      var OwnerData: OleVariant): OleVariant; dispid 20000001;
     function AS_DataRequest(const ProviderName: WideString; Data: OleVariant): OleVariant; dispid 20000002;
     function AS_GetProviderNames: OleVariant; dispid 20000003;
     function AS_GetParams(const ProviderName: WideString; var OwnerData: OleVariant): OleVariant; dispid 20000004;
-    function AS_RowRequest(const ProviderName: WideString; Row: OleVariant; RequestType: Integer; 
-                           var OwnerData: OleVariant): OleVariant; dispid 20000005;
-    procedure AS_Execute(const ProviderName: WideString; const CommandText: WideString; 
-                         var Params: OleVariant; var OwnerData: OleVariant); dispid 20000006;
+    function AS_RowRequest(const ProviderName: WideString; Row: OleVariant; RequestType: Integer;
+      var OwnerData: OleVariant): OleVariant; dispid 20000005;
+    procedure AS_Execute(const ProviderName: WideString; const CommandText: WideString;
+      var Params: OleVariant; var OwnerData: OleVariant); dispid 20000006;
   end;
 
 // *********************************************************************//

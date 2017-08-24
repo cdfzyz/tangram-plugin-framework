@@ -26,21 +26,21 @@ var
 
 implementation
 
-uses SysSvc,uIntf;
+uses SysSvc, uIntf;
 
 {$R *.dfm}
 
 procedure TfrmDLL.Button1Click(Sender: TObject);
-var Intf:IIntf1;
+var Intf: IIntf1;
 begin
-  Intf:=SysService as IIntf1;//获取IIntf1接口,IIntf1是主窗体实现的
+  Intf := SysService as IIntf1;//获取IIntf1接口,IIntf1是主窗体实现的
   Intf.SetMainFormCaption(self.edt_Caption.Text);
 end;
 
 procedure TfrmDLL.Button2Click(Sender: TObject);
-var Intf:IIntf1;
+var Intf: IIntf1;
 begin
-  Intf:=SysService as IIntf1;//获取IIntf1接口,IIntf1是主窗体实现的
+  Intf := SysService as IIntf1;//获取IIntf1接口,IIntf1是主窗体实现的
 
   Intf.SetMainFormColor(ColorBox1.Selected);
 end;

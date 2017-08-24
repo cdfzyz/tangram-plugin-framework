@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, Buttons,SysSvc;
+  Dialogs, StdCtrls, Buttons, SysSvc;
 
 type
   Tfrm_Login = class(TForm)
@@ -30,11 +30,12 @@ implementation
 
 procedure Tfrm_Login.btn_OkClick(Sender: TObject);
 begin
-  if (self.edt_UserName.Text='test') and//这里判断用户和密码...
-     (self.edt_Psw.Text='123')  then
+  if (self.edt_UserName.Text = 'test') and//这里判断用户和密码...
+    (self.edt_Psw.Text = '123') then
   begin
-    self.ModalResult:=mrOK
-  end else showmessage('请输入用户名：test 密码： 123');
+    self.ModalResult := mrOK;
+  end
+  else showmessage('请输入用户名：test 密码： 123');
 end;
 
 end.

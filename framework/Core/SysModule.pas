@@ -8,27 +8,27 @@ unit SysModule;
 
 interface
 
-uses uIntfObj,RegIntf,NotifyServiceIntf;
+uses uIntfObj, RegIntf, NotifyServiceIntf;
 
-Type
-  TModuleClass = Class of TModule;
+type
+  TModuleClass = class of TModule;
 
-  TModule = Class(TIntfObj,INotify)
+  TModule = class(TIntfObj, INotify)
   private
 
   protected
 
   public
-    Constructor Create; virtual;
-    Destructor Destroy; override;
+    constructor Create; virtual;
+    destructor Destroy; override;
 
     procedure Init; virtual;
     procedure final; virtual;
-    procedure Notify(Flags: Integer; Intf: IInterface;Param:Integer); virtual;
+    procedure Notify(Flags: Integer; Intf: IInterface; Param: Integer); virtual;
 
-    class procedure RegisterModule(Reg:IRegistry);virtual;
-    class procedure UnRegisterModule(Reg:IRegistry);virtual;
-  End;
+    class procedure RegisterModule(Reg: IRegistry); virtual;
+    class procedure UnRegisterModule(Reg: IRegistry); virtual;
+  end;
 
 implementation
 
@@ -42,9 +42,9 @@ begin
 end;
 
 destructor TModule.Destroy;
-var NotifyService:INotifyService;
+var NotifyService: INotifyService;
 begin
-  if SysService.QueryInterface(INotifyService,NotifyService)=S_OK then
+  if SysService.QueryInterface(INotifyService, NotifyService) = S_OK then
     NotifyService.UnRegisterNotify(self);
   inherited;
 end;
@@ -59,7 +59,7 @@ begin
 
 end;
 
-procedure TModule.Notify(Flags: Integer; Intf: IInterface;Param:Integer);
+procedure TModule.Notify(Flags: Integer; Intf: IInterface; Param: Integer);
 begin
 
 end;

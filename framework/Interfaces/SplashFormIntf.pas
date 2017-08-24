@@ -9,14 +9,14 @@ unit SplashFormIntf;
 
 interface
 
-Type
-  ISplashForm = Interface
+type
+  ISplashForm = interface
     ['{AE9B77A3-1D67-400B-A03B-428F3A79444D}']
     procedure Show;
     procedure loading(const msg: String);
-    function GetWaitTime:Cardinal;
+    function GetWaitTime: Cardinal;
     procedure Hide;
-  End;
+  end;
 
 implementation
 

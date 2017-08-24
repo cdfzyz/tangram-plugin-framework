@@ -8,26 +8,26 @@ unit ImpSysInfoIntf;
 
 interface
 
-uses sysUtils,SysInfoIntf,uConst,SysFactory,SvcInfoIntf;
+uses sysUtils, SysInfoIntf, uConst, SysFactory, SvcInfoIntf;
 
-Type
-  TSysInfoObj=Class(TInterfacedObject,ISysInfo,ISvcInfo)
+type
+  TSysInfoObj = class(TInterfacedObject, ISysInfo, ISvcInfo)
   private
-    FLoginUserInfo:TLoginUserInfo;
+    FLoginUserInfo: TLoginUserInfo;
   protected
     {ISysInfo}
-    function RegistryFile:string;//注册表文件
-    function AppPath:string;//程序目录
-    function ErrPath:string;//错误日志目录
+    function RegistryFile: string;//注册表文件
+    function AppPath: string;//程序目录
+    function ErrPath: string;//错误日志目录
     {ISvcInfo}
-    function GetModuleName:String;
-    function GetTitle:String;
-    function GetVersion:String;
-    function GetComments:String;
+    function GetModuleName: String;
+    function GetTitle: String;
+    function GetVersion: String;
+    function GetComments: String;
 
-    function LoginUserInfo:PLoginUserInfo;
+    function LoginUserInfo: PLoginUserInfo;
   public
-  End;
+  end;
 
 implementation
 
@@ -37,60 +37,60 @@ uses IniFiles;
 
 function TSysInfoObj.AppPath: string;
 begin
-  Result:=ExtractFilePath(Paramstr(0));
+  Result := ExtractFilePath(Paramstr(0));
 end;
 
 function TSysInfoObj.ErrPath: string;
 begin
-  Result:=AppPath+'error';
+  Result := AppPath + 'error';
   if not DirectoryExists(Result) then
     ForceDirectories(Result);
 end;
 
 function TSysInfoObj.GetComments: String;
 begin
-  Result:='通过它可以取得系统一些信息，比如错误日志保存目录，注册表文件名以及当前登录用户等。';
+  Result := '通过它可以取得系统一些信息，比如错误日志保存目录，注册表文件名以及当前登录用户等。';
 end;
 
 function TSysInfoObj.GetModuleName: String;
 begin
-  Result:=ExtractFileName(SysUtils.GetModuleName(HInstance));
+  Result := ExtractFileName(SysUtils.GetModuleName(HInstance));
 end;
 
 function TSysInfoObj.GetTitle: String;
 begin
-  Result:='系统信息接口(ISysInfo)';
+  Result := '系统信息接口(ISysInfo)';
 end;
 
 function TSysInfoObj.GetVersion: String;
 begin
-  Result:='20100421.001';
+  Result := '20100421.001';
 end;
 
 function TSysInfoObj.LoginUserInfo: PLoginUserInfo;
 begin
-  Result:=@FLoginUserInfo;
+  Result := @FLoginUserInfo;
 end;
 
 function TSysInfoObj.RegistryFile: string;
-var IniFile:string;
-    ini:TIniFile;
+var IniFile: string;
+  ini:       TIniFile;
 begin
-  IniFile:=self.AppPath+'Root.ini';
-  ini:=TiniFile.Create(IniFile);
+  IniFile := self.AppPath + 'Root.ini';
+  ini := TiniFile.Create(IniFile);
   try
-    Result:=self.AppPath+ini.ReadString('Default','Reg','');
+    Result := self.AppPath + ini.ReadString('Default', 'Reg', '');
   finally
     ini.Free;
   end;
 end;
 
-function CreateSysInfoObj(param:Integer):TObject;
+function CreateSysInfoObj(param: Integer): TObject;
 begin
-  Result:=TSysInfoObj.Create;
+  Result := TSysInfoObj.Create;
 end;
 
 initialization
-  TSingletonFactory.Create(ISysInfo,@CreateSysInfoObj);
+  TSingletonFactory.Create(ISysInfo, @CreateSysInfoObj);
 finalization
 end.

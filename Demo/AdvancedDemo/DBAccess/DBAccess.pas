@@ -8,56 +8,56 @@ unit DBAccess;
 
 interface
 
-uses SysUtils,DB,DBClient,Provider,ADODB,DBIntf,SvcInfoIntf;
+uses SysUtils, DB, DBClient, Provider, ADODB, DBIntf, SvcInfoIntf;
 
-Type
-  TDBOperation=Class(TInterfacedObject,IDBAccess,ISvcInfo)
+type
+  TDBOperation = class(TInterfacedObject, IDBAccess, ISvcInfo)
   private
-    FConnection:TADOConnection;
+    FConnection: TADOConnection;
   protected
   {IDBOperation}
     procedure BeginTrans;
     procedure CommitTrans;
     procedure RollbackTrans;
 
-    procedure QuerySQL(Cds:TClientDataSet;Const SQLStr:String);
+    procedure QuerySQL(Cds: TClientDataSet; const SQLStr: String);
 
-    procedure ExecuteSQL(Const SQLStr:String);
-    procedure ApplyUpdate(Const TableName:String;Cds:TClientDataSet);
+    procedure ExecuteSQL(const SQLStr: String);
+    procedure ApplyUpdate(const TableName: String; Cds: TClientDataSet);
   {ISvcInfo}
-    function GetModuleName:String;
-    function GetTitle:String;
-    function GetVersion:String;
-    function GetComments:String;
+    function GetModuleName: String;
+    function GetTitle: String;
+    function GetVersion: String;
+    function GetComments: String;
   public
-    Constructor Create;
-    Destructor Destroy;override;
+    constructor Create;
+    destructor Destroy; override;
   end;
 
 implementation
 
-uses SysSvc,SysFactory,ActiveX;
+uses SysSvc, SysFactory, ActiveX;
 
 { TDBOperation }
 
 function TDBOperation.GetComments: String;
 begin
-  Result:='用于数据库操作';
+  Result := '用于数据库操作';
 end;
 
 function TDBOperation.GetModuleName: String;
 begin
-  Result:=ExtractFileName(SysUtils.GetModuleName(HInstance));
+  Result := ExtractFileName(SysUtils.GetModuleName(HInstance));
 end;
 
 function TDBOperation.GetTitle: String;
 begin
-  Result:='数据库操作接口(IDBAccess)';
+  Result := '数据库操作接口(IDBAccess)';
 end;
 
 function TDBOperation.GetVersion: String;
 begin
-  Result:='20100426.001';
+  Result := '20100426.001';
 end;
 
 procedure TDBOperation.BeginTrans;
@@ -76,12 +76,12 @@ begin
 end;
 
 procedure TDBOperation.ExecuteSQL(const SQLStr: String);
-var TmpQry:TADOQuery;
+var TmpQry: TADOQuery;
 begin
-  TmpQry:=TADOQuery.Create(nil);
+  TmpQry := TADOQuery.Create(nil);
   try
-    TmpQry.Connection:=FConnection;
-    TmpQry.SQL.Text:=SQLStr;
+    TmpQry.Connection := FConnection;
+    TmpQry.SQL.Text := SQLStr;
     TmpQry.ExecSQL;
   finally
     tmpQry.Free;
@@ -89,17 +89,17 @@ begin
 end;
 
 procedure TDBOperation.QuerySQL(Cds: TClientDataSet; const SQLStr: String);
-var Provider:TDataSetProvider;
-    TmpQry:TADOQuery;
+var Provider: TDataSetProvider;
+  TmpQry:     TADOQuery;
 begin
-  TmpQry:=TADOQuery.Create(nil);
-  Provider:=TDataSetProvider.Create(nil);
+  TmpQry := TADOQuery.Create(nil);
+  Provider := TDataSetProvider.Create(nil);
   try
-    TmpQry.Connection:=FConnection;
-    Provider.DataSet:=TmpQry;
-    TmpQry.SQL.Text:=SQLStr;
+    TmpQry.Connection := FConnection;
+    Provider.DataSet := TmpQry;
+    TmpQry.SQL.Text := SQLStr;
     TmpQry.Open;
-    Cds.Data:=Provider.Data;
+    Cds.Data := Provider.Data;
   finally
     tmpQry.Free;
     Provider.Free;
@@ -108,27 +108,29 @@ end;
 
 procedure TDBOperation.ApplyUpdate(const TableName: String;
   Cds: TClientDataSet);
-const SQL='select * from %s where 1<>1';
-var Provider:TDataSetProvider;
-    TmpQry:TADOQuery;
-    SQLStr:String;
-    ECount:Integer;
+const SQL = 'select * from %s where 1<>1';
+var Provider: TDataSetProvider;
+  TmpQry:     TADOQuery;
+  SQLStr:     String;
+  ECount:     Integer;
 begin
-  if Cds.State in [dsEdit, dsInsert] then cds.Post;
-  if Cds.ChangeCount=0 then exit;
-  TmpQry:=TADOQuery.Create(nil);
-  Provider:=TDataSetProvider.Create(nil);
+  if Cds.State in [dsEdit, dsInsert] then
+    cds.Post;
+  if Cds.ChangeCount = 0 then
+    exit;
+  TmpQry := TADOQuery.Create(nil);
+  Provider := TDataSetProvider.Create(nil);
   try
-    SQLStr:=Format(SQL,[TableName]);
-    Provider.ResolveToDataSet:=False;
+    SQLStr := Format(SQL, [TableName]);
+    Provider.ResolveToDataSet := False;
     Provider.UpdateMode := upWhereAll;//upWhereKeyOnly;
-    Provider.Options:=[poAllowMultiRecordUpdates];
-    TmpQry.Connection:=FConnection;
-    Provider.DataSet:=TmpQry;
-    TmpQry.SQL.Text:=SQLStr;
+    Provider.Options := [poAllowMultiRecordUpdates];
+    TmpQry.Connection := FConnection;
+    Provider.DataSet := TmpQry;
+    TmpQry.SQL.Text := SQLStr;
     TmpQry.Open;
 
-    Provider.ApplyUpdates(Cds.Delta,-1,ECount);
+    Provider.ApplyUpdates(Cds.Delta, -1, ECount);
     Cds.MergeChangeLog;
   finally
     tmpQry.Free;
@@ -137,15 +139,15 @@ begin
 end;
 
 constructor TDBOperation.Create;
-var Obj:TObject;
-    DBConn:IDBConnection;
+var Obj: TObject;
+  DBConn: IDBConnection;
 begin
-  DBConn:=SysService as IDBConnection;
+  DBConn := SysService as IDBConnection;
   if not DBConn.Connected then
-    DBConn.Connected:=True;
-  Obj:=DBConn.GetDBConnection;
+    DBConn.Connected := True;
+  Obj := DBConn.GetDBConnection;
   if Obj is TADOConnection then
-    FConnection:=TADOConnection(Obj);
+    FConnection := TADOConnection(Obj);
 end;
 
 destructor TDBOperation.Destroy;
@@ -154,14 +156,14 @@ begin
   inherited;
 end;
 
-function CreateDBOperation(param:Integer):TObject;
+function CreateDBOperation(param: Integer): TObject;
 begin
   CoInitialize(nil);
-  Result:=TDBOperation.Create;
+  Result := TDBOperation.Create;
   CoUnInitialize;
 end;
 
 initialization
-  TIntfFactory.Create(IDBAccess,@CreateDBOperation);
+  TIntfFactory.Create(IDBAccess, @CreateDBOperation);
 finalization
 end.

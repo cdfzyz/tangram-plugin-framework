@@ -8,25 +8,25 @@ unit uSvcInfoObj;
 
 interface
 
-uses sysUtils,Classes,SysFactory,SvcInfoIntf;
+uses sysUtils, Classes, SysFactory, SvcInfoIntf;
 
-Type
-  TSvcInfoObj=Class(TInterfacedObject,ISvcInfoEx,ISvcInfo)
+type
+  TSvcInfoObj = class(TInterfacedObject, ISvcInfoEx, ISvcInfo)
   private
   protected
   {ISvcInfo}
-    function GetModuleName:String;
-    function GetTitle:String;
-    function GetVersion:String;
-    function GetComments:String;
+    function GetModuleName: String;
+    function GetTitle: String;
+    function GetVersion: String;
+    function GetComments: String;
   {ISvcInfoEx}
-    procedure GetSvcInfo(Intf:ISvcInfoGetter);
-  Public
-  End;
+    procedure GetSvcInfo(Intf: ISvcInfoGetter);
+  public
+  end;
 
 implementation
 
-uses SysFactoryMgr,FactoryIntf;
+uses SysFactoryMgr, FactoryIntf;
 
 {procedure Create_SvcInfoObj(out anInstance: IInterface);
 begin
@@ -37,35 +37,36 @@ end;}
 
 function TSvcInfoObj.GetComments: String;
 begin
-  Result:='用于获取当前系统所有接口信息';
+  Result := '用于获取当前系统所有接口信息';
 end;
 
 function TSvcInfoObj.GetModuleName: String;
 begin
-  Result:=ExtractFileName(SysUtils.GetModuleName(HInstance));
+  Result := ExtractFileName(SysUtils.GetModuleName(HInstance));
 end;
 
 function TSvcInfoObj.GetTitle: String;
 begin
-  Result:='接口说明服务(ISvcInfoEx)';
+  Result := '接口说明服务(ISvcInfoEx)';
 end;
 
 function TSvcInfoObj.GetVersion: String;
 begin
-  Result:='20100607.001';
+  Result := '20100607.001';
 end;
 
 procedure TSvcInfoObj.GetSvcInfo(Intf: ISvcInfoGetter);
-var i:integer;
-    aFactory:TFactory;
-    SvcInfoEx:ISvcInfoEx;
+var i: integer;
+  aFactory: TFactory;
+  SvcInfoEx: ISvcInfoEx;
 begin
-  if Intf=nil then exit;
+  if Intf = nil then
+    exit;
 
-  for i:=0 to FactoryManager.FactoryList.Count-1 do
+  for i := 0 to FactoryManager.FactoryList.Count - 1 do
   begin
-    aFactory:=FactoryManager.FactoryList.Items[i];
-    if aFactory.GetInterface(ISvcInfoEx,SvcInfoEx) then
+    aFactory := FactoryManager.FactoryList.Items[i];
+    if aFactory.GetInterface(ISvcInfoEx, SvcInfoEx) then
       SvcInfoEx.GetSvcInfo(Intf);
   end;
 end;

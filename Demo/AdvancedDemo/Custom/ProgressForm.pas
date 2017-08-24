@@ -27,9 +27,9 @@ implementation
 
 procedure Tfrm_ProgressForm.FormCreate(Sender: TObject);
 begin
-  Animate1.Active:=True;
-  ProgressBar.Visible:=False;
-  self.pal_Msg.DoubleBuffered:=true;
+  Animate1.Active := True;
+  ProgressBar.Visible := False;
+  self.pal_Msg.DoubleBuffered := true;
 end;
 
 end.

@@ -28,7 +28,7 @@ type
     FEnableIntfInfo: Boolean;
     procedure SetEnableIntfInfo(const Value: Boolean);
   public
-    property EnableIntfInfo:Boolean Read FEnableIntfInfo Write SetEnableIntfInfo;
+    property EnableIntfInfo: Boolean read FEnableIntfInfo write SetEnableIntfInfo;
   end;
 
 var
@@ -40,22 +40,22 @@ implementation
 
 procedure TFrmNewImptUntfUnit.btn_OKClick(Sender: TObject);
 begin
-  if trim(edt_className.Text)='' then
+  if trim(edt_className.Text) = '' then
   begin
-    MessageBox(self.Handle,'类名不能为空！','提示',MB_OK+MB_ICONWARNING);
+    MessageBox(self.Handle, '类名不能为空！', '提示', MB_OK + MB_ICONWARNING);
     edt_className.SetFocus;
     exit;
   end;
   if chk_IntfInfo.Checked then
   begin
-    if Trim(Edt_IntfName.Text)='' then
+    if Trim(Edt_IntfName.Text) = '' then
     begin
-      MessageBox(self.Handle,'请输入接口名称！','提示',MB_OK+MB_ICONWARNING);
+      MessageBox(self.Handle, '请输入接口名称！', '提示', MB_OK + MB_ICONWARNING);
       Edt_IntfName.SetFocus;
       exit;
     end;
   end;
-  self.ModalResult:=mrOK;
+  self.ModalResult := mrOK;
 end;
 
 procedure TFrmNewImptUntfUnit.SetEnableIntfInfo(const Value: Boolean);
@@ -63,33 +63,35 @@ begin
   FEnableIntfInfo := Value;
   if FEnableIntfInfo then
   begin
-    Edt_IntfName.ReadOnly:=False;
-    Edt_IntfName.Color:=clWindow;
-    edt_IntfVer.ReadOnly:=False;
-    edt_IntfVer.Color:=clWindow;
-    mm_IntfComments.ReadOnly:=False;
-    mm_IntfComments.Color:=clWindow;
-  end else begin
-    Edt_IntfName.ReadOnly:=True;
-    Edt_IntfName.Color:=self.Color;
-    edt_IntfVer.ReadOnly:=True;
-    edt_IntfVer.Color:=self.Color;
-    mm_IntfComments.ReadOnly:=True;
-    mm_IntfComments.Color:=self.Color;
+    Edt_IntfName.ReadOnly := False;
+    Edt_IntfName.Color := clWindow;
+    edt_IntfVer.ReadOnly := False;
+    edt_IntfVer.Color := clWindow;
+    mm_IntfComments.ReadOnly := False;
+    mm_IntfComments.Color := clWindow;
+  end
+  else
+  begin
+    Edt_IntfName.ReadOnly := True;
+    Edt_IntfName.Color := self.Color;
+    edt_IntfVer.ReadOnly := True;
+    edt_IntfVer.Color := self.Color;
+    mm_IntfComments.ReadOnly := True;
+    mm_IntfComments.Color := self.Color;
   end;
 end;
 
 procedure TFrmNewImptUntfUnit.chk_IntfInfoClick(Sender: TObject);
 begin
-  self.EnableIntfInfo:=self.chk_IntfInfo.Checked;
+  self.EnableIntfInfo := self.chk_IntfInfo.Checked;
 
   if self.EnableIntfInfo then
   begin
-    if Edt_IntfName.Text='' then
-      Edt_IntfName.Text:='例如:注册表接口(IRegistry)';
+    if Edt_IntfName.Text = '' then
+      Edt_IntfName.Text := '例如:注册表接口(IRegistry)';
 
-    if edt_IntfVer.Text='' then
-      edt_IntfVer.Text:=FormatDateTime('yyyymmdd',now)+'.001';
+    if edt_IntfVer.Text = '' then
+      edt_IntfVer.Text := FormatDateTime('yyyymmdd', now) + '.001';
   end;
 end;
 

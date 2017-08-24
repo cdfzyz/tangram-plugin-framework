@@ -8,33 +8,33 @@ unit SvcInfoIntf;
 {$weakpackageunit on}
 interface
 
-Type
-  ISvcInfo=Interface
-  ['{A4AC764B-1306-4FC3-9A0F-524B25C56992}']
-    function GetModuleName:String;
-    function GetTitle:String;
-    function GetVersion:String;
-    function GetComments:String;
+type
+  ISvcInfo = interface
+    ['{A4AC764B-1306-4FC3-9A0F-524B25C56992}']
+    function GetModuleName: String;
+    function GetTitle: String;
+    function GetVersion: String;
+    function GetComments: String;
   end;
   /////////////////////////////////
-  TSvcInfoRec=Record
-    ModuleName:string;
-    GUID:String;
-    Title:string;
-    Version:string;
-    Comments:String;
+  TSvcInfoRec = record
+    ModuleName: string;
+    GUID: String;
+    Title: string;
+    Version: string;
+    Comments: String;
   end;
 
-  TEnumSvcInfoPro=procedure (const IID:String;const SvcInfo:TSvcInfoRec) of Object;
-  
+  TEnumSvcInfoPro = procedure(const IID: String; const SvcInfo: TSvcInfoRec) of object;
+
   //////////////////////////////////////////////////
-  ISvcInfoGetter=Interface
-  ['{3FD01240-5D5B-4164-A6B6-67CD9FA8E67F}']
-    procedure SvcInfo(SvcInfo:TSvcInfoRec);
+  ISvcInfoGetter = interface
+    ['{3FD01240-5D5B-4164-A6B6-67CD9FA8E67F}']
+    procedure SvcInfo(SvcInfo: TSvcInfoRec);
   end;
-  ISvcInfoEx=Interface
-  ['{11C9CC87-02F6-4EEF-98DD-388752E7BABD}']
-    procedure GetSvcInfo(Intf:ISvcInfoGetter);
+  ISvcInfoEx = interface
+    ['{11C9CC87-02F6-4EEF-98DD-388752E7BABD}']
+    procedure GetSvcInfo(Intf: ISvcInfoGetter);
   end;
 implementation
 

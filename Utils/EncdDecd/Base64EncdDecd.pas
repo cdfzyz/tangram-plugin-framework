@@ -19,11 +19,11 @@ uses Classes, SysUtils;
 
 procedure EncodeStream(Input, Output: TStream);
 procedure DecodeStream(Input, Output: TStream);
-function  EncodeString(const Input: string): string;
-function  DecodeString(const Input: string): string;
+function EncodeString(const Input: string): string;
+function DecodeString(const Input: string): string;
 
-function  DecodeBase64(const Input: AnsiString): TBytes;
-function  EncodeBase64(const Input: Pointer; Size: Integer): AnsiString;
+function DecodeBase64(const Input: AnsiString): TBytes;
+function EncodeBase64(const Input: Pointer; Size: Integer): AnsiString;
 
 implementation
 
@@ -37,13 +37,13 @@ const
 
   DecodeTable: array[#0..#127] of Integer = (
     Byte('='), 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64,
-           64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64,
-           64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 62, 64, 64, 64, 63,
-           52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 64, 64, 64, 64, 64, 64,
-           64,  0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14,
-           15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 64, 64, 64, 64, 64,
-           64, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
-           41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 64, 64, 64, 64, 64);
+    64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64,
+    64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 62, 64, 64, 64, 63,
+    52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 64, 64, 64, 64, 64, 64,
+    64, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
+    15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 64, 64, 64, 64, 64,
+    64, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
+    41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 64, 64, 64, 64, 64);
 
 type
   PPacket = ^TPacket;
@@ -141,34 +141,35 @@ var
       NumRead := Input.Read(C, 1);
       if NumRead = 1 then
       begin
-        if C in ['0'..'9','A'..'Z','a'..'z','+','/','='] then
+        if C in ['0'..'9', 'A'..'Z', 'a'..'z', '+', '/', '='] then
         begin
           Input.Position := Input.Position - 1;
           Break;
         end;
-      end else Break;
+      end
+      else Break;
     end;
   end;
 
   function ReadInput: Integer;
   var
-    WhiteFound, EndReached : Boolean;
-    CntRead, Idx, IdxEnd: Integer;
+    WhiteFound, EndReached: Boolean;
+    CntRead, Idx, IdxEnd:   Integer;
   begin
-    IdxEnd:= 0;
+    IdxEnd := 0;
     repeat
       WhiteFound := False;
-      CntRead := Input.Read(InBuf[IdxEnd], (SizeOf(InBuf)-IdxEnd));
-      EndReached := CntRead < (SizeOf(InBuf)-IdxEnd);
+      CntRead := Input.Read(InBuf[IdxEnd], (SizeOf(InBuf) - IdxEnd));
+      EndReached := CntRead < (SizeOf(InBuf) - IdxEnd);
       Idx := IdxEnd;
       IdxEnd := CntRead + IdxEnd;
       while (Idx < IdxEnd) do
       begin
-        if not (InBuf[Idx] in ['0'..'9','A'..'Z','a'..'z','+','/','=']) then
+        if not (InBuf[Idx] in ['0'..'9', 'A'..'Z', 'a'..'z', '+', '/', '=']) then
         begin
           Dec(IdxEnd);
           if Idx < IdxEnd then
-            Move(InBuf[Idx+1], InBuf[Idx], IdxEnd-Idx);
+            Move(InBuf[Idx + 1], InBuf[Idx], IdxEnd - Idx);
           WhiteFound := True;
         end
         else
@@ -254,7 +255,7 @@ begin
   if (Pos >= 0) and (Count > 0) then
   begin
     EndPos := Pos + Count;
-    Size:= Self.Size;
+    Size := Self.Size;
     if EndPos > Size then
       raise EStreamError.CreateRes(@SMemoryStreamError);
 
@@ -271,7 +272,7 @@ function DecodeBase64(const Input: AnsiString): TBytes;
 var
   InStr: TPointerStream;
   OutStr: TBytesStream;
-  Len: Integer;
+  Len:   Integer;
 begin
   InStr := TPointerStream.Create(PAnsiChar(Input), Length(Input));
   try

@@ -11,7 +11,7 @@ interface
 uses
   Classes, SysUtils, Windows, ToolsApi;
 
-Type
+type
   TNewHostExpt = class(TInterfacedObject, IOTAWizard, IOTARepositoryWizard,
     IOTAProjectWizard, IOTACreator, IOTAProjectCreator, IOTAProjectCreator50,
     IOTAProjectCreator80) //
@@ -63,7 +63,7 @@ Type
     function GetProjectPersonality: string;
   end;
 
-  THostExportModule = Class(TInterfacedObject, IOTACreator, IOTAModuleCreator)
+  THostExportModule = class(TInterfacedObject, IOTACreator, IOTAModuleCreator)
   private
   protected
     { IOTACreator }
@@ -112,8 +112,8 @@ implementation
 uses uExptConst;
 
 const
-  HostName     = 'NewHostApp.dpr';
-  MainFormName ='FrmMain';//主窗体名称
+  HostName = 'NewHostApp.dpr';
+  MainFormName = 'FrmMain';//主窗体名称
 
 procedure RegNewHostExpt;
 begin
@@ -150,7 +150,7 @@ end;
 
 procedure TNewHostExpt.Execute;
 begin
- (BorlandIDEServices as IOTAModuleServices).CreateModule(self);
+  (BorlandIDEServices as IOTAModuleServices).CreateModule(self);
 end;
 
 function TNewHostExpt.GetAuthor: string;
@@ -208,7 +208,7 @@ var
   IModuleServices: IOTAModuleServices;
   IModule: IOTAModule;
   IProjectGroup: IOTAProjectGroup;
-  i: Integer;
+  i:       Integer;
 begin
   Result := nil;
   IModuleServices := BorlandIDEServices as IOTAModuleServices;
@@ -230,7 +230,7 @@ end;
 
 function TNewHostExpt.GetProjectPersonality: string;
 begin
-  Result:= sDelphiPersonality;
+  Result := sDelphiPersonality;
 end;
 
 function TNewHostExpt.GetShowSource: Boolean;
@@ -270,9 +270,9 @@ end;
 
 procedure TNewHostExpt.NewProjectResource(const Project: IOTAProject);
 begin
- (Project.ProjectOptions as IOTAProjectOptionsConfigurations)
+  (Project.ProjectOptions as IOTAProjectOptionsConfigurations)
   .BaseConfiguration.AsBoolean['UsePackages'] := True;
- (Project.ProjectOptions as IOTAProjectOptionsConfigurations)
+  (Project.ProjectOptions as IOTAProjectOptionsConfigurations)
   .BaseConfiguration.Value['DCC_UsePackage'] := 'vcl;rtl;Tangram_Core;';
 end;
 
@@ -280,15 +280,15 @@ function TNewHostExpt.NewProjectSource(const ProjectName: string): IOTAFile;
 var
   s: String;
 begin
-  s := 'Program ' + ProjectName + ';'+ #13#10 + #13#10
+  s := 'Program ' + ProjectName + ';' + #13#10 + #13#10
     + 'uses' + #13#10
     + 'uTangramFramework;' + #13#10
     + '{$R *.res}' + #13#10 + #13#10
     + 'begin ' + #13#10  //GetFormName
-    + '  Application.Initialize;'+#13#10
-    + '  Application.MainFormOnTaskbar := True; '+#13#10
+    + '  Application.Initialize;' + #13#10
+    + '  Application.MainFormOnTaskbar := True; ' + #13#10
     //+ '  Application.CreateForm(T'+MainFormName+','+MainFormName+');'+#13#10 //这句会自动加上...
-    + '  Application.Run;'+#13#10
+    + '  Application.Run;' + #13#10
     + 'end.' + #13#10;
   Result := StringToIOTAFile(s);
 end;
@@ -302,12 +302,12 @@ end;
 
 function THostExportModule.GetAncestorName: string;
 begin
-  Result:='';
+  Result := '';
 end;
 
 function THostExportModule.GetCreatorType: string;
 begin
-  Result:=sForm;
+  Result := sForm;
 end;
 
 function THostExportModule.GetExisting: Boolean;
@@ -322,7 +322,7 @@ end;
 
 function THostExportModule.GetFormName: string;
 begin
-  Result:=MainFormName;
+  Result := MainFormName;
 end;
 
 function THostExportModule.GetImplFileName: string;
@@ -363,41 +363,41 @@ begin
 end;
 
 function THostExportModule.NewFormFile(const FormIdent, AncestorIdent: string)
-  : IOTAFile;
+: IOTAFile;
 begin
   Result := nil;
 end;
 
 function THostExportModule.NewImplSource(const ModuleIdent, FormIdent,
   AncestorIdent: string): IOTAFile;
-var s:String;
+var s: String;
 begin
-  s:='unit '+ModuleIdent+';'+#13#10+#13#10
-    +'interface'+#13#10+#13#10
-    +'uses'+#13#10
-    +'  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,'+#13#10
-    +'  Dialogs;'+#13#10+#13#10
-    +'type'+#13#10
-    +'  T'+FormIdent+' = class(TForm)'+#13#10
-    +'  private'+#13#10
-    +'    { Private declarations }'+#13#10
-    +'  public'+#13#10
-    +'    { Public declarations }'+#13#10
-    +'  end;'+#13#10+#13#10
+  s := 'unit ' + ModuleIdent + ';' + #13#10 + #13#10
+    + 'interface' + #13#10 + #13#10
+    + 'uses' + #13#10
+    + '  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,' + #13#10
+    + '  Dialogs;' + #13#10 + #13#10
+    + 'type' + #13#10
+    + '  T' + FormIdent + ' = class(TForm)' + #13#10
+    + '  private' + #13#10
+    + '    { Private declarations }' + #13#10
+    + '  public' + #13#10
+    + '    { Public declarations }' + #13#10
+    + '  end;' + #13#10 + #13#10
 
-    +'var'+#13#10
-    +'  '+FormIdent+': T'+FormIdent+';'+#13#10+#13#10
-    +'implementation '+#13#10+#13#10
-    +'uses SysSvc;'+#13#10+#13#10
-    +'{$R *.dfm}'+#13#10+#13#10
-    +'end.';
+    + 'var' + #13#10
+    + '  ' + FormIdent + ': T' + FormIdent + ';' + #13#10 + #13#10
+    + 'implementation ' + #13#10 + #13#10
+    + 'uses SysSvc;' + #13#10 + #13#10
+    + '{$R *.dfm}' + #13#10 + #13#10
+    + 'end.';
   Result := StringToIOTAFile(s);
 end;
 
 function THostExportModule.NewIntfSource(const ModuleIdent, FormIdent,
   AncestorIdent: string): IOTAFile;
 begin
-  Result:=nil;
+  Result := nil;
 end;
 
 end.

@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, Buttons,uBaseForm;
+  Dialogs, StdCtrls, Buttons, uBaseForm;
 
 type
   TFrm_DBConfig = class(TBaseForm)
@@ -18,7 +18,7 @@ type
     function GetDBConnStr: String;
     { Private declarations }
   public
-    property DBConnStr:String Read GetDBConnStr Write SetDBConnStr;
+    property DBConnStr: String read GetDBConnStr write SetDBConnStr;
   end;
 
 var
@@ -32,17 +32,17 @@ uses ADODB;
 
 procedure TFrm_DBConfig.btn_ConstrClick(Sender: TObject);
 begin
-  self.mm_ConnStr.Text:=PromptDataSource(self.Handle,self.mm_ConnStr.Text);
+  self.mm_ConnStr.Text := PromptDataSource(self.Handle, self.mm_ConnStr.Text);
 end;
 
 procedure TFrm_DBConfig.SetDBConnStr(const Value: String);
 begin
-  self.mm_ConnStr.Text:=value;
+  self.mm_ConnStr.Text := value;
 end;
 
 function TFrm_DBConfig.GetDBConnStr: String;
 begin
-  Result:=self.mm_ConnStr.Text;
+  Result := self.mm_ConnStr.Text;
 end;
 
 end.

@@ -18,7 +18,7 @@ type
 var
   FrmMain: TFrmMain;
 
-implementation 
+implementation
 
 uses SysSvc;
 

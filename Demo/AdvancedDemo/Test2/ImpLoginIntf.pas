@@ -9,48 +9,48 @@ unit ImpLoginIntf;
 
 interface
 
-uses SysUtils,Controls,LoginIntf,SvcInfoIntf;
+uses SysUtils, Controls, LoginIntf, SvcInfoIntf;
 
-Type
-  TLogin=Class(TInterfacedObject,ILogin,ISvcInfo)
+type
+  TLogin = class(TInterfacedObject, ILogin, ISvcInfo)
   private
   protected
     {ILogin}
-    function Login:Boolean;
+    function Login: Boolean;
     procedure ChangeUser;
     procedure LockSystem;
     {ISvcInfo}
-    function GetModuleName:String;
-    function GetTitle:String;
-    function GetVersion:String;
-    function GetComments:String;
+    function GetModuleName: String;
+    function GetTitle: String;
+    function GetVersion: String;
+    function GetComments: String;
   public
-  End;
+  end;
 
 implementation
 
-uses SysSvc,LoginForm,SysFactory,MainFormIntf;
+uses SysSvc, LoginForm, SysFactory, MainFormIntf;
 
 { TLogin }
 
 function TLogin.GetComments: String;
 begin
-  Result:='登录框接口。进入系统时检查登录用，也用于锁定系统和切换用户。';
+  Result := '登录框接口。进入系统时检查登录用，也用于锁定系统和切换用户。';
 end;
 
 function TLogin.GetModuleName: String;
 begin
-  Result:=ExtractFileName(SysUtils.GetModuleName(HInstance));
+  Result := ExtractFileName(SysUtils.GetModuleName(HInstance));
 end;
 
 function TLogin.GetTitle: String;
 begin
-  Result:='登录框接口(ILogin)';
+  Result := '登录框接口(ILogin)';
 end;
 
 function TLogin.GetVersion: String;
 begin
-  Result:='20100421.001';
+  Result := '20100421.001';
 end;
 
 procedure TLogin.ChangeUser;
@@ -63,24 +63,23 @@ begin
   //sys.Dialogs.ShowError('ILogin.LockSystem方法未实现！');
 end;
 
-function TLogin.Login:Boolean;
+function TLogin.Login: Boolean;
 begin
-  frm_Login:=Tfrm_Login.Create(nil);
+  frm_Login := Tfrm_Login.Create(nil);
   try
-    Result:=frm_Login.ShowModal=mrOk;
+    Result := frm_Login.ShowModal = mrOk;
   finally
     frm_Login.Free;
   end;
 end;
 
-function Create_LoginObj(param:Integer):TObject;
+function Create_LoginObj(param: Integer): TObject;
 begin
-  Result:=TLogin.Create;
+  Result := TLogin.Create;
 end;
 
 initialization
-  TIntfFactory.Create(ILogin,@Create_LoginObj);
+  TIntfFactory.Create(ILogin, @Create_LoginObj);
 finalization
 
 end.
-

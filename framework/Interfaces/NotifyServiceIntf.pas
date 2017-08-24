@@ -8,30 +8,30 @@ unit NotifyServiceIntf;
 {$weakpackageunit on}
 interface
 
-Type
-  INotify=Interface
-  ['{9D0B21A1-CCA0-422F-B11B-4650B506A573}']
-    procedure Notify(Flags: Integer; Intf: IInterface;Param:Integer);
-  End;
+type
+  INotify = interface
+    ['{9D0B21A1-CCA0-422F-B11B-4650B506A573}']
+    procedure Notify(Flags: Integer; Intf: IInterface; Param: Integer);
+  end;
 
-  TSysNotifyEvent=procedure (Flags: Integer; Intf: IInterface;Param:Integer) of Object;
+  TSysNotifyEvent = procedure(Flags: Integer; Intf: IInterface; Param: Integer) of object;
 
-  INotifyService=Interface
-  ['{F347E481-F6C3-48DA-BDD5-9452C69FCE30}']
-    procedure SendNotify(Flags: Integer; Intf: IInterface;Param:Integer);
+  INotifyService = interface
+    ['{F347E481-F6C3-48DA-BDD5-9452C69FCE30}']
+    procedure SendNotify(Flags: Integer; Intf: IInterface; Param: Integer);
 
-    procedure RegisterNotify(Notify:INotify);
-    procedure UnRegisterNotify(Notify:INotify);
+    procedure RegisterNotify(Notify: INotify);
+    procedure UnRegisterNotify(Notify: INotify);
 
-    procedure RegisterNotifyEx(Flags:Integer;Notify:INotify);
-    procedure UnRegisterNotifyEx(Notify:INotify);
+    procedure RegisterNotifyEx(Flags: Integer; Notify: INotify);
+    procedure UnRegisterNotifyEx(Notify: INotify);
 
-    procedure RegisterNotifyEvent(NotifyEvent:TSysNotifyEvent);
-    procedure UnRegisterNotifyEvent(NotifyEvent:TSysNotifyEvent);
+    procedure RegisterNotifyEvent(NotifyEvent: TSysNotifyEvent);
+    procedure UnRegisterNotifyEvent(NotifyEvent: TSysNotifyEvent);
 
-    procedure RegisterNotifyEventEx(Flags: Integer;NotifyEvent:TSysNotifyEvent);
-    procedure UnRegisterNotifyEventEx(NotifyEvent:TSysNotifyEvent);
-  End;
+    procedure RegisterNotifyEventEx(Flags: Integer; NotifyEvent: TSysNotifyEvent);
+    procedure UnRegisterNotifyEventEx(NotifyEvent: TSysNotifyEvent);
+  end;
 
 implementation
 

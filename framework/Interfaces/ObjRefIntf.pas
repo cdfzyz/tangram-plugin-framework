@@ -3,12 +3,12 @@ unit ObjRefIntf;
 {$weakpackageunit on}
 interface
 
-Type
-  IObjRef=Interface
+type
+  IObjRef = interface
     ['{43B273B9-F06C-45DC-96A5-4A8B7239E020}']
-    function Obj:TObject;
-    function ObjIsNil:Boolean;
-  End;
+    function Obj: TObject;
+    function ObjIsNil: Boolean;
+  end;
 
 implementation
 

@@ -9,52 +9,52 @@ unit FactoryIntf;
 
 interface
 
-uses uIntfObj,ObjRefIntf;
+uses uIntfObj, ObjRefIntf;
 
-Type
-  TIntfCreatorFunc = function(param:Integer):TObject;
+type
+  TIntfCreatorFunc = function(param: Integer): TObject;
 
-  IEnumKey=Interface
+  IEnumKey = interface
     ['{BCF06768-CF57-41C8-AC40-C17135A80089}']
-    procedure EnumKey(const IntfName:String);
-  End;
+    procedure EnumKey(const IntfName: String);
+  end;
 
-  TFactory=Class(TIntfObj)
+  TFactory = class(TIntfObj)
   private
 
   protected
-    FParam:Integer;
+    FParam: Integer;
 
-    function GetObj(out Obj:TObject;out AutoFree:Boolean):Boolean;virtual;
+    function GetObj(out Obj: TObject; out AutoFree: Boolean): Boolean; virtual;
   public
     //Constructor Create;
     //Destructor Destroy;override;
 
-    function GetIntf(const IID: TGUID; out Obj):HResult;virtual;abstract;
-    procedure ReleaseIntf;virtual;abstract;
+    function GetIntf(const IID: TGUID; out Obj): HResult; virtual; abstract;
+    procedure ReleaseIntf; virtual; abstract;
 
-    function Supports(const IntfName:string):Boolean;virtual;abstract;
-    procedure EnumKeys(Intf:IEnumKey); virtual;abstract;
+    function Supports(const IntfName: string): Boolean; virtual; abstract;
+    procedure EnumKeys(Intf: IEnumKey); virtual; abstract;
 
-    function GetObjRef:IObjRef;dynamic;
+    function GetObjRef: IObjRef; dynamic;
 
-    procedure prepare(param:Integer);
+    procedure prepare(param: Integer);
   end;
 
   ///////////////////////////////////////////
 
-  TObjRef=Class(TInterfacedObject,IObjRef)
+  TObjRef = class(TInterfacedObject, IObjRef)
   private
-    FObj:TObject;
-    FAutoFree:Boolean;
+    FObj: TObject;
+    FAutoFree: Boolean;
   protected
     {IObjRef}
-    function Obj:TObject;
-    function ObjIsNil:Boolean;
+    function Obj: TObject;
+    function ObjIsNil: Boolean;
   public
-    constructor Create(Obj:TObject;AutoFree:Boolean=True);
-    destructor Destroy;override;
-  End;
+    constructor Create(Obj: TObject; AutoFree: Boolean = True);
+    destructor Destroy; override;
+  end;
 
 implementation
 
@@ -62,47 +62,47 @@ implementation
 
 constructor TObjRef.Create(Obj: TObject; AutoFree: Boolean);
 begin
-  FAutoFree:=AutoFree;
-  FObj:=Obj;
+  FAutoFree := AutoFree;
+  FObj := Obj;
 end;
 
 destructor TObjRef.Destroy;
 begin
-  if FAutoFree and (Obj<>nil) then
+  if FAutoFree and (Obj <> nil) then
     Obj.Free;
   inherited;
 end;
 
 function TObjRef.Obj: TObject;
 begin
-  Result:=FObj;
+  Result := FObj;
 end;
 
 function TObjRef.ObjIsNil: Boolean;
 begin
-  Result:=FObj=nil;
+  Result := FObj = nil;
 end;
 
 { TFactory }
 
 function TFactory.GetObj(out Obj: TObject; out AutoFree: Boolean): Boolean;
 begin
-  Result:=False;
+  Result := False;
 end;
 
 function TFactory.GetObjRef: IObjRef;
-var autoFree:Boolean;
-    obj:TObject;
+var autoFree: Boolean;
+  obj: TObject;
 begin
-  Result:=nil;
-  if self.GetObj(obj,autoFree) then
-    Result:=TObjRef.Create(obj,autoFree)
-  else Result:=TObjRef.Create(nil,autoFree);
+  Result := nil;
+  if self.GetObj(obj, autoFree) then
+    Result := TObjRef.Create(obj, autoFree)
+  else Result := TObjRef.Create(nil, autoFree);
 end;
 
 procedure TFactory.prepare(param: Integer);
 begin
-  Fparam:=param;
+  Fparam := param;
 end;
 
 end.

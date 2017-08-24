@@ -9,8 +9,8 @@ unit uIntfObj;
 
 interface
 
-Type
-  TIntfObj=Class(TObject,IInterface)
+type
+  TIntfObj = class(TObject, IInterface)
   private
 
   protected
@@ -19,7 +19,7 @@ Type
     function _AddRef: Integer; stdcall;
     function _Release: Integer; stdcall;
   public
-  End;
+  end;
 implementation
 
 { TIntfObj }
@@ -34,12 +34,12 @@ end;
 
 function TIntfObj._AddRef: Integer;
 begin
-  Result:=-1;
+  Result := -1;
 end;
 
 function TIntfObj._Release: Integer;
 begin
-  Result:=-1;
+  Result := -1;
 end;
 
 end.

@@ -30,12 +30,12 @@ implementation
 
 procedure Tfrm_EditValue.btn_OkClick(Sender: TObject);
 begin
-  if trim(edt_Name.text)='' then
+  if trim(edt_Name.text) = '' then
   begin
     showmessage('请输入值名称！');
     exit;
   end;
-  if Pos(':',edt_Name.Text)>0 then
+  if Pos(':', edt_Name.Text) > 0 then
   begin
     showmessage('名称不能包含'':''!');
     exit;
@@ -45,7 +45,7 @@ begin
     showmessage('请输入值！');
     exit;
   end; }
-  self.ModalResult:=mrOK;
+  self.ModalResult := mrOK;
 end;
 
 end.

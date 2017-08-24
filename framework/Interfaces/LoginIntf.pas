@@ -8,13 +8,13 @@ unit LoginIntf;
 
 interface
 {$weakpackageunit on}
-Type
-  ILogin=Interface
+type
+  ILogin = interface
     ['{694033A7-8C4F-4FCC-ABA9-01ECD1FF4F28}']
-    function Login:Boolean;
+    function Login: Boolean;
     procedure ChangeUser;
     procedure LockSystem;
-  End;
+  end;
 implementation
 
 end.

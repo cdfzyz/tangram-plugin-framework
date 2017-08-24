@@ -10,18 +10,18 @@ interface
 
 uses Classes;
 
-Type
-  IEncdDecd=Interface
+type
+  IEncdDecd = interface
     ['{08487D9D-4CCB-41D5-B1A0-543FCE2281F1}']
-    function Encrypt(const Key,SrcStr:String):String;
-    function Decrypt(const Key,SrcStr:String):String;
-    function MD5(const Input:string):string;
+    function Encrypt(const Key, SrcStr: String): String;
+    function Decrypt(const Key, SrcStr: String): String;
+    function MD5(const Input: string): string;
 
     procedure Base64EncodeStream(Input, Output: TStream);
     procedure Base64DecodeStream(Input, Output: TStream);
-    function  Base64EncodeString(const Input: string): string;
-    function  Base64DecodeString(const Input: string): string;
-  End;
+    function Base64EncodeString(const Input: string): string;
+    function Base64DecodeString(const Input: string): string;
+  end;
 implementation
 
 end.

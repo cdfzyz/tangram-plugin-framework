@@ -2,26 +2,26 @@ unit uEncdDecdPlugin;
 
 interface
 
-uses SysUtils,uTangramModule,SysModule,RegIntf;
+uses SysUtils, uTangramModule, SysModule, RegIntf;
 
-Type
-  TEncdDecdPlugin=Class(TModule)
+type
+  TEncdDecdPlugin = class(TModule)
   private
   public
-    Constructor Create; override;
-    Destructor Destroy; override;
+    constructor Create; override;
+    destructor Destroy; override;
 
     procedure Init; override;
     procedure final; override;
-    procedure Notify(Flags: Integer; Intf: IInterface;Param:Integer); override;
+    procedure Notify(Flags: Integer; Intf: IInterface; Param: Integer); override;
 
-    class procedure RegisterModule(Reg:IRegistry);override;
-    class procedure UnRegisterModule(Reg:IRegistry);override;
-  End;
+    class procedure RegisterModule(Reg: IRegistry); override;
+    class procedure UnRegisterModule(Reg: IRegistry); override;
+  end;
 implementation
 
 const
-  InstallKey='SYSTEM\LOADMODULE\UTILS';//这里要改成相应的KEY
+  InstallKey = 'SYSTEM\LOADMODULE\UTILS';//这里要改成相应的KEY
 { TEncdDecdPlugin }
 
 constructor TEncdDecdPlugin.Create;
@@ -48,7 +48,7 @@ begin
 
 end;
 
-procedure TEncdDecdPlugin.Notify(Flags: Integer; Intf: IInterface;Param:Integer);
+procedure TEncdDecdPlugin.Notify(Flags: Integer; Intf: IInterface; Param: Integer);
 begin
   inherited;
 
@@ -57,13 +57,13 @@ end;
 class procedure TEncdDecdPlugin.RegisterModule(Reg: IRegistry);
 begin
   //注册包
-  DefaultRegisterModule(Reg,InstallKey);
+  DefaultRegisterModule(Reg, InstallKey);
 end;
 
 class procedure TEncdDecdPlugin.UnRegisterModule(Reg: IRegistry);
 begin
   //取消注册包
-  DefaultUnRegisterModule(Reg,InstallKey);
+  DefaultUnRegisterModule(Reg, InstallKey);
 end;
 
 initialization

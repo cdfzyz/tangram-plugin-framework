@@ -9,22 +9,22 @@ unit SplashFormObj;
 
 interface
 
-uses SysUtils,Messages,SplashFormIntf,SplashForm;
+uses SysUtils, Messages, SplashFormIntf, SplashForm;
 
-Type
-  TSplashFormObj=Class(TInterfacedObject,ISplashForm)
+type
+  TSplashFormObj = class(TInterfacedObject, ISplashForm)
   private
-    FSplashForm:Tfrm_Splash;
+    FSplashForm: Tfrm_Splash;
   protected
     {ISplashForm}
     procedure Show;
-    procedure loading(const msg:String);
-    function GetWaitTime:Cardinal;
+    procedure loading(const msg: String);
+    function GetWaitTime: Cardinal;
     procedure Hide;
   public
     constructor Create;
-    destructor Destroy;override;
-  End;
+    destructor Destroy; override;
+  end;
 
 implementation
 
@@ -34,7 +34,7 @@ uses SysFactory;
 
 constructor TSplashFormObj.Create;
 begin
-  FSplashForm:=Tfrm_Splash.Create(nil);
+  FSplashForm := Tfrm_Splash.Create(nil);
 end;
 
 destructor TSplashFormObj.Destroy;
@@ -45,7 +45,7 @@ end;
 
 function TSplashFormObj.GetWaitTime: Cardinal;
 begin
-  Result:=0;
+  Result := 0;
 end;
 
 procedure TSplashFormObj.Hide;
@@ -60,18 +60,17 @@ end;
 
 procedure TSplashFormObj.loading(const msg: String);
 begin
-  FSplashForm.mm_Loading.Lines.Add('  '+msg);
+  FSplashForm.mm_Loading.Lines.Add('  ' + msg);
   FSplashForm.Refresh;
 end;
 
-function Create_SplashFormObj(Param:Integer):TObject;
+function Create_SplashFormObj(Param: Integer): TObject;
 begin
-  Result:=TSplashFormObj.Create;
+  Result := TSplashFormObj.Create;
 end;
 
 initialization
-  TIntfFactory.Create(ISplashForm,@Create_SplashFormObj);
+  TIntfFactory.Create(ISplashForm, @Create_SplashFormObj);
 finalization
 
 end.
-

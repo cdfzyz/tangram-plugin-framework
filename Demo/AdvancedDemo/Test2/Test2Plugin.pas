@@ -8,78 +8,78 @@ unit Test2Plugin;
 
 interface
 
-uses SysUtils,Classes,Graphics,MainFormIntf,MenuRegIntf,
-     uTangramModule,SysModule,RegIntf;
+uses SysUtils, Classes, Graphics, MainFormIntf, MenuRegIntf,
+  uTangramModule, SysModule, RegIntf;
 
-Type
-  TTest2Plugin=Class(TModule)
+type
+  TTest2Plugin = class(TModule)
   private
-    procedure MenuOnclick(Sender:TObject);
-    procedure ToolOnclick(Sender:TObject);
-    procedure DBConfigClick(Sender:TObject);
+    procedure MenuOnclick(Sender: TObject);
+    procedure ToolOnclick(Sender: TObject);
+    procedure DBConfigClick(Sender: TObject);
 
-    procedure UseIntfClick(pIntf:IShortCutClick);
-    procedure UseDBClick(pIntf:IShortCutClick);
+    procedure UseIntfClick(pIntf: IShortCutClick);
+    procedure UseDBClick(pIntf: IShortCutClick);
 
-    function CreateIconFromStrData(const StrData:String):TGraphic;
+    function CreateIconFromStrData(const StrData: String): TGraphic;
   public
-    Constructor Create; override;
-    Destructor Destroy; override;
+    constructor Create; override;
+    destructor Destroy; override;
 
     procedure Init; override;
     procedure final; override;
-    procedure Notify(Flags: Integer; Intf: IInterface;Param:Integer); override;
+    procedure Notify(Flags: Integer; Intf: IInterface; Param: Integer); override;
 
-    class procedure RegisterModule(Reg:IRegistry);override;
-    class procedure UnRegisterModule(Reg:IRegistry);override;
+    class procedure RegisterModule(Reg: IRegistry); override;
+    class procedure UnRegisterModule(Reg: IRegistry); override;
 
-    Class procedure RegMenu(Reg:IMenuReg);
-    Class procedure UnRegMenu(Reg:IMenuReg);
-  End;
+    class procedure RegMenu(Reg: IMenuReg);
+    class procedure UnRegMenu(Reg: IMenuReg);
+  end;
 
 implementation
 
-uses SysSvc,MenuEventBinderIntf,Test2FrameUnit,_sys,EncdDecdIntf,Test2FrameDB,
-     DBIntf,uConst,Test2DB, Test2Form2;
+uses SysSvc, MenuEventBinderIntf, Test2FrameUnit, _sys, EncdDecdIntf, Test2FrameDB,
+  DBIntf, uConst, Test2DB, Test2Form2;
 
 const
-  ID_Test2Menu1 ='ID_30BD2CFF-2C81-4621-8878-2E9469A22E46';
-  ID_ToolButton1='ID_C79B86D8-C0F4-4D7A-9968-CEE7B1D281D1';
-  ID_ToolButton2='ID_94A4A556-AA6B-43A5-AB7E-4CB0D7846CCF';
-  ID_ToolLine   ='ID_D2EFC657-B620-4FD3-8DFC-7F934A3E3157';
+  ID_Test2Menu1 = 'ID_30BD2CFF-2C81-4621-8878-2E9469A22E46';
+  ID_ToolButton1 = 'ID_C79B86D8-C0F4-4D7A-9968-CEE7B1D281D1';
+  ID_ToolButton2 = 'ID_94A4A556-AA6B-43A5-AB7E-4CB0D7846CCF';
+  ID_ToolLine   = 'ID_D2EFC657-B620-4FD3-8DFC-7F934A3E3157';
   //经过Base64编码后的图标数据
-  ImgData='AAABAAEAEBAQAAAAAAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAwAAAAAAAAAAAAAAAAAAA'
-         +'AAAAAAAAAAAAAACAAACAAAAAgIAAgAAAAIAAgACAgAAAgICAAMDAwAAAAP8AAP8AAAD//wD/AAAA'
-         +'/wD/AP//AAD///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHd3d3d3dwAAf7i4uLi3AAf7i4uL'
-         +'i4BwB/i4uLi4cHB/i4uLi4sHcH//////9whwd3d3d3d3e3AH+Li4uLi4cAf7i4uP//9wB/i4uPd3'
-         +'d3AAf///cAAAAAAHd3cAAAAAAAAAAAAAAAD//wAA//8AAOAAAADAAAAAwAAAAIAAAACAAAAAAAAA'
-         +'AAAAAAAAAAAAgAAAAIAAAACAAQAAwH8AAOD/AAD//wAA';
+  ImgData       = 'AAABAAEAEBAQAAAAAAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAwAAAAAAAAAAAAAAAAAAA'
+    + 'AAAAAAAAAAAAAACAAACAAAAAgIAAgAAAAIAAgACAgAAAgICAAMDAwAAAAP8AAP8AAAD//wD/AAAA'
+    + '/wD/AP//AAD///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHd3d3d3dwAAf7i4uLi3AAf7i4uL'
+    + 'i4BwB/i4uLi4cHB/i4uLi4sHcH//////9whwd3d3d3d3e3AH+Li4uLi4cAf7i4uP//9wB/i4uPd3'
+    + 'd3AAf///cAAAAAAHd3cAAAAAAAAAAAAAAAD//wAA//8AAOAAAADAAAAAwAAAAIAAAACAAAAAAAAA'
+    + 'AAAAAAAAAAAAgAAAAIAAAACAAQAAwH8AAOD/AAD//wAA';
 
-  ImgData2='AAABAAIAICAQAAAAAADoAgAAJgAAABAQEAAAAAAAKAEAAA4DAAAoAAAAIAAAAEAAAAABAAQAAAAA'
-          +'AIACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAgAAAAICAAIAAAACAAIAAgIAAAMDAwACAgIAA'
-          +'AAD/AAD/AAAA//8A/wAAAP8A/wD//wAA////AAAAAAAAAAAAAATsQAAdkQAAAAAAAAAAAAAE7EAA'
-          +'HZEAAAAAAAAEREREROxAAB2RAAAAAAAMTERERER+wAAfeQAAAAAExMTEJEREREQAAREAAAAAjExM'
-          +'RkLExAcCAAhwAAAAiEzMzGIiJMQHAsAIcAAACIzMzMxiIiLMBwLMGHAAAIhszMzMwiACQAcALAAA'
-          +'AACGzMzMzCKIgAiHiAAIAAAIgszMzMwih3iHd3eIjwAACCJszMzMIo9/93d3d/BwAIgsbMzHbCKP'
-          +'+I////8HeHCHZ8zMwiIiKIIoiIiIh3hwhnZ8x3IiIiIiIszMzId4cIdnzHIiIiIiIizCzMSPeHCG'
-          +'dvx3IiIiIiLMIszMiIhwhv//wvIiIiLMIizMzMTCAIZ///8iIiIiIiJ4zMzMJACG//98zyIszCIo'
-          +'hMzEwkIAj2//Isx8zMzMwkxiIiQkAAh//3ImTMQsIiIiIiJCQAAI9///8izMzCzMTCIiJCAAAIf/'
-          +'fyIiIsxswsYiIkIAAACPZ8/yIiIiIiIiIiQkAAAACPYnLCIiIiIiIiIiQAAAAACP/y9iwiIiIiIi'
-          +'JAAAAAAACPf//EwiIiIiIiAAAAAAAACP9m/MIiIiIiIAAAAAAAAACI9y/CImwiKIAAAAAAAAAAAI'
-          +'j2b2xmaIAAAAAAAAAAAAAAiIiIiIAAAAAAAA///gwf/gAMH/gADB/gAAwfwAAOP4AABj8AAAI+AA'
-          +'AAPAAAADwAAAA4AAAAOAAAADAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABgAAA'
-          +'A4AAAAPAAAAHwAAAB+AAAA/wAAAf+AAAP/wAAH/+AAD//4AD///gD/8oAAAAEAAAACAAAAABAAQA'
-          +'AAAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAgAAAAICAAIAAAACAAIAAgIAAAMDAwACA'
-          +'gIAAAAD/AAD/AAAA//8A/wAAAP8A/wD//wAA////AAAAAATsABkQAAAABOwAGRAAAAAE7AAZEAAA'
-          +'AMxwAAcAAARMzHAABwAATMwMAAAIAATMyHB3AABwDCzI+P//B3CCzMyMiIiHcIf3/MzMzI9wh/fM'
-          +'bGIsiIAIfyLCYiwAAAj3YiIiIAAAAI98IiJAAAAACIfGiAAAAAAACIgAAAAA/hAAAP4QAAD+EAAA'
-          +'+DkAAOA5AADAEAAAgAAAAIAAAAAAAAAAAAAAAAAAAACADwAAgA8AAMAfAADgPwAA+P8AAA==';
+  ImgData2 = 'AAABAAIAICAQAAAAAADoAgAAJgAAABAQEAAAAAAAKAEAAA4DAAAoAAAAIAAAAEAAAAABAAQAAAAA'
+    + 'AIACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAgAAAAICAAIAAAACAAIAAgIAAAMDAwACAgIAA'
+    + 'AAD/AAD/AAAA//8A/wAAAP8A/wD//wAA////AAAAAAAAAAAAAATsQAAdkQAAAAAAAAAAAAAE7EAA'
+    + 'HZEAAAAAAAAEREREROxAAB2RAAAAAAAMTERERER+wAAfeQAAAAAExMTEJEREREQAAREAAAAAjExM'
+    + 'RkLExAcCAAhwAAAAiEzMzGIiJMQHAsAIcAAACIzMzMxiIiLMBwLMGHAAAIhszMzMwiACQAcALAAA'
+    + 'AACGzMzMzCKIgAiHiAAIAAAIgszMzMwih3iHd3eIjwAACCJszMzMIo9/93d3d/BwAIgsbMzHbCKP'
+    + '+I////8HeHCHZ8zMwiIiKIIoiIiIh3hwhnZ8x3IiIiIiIszMzId4cIdnzHIiIiIiIizCzMSPeHCG'
+    + 'dvx3IiIiIiLMIszMiIhwhv//wvIiIiLMIizMzMTCAIZ///8iIiIiIiJ4zMzMJACG//98zyIszCIo'
+    + 'hMzEwkIAj2//Isx8zMzMwkxiIiQkAAh//3ImTMQsIiIiIiJCQAAI9///8izMzCzMTCIiJCAAAIf/'
+    + 'fyIiIsxswsYiIkIAAACPZ8/yIiIiIiIiIiQkAAAACPYnLCIiIiIiIiIiQAAAAACP/y9iwiIiIiIi'
+    + 'JAAAAAAACPf//EwiIiIiIiAAAAAAAACP9m/MIiIiIiIAAAAAAAAACI9y/CImwiKIAAAAAAAAAAAI'
+    + 'j2b2xmaIAAAAAAAAAAAAAAiIiIiIAAAAAAAA///gwf/gAMH/gADB/gAAwfwAAOP4AABj8AAAI+AA'
+    + 'AAPAAAADwAAAA4AAAAOAAAADAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABgAAA'
+    + 'A4AAAAPAAAAHwAAAB+AAAA/wAAAf+AAAP/wAAH/+AAD//4AD///gD/8oAAAAEAAAACAAAAABAAQA'
+    + 'AAAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAgAAAAICAAIAAAACAAIAAgIAAAMDAwACA'
+    + 'gIAAAAD/AAD/AAAA//8A/wAAAP8A/wD//wAA////AAAAAATsABkQAAAABOwAGRAAAAAE7AAZEAAA'
+    + 'AMxwAAcAAARMzHAABwAATMwMAAAIAATMyHB3AABwDCzI+P//B3CCzMyMiIiHcIf3/MzMzI9wh/fM'
+    + 'bGIsiIAIfyLCYiwAAAj3YiIiIAAAAI98IiJAAAAACIfGiAAAAAAACIgAAAAA/hAAAP4QAAD+EAAA'
+    + '+DkAAOA5AADAEAAAgAAAAIAAAAAAAAAAAAAAAAAAAACADwAAgA8AAMAfAADgPwAA+P8AAA==';
 
   InstallKey = 'SYSTEM\LOADMODULE\USER';
-  ValueKey = 'Module=%s;load=True';
+  ValueKey   = 'Module=%s;load=True';
 { TTest2Plugin }
 
-procedure TTest2Plugin.Notify(Flags: Integer; Intf: IInterface;Param:Integer);
+procedure TTest2Plugin.Notify(Flags: Integer; Intf: IInterface; Param: Integer);
 begin
   if Flags = Flags_RegAuthority then // 注册权限
   begin
@@ -123,10 +123,10 @@ end;
 
 class procedure TTest2Plugin.RegMenu(Reg: IMenuReg);
 begin
-  Reg.RegMenu(ID_Test2Menu1     ,'文件\Test2包');
-  Reg.RegToolItem(ID_ToolButton1,'设置','数据库连接设置！');
-  Reg.RegToolItem(ID_ToolLine   ,'-','');//加一个分隔线
-  Reg.RegToolItem(ID_ToolButton2,'测试2','这是Test2包注册的工具栏！');
+  Reg.RegMenu(ID_Test2Menu1, '文件\Test2包');
+  Reg.RegToolItem(ID_ToolButton1, '设置', '数据库连接设置！');
+  Reg.RegToolItem(ID_ToolLine, '-', '');//加一个分隔线
+  Reg.RegToolItem(ID_ToolButton2, '测试2', '这是Test2包注册的工具栏！');
 end;
 
 
@@ -140,27 +140,27 @@ begin
 end;
 
 constructor TTest2Plugin.Create;
-var  MainForm:IMainForm;
+var  MainForm: IMainForm;
 begin
-  MainForm:=SysService as IMainForm;
-  MainForm.RegShortCut('接口使用',self.UseIntfClick);
-  MainForm.RegShortCut('数据库操作',self.UseDBClick);
+  MainForm := SysService as IMainForm;
+  MainForm.RegShortCut('接口使用', self.UseIntfClick);
+  MainForm.RegShortCut('数据库操作', self.UseDBClick);
 end;
 
 function TTest2Plugin.CreateIconFromStrData(const StrData: String): TGraphic;
 var
-  OutPutStream,InputStream:TStream;
-  EncdDecd:IEncdDecd;
+  OutPutStream, InputStream: TStream;
+  EncdDecd: IEncdDecd;
 begin
-  Result:=nil;
-  if SysService.QueryInterface(IEncdDecd,EncdDecd)=S_OK then
+  Result := nil;
+  if SysService.QueryInterface(IEncdDecd, EncdDecd) = S_OK then
   begin
-    InputStream:=TStringStream.Create(StrData);
-    OutPutStream:=TMemoryStream.Create;
+    InputStream := TStringStream.Create(StrData);
+    OutPutStream := TMemoryStream.Create;
     try
-      EncdDecd.Base64DecodeStream(InputStream,OutPutStream);
-      OutPutStream.Position:=0;
-      Result:=TIcon.Create;
+      EncdDecd.Base64DecodeStream(InputStream, OutPutStream);
+      OutPutStream.Position := 0;
+      Result := TIcon.Create;
       Result.LoadFromStream(OutPutStream);
     finally
       InputStream.Free;
@@ -207,23 +207,23 @@ begin
 end;
 
 procedure TTest2Plugin.Init;
-var MenuEventBinder:IMenuEventBinder;
-    Icon:TGraphic;
+var MenuEventBinder: IMenuEventBinder;
+  Icon: TGraphic;
 begin
-  MenuEventBinder:=SysService as IMenuEventBinder;
+  MenuEventBinder := SysService as IMenuEventBinder;
 
-  MenuEventBinder.RegMenuEvent(ID_Test2Menu1,self.MenuOnclick);
+  MenuEventBinder.RegMenuEvent(ID_Test2Menu1, self.MenuOnclick);
   //第一个工具栏按扭
-  Icon:=self.CreateIconFromStrData(ImgData2);
+  Icon := self.CreateIconFromStrData(ImgData2);
   try
-    MenuEventBinder.RegToolEvent(ID_ToolButton1,self.DBConfigClick,Icon);//绑定事件
+    MenuEventBinder.RegToolEvent(ID_ToolButton1, self.DBConfigClick, Icon);//绑定事件
   finally
     Icon.Free;
   end;
   //第二个工具栏按扭
-  Icon:=self.CreateIconFromStrData(ImgData);
+  Icon := self.CreateIconFromStrData(ImgData);
   try
-    MenuEventBinder.RegToolEvent(ID_ToolButton2,self.ToolOnclick,Icon);//绑定事件
+    MenuEventBinder.RegToolEvent(ID_ToolButton2, self.ToolOnclick, Icon);//绑定事件
   finally
     Icon.Free;
   end;

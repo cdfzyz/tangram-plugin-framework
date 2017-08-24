@@ -8,90 +8,90 @@ unit SysNotifyService;
 
 interface
 
-uses SysUtils,Classes,uIntfObj,NotifyServiceIntf,SvcInfoIntf;
+uses SysUtils, Classes, uIntfObj, NotifyServiceIntf, SvcInfoIntf;
 
-Type
-  TNotifyObj=Class(TObject)
+type
+  TNotifyObj = class(TObject)
   public
-    procedure SendNotify(Flags: Integer; Intf: IInterface;Param:Integer);virtual;abstract;
-  End;
+    procedure SendNotify(Flags: Integer; Intf: IInterface; Param: Integer); virtual; abstract;
+  end;
   ////////////////////////////////////////////
-  TIntfNotify=Class(TNotifyObj)
+  TIntfNotify = class(TNotifyObj)
   private
-    FNotifyIntf:INotify;
+    FNotifyIntf: INotify;
   public
-    procedure SendNotify(Flags: Integer; Intf: IInterface;Param:Integer);override;
-    Constructor Create(Notify:INotify);
-    Destructor Destroy;override;
-  End;
+    procedure SendNotify(Flags: Integer; Intf: IInterface; Param: Integer); override;
+    constructor Create(Notify: INotify);
+    destructor Destroy; override;
+  end;
   ////////////////////////////////////////////
-  TIntfNotifyEx=Class(TIntfNotify)
+  TIntfNotifyEx = class(TIntfNotify)
   private
-    FFlags:Integer;
+    FFlags: Integer;
   public
-    procedure SendNotify(Flags: Integer; Intf: IInterface;Param:Integer);override;
-    Constructor Create(Flags:Integer;Notify:INotify);
-  End;
+    procedure SendNotify(Flags: Integer; Intf: IInterface; Param: Integer); override;
+    constructor Create(Flags: Integer; Notify: INotify);
+  end;
   ////////////////////////////////////////////
-  TEventNotify=Class(TNotifyObj)
+  TEventNotify = class(TNotifyObj)
   private
-    FNotifyEvent:TSysNotifyEvent;
+    FNotifyEvent: TSysNotifyEvent;
   public
-    procedure SendNotify(Flags: Integer; Intf: IInterface;Param:Integer);override;
-    Constructor Create(NotifyEvent:TSysNotifyEvent);
-  End;
+    procedure SendNotify(Flags: Integer; Intf: IInterface; Param: Integer); override;
+    constructor Create(NotifyEvent: TSysNotifyEvent);
+  end;
   ////////////////////////////////////////////
-  TEventNotifyEx=Class(TEventNotify)
+  TEventNotifyEx = class(TEventNotify)
   private
-    FFlags:Integer;
+    FFlags: Integer;
   public
-    procedure SendNotify(Flags: Integer; Intf: IInterface;Param:Integer);override;
-    Constructor Create(Flags:Integer;NotifyEvent:TSysNotifyEvent);
-  End;
+    procedure SendNotify(Flags: Integer; Intf: IInterface; Param: Integer); override;
+    constructor Create(Flags: Integer; NotifyEvent: TSysNotifyEvent);
+  end;
   ///////////////////////////////////////////
 
 
-  TNotifyService=Class(TIntfObj,INotifyService,ISvcInfo)
+  TNotifyService = class(TIntfObj, INotifyService, ISvcInfo)
   private
-    FList:TStrings;
-    Factory:TObject;
-    procedure RegNotify(ID:Integer;NotifyObj:TNotifyObj);
-    procedure UnRegNotify(ID:Integer);
-    procedure WriteErrFmt(const err: String; const Args: array of const );
+    FList: TStrings;
+    Factory: TObject;
+    procedure RegNotify(ID: Integer; NotifyObj: TNotifyObj);
+    procedure UnRegNotify(ID: Integer);
+    procedure WriteErrFmt(const err: String; const Args: array of const);
   protected
   {INotifyService}
-    procedure SendNotify(Flags: Integer; Intf: IInterface;Param:Integer);
+    procedure SendNotify(Flags: Integer; Intf: IInterface; Param: Integer);
 
-    procedure RegisterNotify(Notify:INotify);
-    procedure UnRegisterNotify(Notify:INotify);
+    procedure RegisterNotify(Notify: INotify);
+    procedure UnRegisterNotify(Notify: INotify);
 
-    procedure RegisterNotifyEx(Flags:Integer;Notify:INotify);
-    procedure UnRegisterNotifyEx(Notify:INotify);
+    procedure RegisterNotifyEx(Flags: Integer; Notify: INotify);
+    procedure UnRegisterNotifyEx(Notify: INotify);
 
-    procedure RegisterNotifyEvent(NotifyEvent:TSysNotifyEvent);
-    procedure UnRegisterNotifyEvent(NotifyEvent:TSysNotifyEvent);
+    procedure RegisterNotifyEvent(NotifyEvent: TSysNotifyEvent);
+    procedure UnRegisterNotifyEvent(NotifyEvent: TSysNotifyEvent);
 
-    procedure RegisterNotifyEventEx(Flags: Integer;NotifyEvent:TSysNotifyEvent);
-    procedure UnRegisterNotifyEventEx(NotifyEvent:TSysNotifyEvent);
+    procedure RegisterNotifyEventEx(Flags: Integer; NotifyEvent: TSysNotifyEvent);
+    procedure UnRegisterNotifyEventEx(NotifyEvent: TSysNotifyEvent);
     {ISvcInfo}
-    function GetModuleName:String;
-    function GetTitle:String;
-    function GetVersion:String;
-    function GetComments:String;
+    function GetModuleName: String;
+    function GetTitle: String;
+    function GetVersion: String;
+    function GetComments: String;
   public
-    Constructor Create;
-    Destructor Destroy;override;
-  End;
+    constructor Create;
+    destructor Destroy; override;
+  end;
 
 implementation
 
-uses SysSvc,LogIntf,SysMsg,SysFactory;
+uses SysSvc, LogIntf, SysMsg, SysFactory;
 
 { TNotifyService }
 
 function TNotifyService.GetComments: String;
 begin
-  Result:='注册、发送通知，用于模块之间通讯。';
+  Result := '注册、发送通知，用于模块之间通讯。';
 end;
 
 function TNotifyService.GetModuleName: String;
@@ -101,23 +101,23 @@ end;
 
 function TNotifyService.GetTitle: String;
 begin
-  Result:='系统通知服务接口(INotifyService)';
+  Result := '系统通知服务接口(INotifyService)';
 end;
 
 function TNotifyService.GetVersion: String;
 begin
-  Result:='20110716.001';
+  Result := '20110716.001';
 end;
 
 constructor TNotifyService.Create;
 begin
-  FList:=TStringList.Create;
+  FList := TStringList.Create;
 
-  Factory:=TObjFactory.Create(INotifyService,self);
+  Factory := TObjFactory.Create(INotifyService, self);
 end;
 
 destructor TNotifyService.Destroy;
-var i:Integer;
+var i: Integer;
 begin
   for i := 0 to FList.Count - 1 do
     FList.Objects[i].Free;
@@ -129,14 +129,14 @@ end;
 
 procedure TNotifyService.RegNotify(ID: Integer; NotifyObj: TNotifyObj);
 begin
-  FList.AddObject(IntToStr(ID),NotifyObj);
+  FList.AddObject(IntToStr(ID), NotifyObj);
 end;
 
 procedure TNotifyService.UnRegNotify(ID: Integer);
-var idx:Integer;
+var idx: Integer;
 begin
-  idx:=FList.IndexOf(IntToStr(ID));
-  if idx<>-1 then
+  idx := FList.IndexOf(IntToStr(ID));
+  if idx <> -1 then
   begin
     FList.Objects[idx].Free;
     FList.Delete(idx);
@@ -154,37 +154,37 @@ end;
 
 procedure TNotifyService.RegisterNotify(Notify: INotify);
 begin
-  self.RegNotify(Integer(Pointer(Notify)),TIntfNotify.Create(Notify));
+  self.RegNotify(Integer(Pointer(Notify)), TIntfNotify.Create(Notify));
 end;
 
 procedure TNotifyService.RegisterNotifyEvent(NotifyEvent: TSysNotifyEvent);
 begin
-  self.RegNotify(Integer(@NotifyEvent),TEventNotify.Create(NotifyEvent));
+  self.RegNotify(Integer(@NotifyEvent), TEventNotify.Create(NotifyEvent));
 end;
 
 procedure TNotifyService.RegisterNotifyEventEx(Flags: Integer;
   NotifyEvent: TSysNotifyEvent);
 begin
-  self.RegNotify(Integer(@NotifyEvent),TEventNotifyEx.Create(Flags,NotifyEvent));
+  self.RegNotify(Integer(@NotifyEvent), TEventNotifyEx.Create(Flags, NotifyEvent));
 end;
 
 procedure TNotifyService.RegisterNotifyEx(Flags: Integer; Notify: INotify);
 begin
-  self.RegNotify(Integer(Pointer(Notify)),TIntfNotifyEx.Create(Flags,Notify));
+  self.RegNotify(Integer(Pointer(Notify)), TIntfNotifyEx.Create(Flags, Notify));
 end;
 
-procedure TNotifyService.SendNotify(Flags: Integer; Intf: IInterface;Param:Integer);
-var i:Integer;
-    NotifyObj:TNotifyObj;
+procedure TNotifyService.SendNotify(Flags: Integer; Intf: IInterface; Param: Integer);
+var i: Integer;
+  NotifyObj: TNotifyObj;
 begin
   for i := 0 to FList.Count - 1 do
   begin
-    NotifyObj:=TNotifyObj(FList.Objects[i]);
+    NotifyObj := TNotifyObj(FList.Objects[i]);
     try
-      NotifyObj.SendNotify(Flags,Intf,Param);
-    Except
+      NotifyObj.SendNotify(Flags, Intf, Param);
+    except
       on E: Exception do
-        WriteErrFmt(Err_ModuleNotify,[E.Message]);
+        WriteErrFmt(Err_ModuleNotify, [E.Message]);
     end;
   end;
 end;
@@ -213,32 +213,32 @@ end;
 
 constructor TIntfNotify.Create(Notify: INotify);
 begin
-  self.FNotifyIntf:=Notify;
+  self.FNotifyIntf := Notify;
 end;
 
 destructor TIntfNotify.Destroy;
 begin
-  FNotifyIntf:=nil;
+  FNotifyIntf := nil;
   inherited;
 end;
 
-procedure TIntfNotify.SendNotify(Flags: Integer; Intf: IInterface;Param:Integer);
+procedure TIntfNotify.SendNotify(Flags: Integer; Intf: IInterface; Param: Integer);
 begin
-  if FNotifyIntf<>nil then
-    FNotifyIntf.Notify(Flags,Intf,Param);
+  if FNotifyIntf <> nil then
+    FNotifyIntf.Notify(Flags, Intf, Param);
 end;
 
 { TIntfNotifyEx }
 
 constructor TIntfNotifyEx.Create(Flags: Integer; Notify: INotify);
 begin
-  self.FFlags:=Flags;
-  Inherited Create(Notify);
+  self.FFlags := Flags;
+  inherited Create(Notify);
 end;
 
-procedure TIntfNotifyEx.SendNotify(Flags: Integer; Intf: IInterface;Param:Integer);
+procedure TIntfNotifyEx.SendNotify(Flags: Integer; Intf: IInterface; Param: Integer);
 begin
-  if Flags=self.FFlags then
+  if Flags = self.FFlags then
     inherited;
 end;
 
@@ -246,26 +246,26 @@ end;
 
 constructor TEventNotify.Create(NotifyEvent: TSysNotifyEvent);
 begin
-  self.FNotifyEvent:=NotifyEvent;
+  self.FNotifyEvent := NotifyEvent;
 end;
 
-procedure TEventNotify.SendNotify(Flags: Integer; Intf: IInterface;Param:Integer);
+procedure TEventNotify.SendNotify(Flags: Integer; Intf: IInterface; Param: Integer);
 begin
   if Assigned(FNotifyEvent) then
-    FNotifyEvent(Flags,Intf,Param);
+    FNotifyEvent(Flags, Intf, Param);
 end;
 
 { TEventNotifyEx }
 
 constructor TEventNotifyEx.Create(Flags: Integer; NotifyEvent: TSysNotifyEvent);
 begin
-  self.FFlags:=Flags;
-  Inherited Create(NotifyEvent);
+  self.FFlags := Flags;
+  inherited Create(NotifyEvent);
 end;
 
-procedure TEventNotifyEx.SendNotify(Flags: Integer; Intf: IInterface;Param:Integer);
+procedure TEventNotifyEx.SendNotify(Flags: Integer; Intf: IInterface; Param: Integer);
 begin
-  if self.FFlags=Flags then
+  if self.FFlags = Flags then
     inherited;
 end;
 

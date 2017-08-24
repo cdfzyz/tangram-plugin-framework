@@ -38,7 +38,8 @@ begin
     inherited UpdateRegistry(Register, ClassID, ProgID);
     EnableSocketTransport(ClassID);
     EnableWebTransport(ClassID);
-  end else
+  end
+  else
   begin
     DisableSocketTransport(ClassID);
     DisableWebTransport(ClassID);
@@ -48,55 +49,55 @@ end;
 
 function TDM.QryData(const SQL: WideString): OleVariant;
 begin
-  self.qry.SQL.Text:=SQL;
+  self.qry.SQL.Text := SQL;
   try
     self.qry.Open;
-    Result:=self.dsProvider.Data;
-  Except
+    Result := self.dsProvider.Data;
+  except
   end;
 end;
 
 function TDM.ApplyUpdate(const Tablename: WideString;
   Delta: OleVariant): Shortint;
-const sql='Select * from %s where 1<>1';
-var ErrCount:Integer;
+const sql = 'Select * from %s where 1<>1';
+var ErrCount: Integer;
 begin
-  Result:=1;
-  qry.SQL.Text:=Format(sql,[TableName]);
+  Result := 1;
+  qry.SQL.Text := Format(sql, [TableName]);
   try
     qry.Open;
-    self.dsProvider.ApplyUpdates(Delta,-1,ErrCount);
-  Except
-    Result:=0;
+    self.dsProvider.ApplyUpdates(Delta, -1, ErrCount);
+  except
+    Result := 0;
   end;
 end;
 
 function TDM.ExecSQL(const SQL: WideString): Shortint;
 begin
-  Result:=1;
-  qry.SQL.Text:=SQL;
+  Result := 1;
+  qry.SQL.Text := SQL;
   try
     qry.ExecSQL;
-  Except
-    Result:=0;
+  except
+    Result := 0;
   end;
 end;
 
 procedure TDM.RemoteDataModuleCreate(Sender: TObject);
-const ConnStr='Provider=Microsoft.Jet.OLEDB.4.0;Data Source=%s;Persist Security Info=False';
+const ConnStr = 'Provider=Microsoft.Jet.OLEDB.4.0;Data Source=%s;Persist Security Info=False';
 begin
-  self.conn.ConnectionString:=Format(ConnStr,[ExtractFilePath(ParamStr(0))+'\DB\DB.mdb']);
+  self.conn.ConnectionString := Format(ConnStr, [ExtractFilePath(ParamStr(0)) + '\DB\DB.mdb']);
   try
-    conn.Connected:=True;
-  Except
-    on E:Exception do
-      MessageBox(0,pchar('连接数据库失败：'+E.Message),'错误',MB_OK+MB_ICONERROR);
+    conn.Connected := True;
+  except
+    on E: Exception do
+      MessageBox(0, pchar('连接数据库失败：' + E.Message), '错误', MB_OK + MB_ICONERROR);
   end;
 end;
 
 function TDM.GetDateTime: TDateTime;
 begin
-  Result:=Now;
+  Result := Now;
 end;
 
 initialization

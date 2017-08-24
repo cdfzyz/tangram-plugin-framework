@@ -2,22 +2,22 @@ unit uTestObj;
 
 interface
 
-uses sysUtils,Classes,Dialogs,SysFactory,uTestIntf;
+uses sysUtils, Classes, Dialogs, SysFactory, uTestIntf;
 
-Type
-  TTestObj=Class(TInterfacedObject,ITest)
+type
+  TTestObj = class(TInterfacedObject, ITest)
   private
   protected
   {ITest}
     procedure test;
-  Public
-  End;
+  public
+  end;
 
 implementation
 
-function Create_TestObj(param:Integer):TObject;
+function Create_TestObj(param: Integer): TObject;
 begin
-  Result:=TTestObj.Create;
+  Result := TTestObj.Create;
 end;
 
 
@@ -28,9 +28,9 @@ begin
   showmessage('你好！');
 end;
 
-var Factory:TObject;
+var Factory: TObject;
 initialization
-  Factory:=TIntfFactory.Create(ITest,@Create_TestObj);
+  Factory := TIntfFactory.Create(ITest, @Create_TestObj);
 finalization
   Factory.Free;//动态卸载模块记得释放工厂类
 end.

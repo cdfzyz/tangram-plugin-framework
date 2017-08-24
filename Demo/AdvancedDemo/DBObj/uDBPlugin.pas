@@ -2,27 +2,27 @@ unit uDBPlugin;
 
 interface
 
-uses SysUtils,Classes,uTangramModule,SysModule,RegIntf;
+uses SysUtils, Classes, uTangramModule, SysModule, RegIntf;
 
-Type
-  TDBPlugin=Class(TModule)
+type
+  TDBPlugin = class(TModule)
   private
   public
-    Constructor Create; override;
-    Destructor Destroy; override;
+    constructor Create; override;
+    destructor Destroy; override;
 
     procedure Init; override;
     procedure final; override;
-    procedure Notify(Flags: Integer; Intf: IInterface;Param:Integer); override;
+    procedure Notify(Flags: Integer; Intf: IInterface; Param: Integer); override;
 
-    class procedure RegisterModule(Reg:IRegistry);override;
-    class procedure UnRegisterModule(Reg:IRegistry);override;
-  End;
+    class procedure RegisterModule(Reg: IRegistry); override;
+    class procedure UnRegisterModule(Reg: IRegistry); override;
+  end;
 implementation
 
 const
-  InstallKey='SYSTEM\LOADMODULE\DBSUPPORT';
-  ValueKey='Module=%s;load=True';
+  InstallKey = 'SYSTEM\LOADMODULE\DBSUPPORT';
+  ValueKey   = 'Module=%s;load=True';
 
 { TDBPlugin }
 
@@ -50,33 +50,33 @@ begin
 
 end;
 
-procedure TDBPlugin.Notify(Flags: Integer; Intf: IInterface;Param:Integer);
+procedure TDBPlugin.Notify(Flags: Integer; Intf: IInterface; Param: Integer);
 begin
   inherited;
 
 end;
 
 class procedure TDBPlugin.RegisterModule(Reg: IRegistry);
-var ModuleFullName,ModuleName,Value:String;
+var ModuleFullName, ModuleName, Value: String;
 begin
   //注册模块
-  if Reg.OpenKey(InstallKey,True) then
+  if Reg.OpenKey(InstallKey, True) then
   begin
-    ModuleFullName:=SysUtils.GetModuleName(HInstance);
-    ModuleName:=ExtractFileName(ModuleFullName);
-    Value:=Format(ValueKey,[ModuleFullName]);
-    Reg.WriteString(ModuleName,Value);
+    ModuleFullName := SysUtils.GetModuleName(HInstance);
+    ModuleName := ExtractFileName(ModuleFullName);
+    Value := Format(ValueKey, [ModuleFullName]);
+    Reg.WriteString(ModuleName, Value);
     Reg.SaveData;
   end;
 end;
 
 class procedure TDBPlugin.UnRegisterModule(Reg: IRegistry);
-var ModuleName:String;
+var ModuleName: String;
 begin
   //取消注册模块
   if Reg.OpenKey(InstallKey) then
   begin
-    ModuleName:=ExtractFileName(SysUtils.GetModuleName(HInstance));
+    ModuleName := ExtractFileName(SysUtils.GetModuleName(HInstance));
     if Reg.DeleteValue(ModuleName) then
       Reg.SaveData;
   end;

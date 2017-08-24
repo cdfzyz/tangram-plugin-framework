@@ -11,8 +11,8 @@ interface
 
 uses Classes;
 
-Type
-  IRegistry = Interface
+type
+  IRegistry = interface
     ['{80140700-9F09-4FB1-B9B3-D4B987DDC04A}']
     function OpenKey(const Key: Widestring;
       CanCreate: Boolean = False): Boolean;
@@ -49,7 +49,7 @@ Type
     procedure WriteString(const aName, Value: Widestring);
 
     procedure SaveData;
-  End;
+  end;
 
 implementation
 

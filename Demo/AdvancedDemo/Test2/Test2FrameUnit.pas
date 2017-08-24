@@ -3,7 +3,7 @@ unit Test2FrameUnit;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, 
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, Buttons;
 
 type
@@ -17,7 +17,7 @@ type
   end;
 
 implementation
-uses _sys,Test2Form2;
+uses _sys, Test2Form2;
 {$R *.dfm}
 
 procedure TFrame2.SpeedButton1Click(Sender: TObject);

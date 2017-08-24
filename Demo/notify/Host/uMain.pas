@@ -4,20 +4,20 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ExtCtrls, StdCtrls,notifyIntf;
+  Dialogs, ExtCtrls, StdCtrls, notifyIntf;
 
 type
-  TClsMgr=Class(TObject)
+  TClsMgr = class(TObject)
   private
-    FFrmCls:TFormClass;
+    FFrmCls: TFormClass;
   public
-    Constructor Create(FrmClass:TFormClass);
-    Destructor Destroy;override;
+    constructor Create(FrmClass: TFormClass);
+    destructor Destroy; override;
 
-    function CreateForm(AOwner:TComponent):TForm;
-  End;
+    function CreateForm(AOwner: TComponent): TForm;
+  end;
 
-  TFrmMain = class(TForm,IClsRegister)
+  TFrmMain = class(TForm, IClsRegister)
     lst_sel: TListBox;
     pnl_view: TPanel;
     procedure FormDestroy(Sender: TObject);
@@ -25,10 +25,10 @@ type
     procedure lst_selClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
   private
-    FCurrFrom:TForm;
+    FCurrFrom: TForm;
     procedure load;
     {IClsRegister}
-    procedure RegCls(const aName:string;cls:TFormClass);
+    procedure RegCls(const aName: string; cls: TFormClass);
   public
     { Public declarations }
   end;
@@ -38,27 +38,27 @@ var
 
 implementation
 
-uses SysSvc,NotifyServiceIntf;
+uses SysSvc, NotifyServiceIntf;
 
 {$R *.dfm}
 
 procedure TFrmMain.load;
-var intf:INotifyService;
+var intf: INotifyService;
 begin
-  if SysService.QueryInterface(INotifyService,Intf)=S_OK then
+  if SysService.QueryInterface(INotifyService, Intf) = S_OK then
   begin
     self.lst_sel.Clear;
-    Intf.SendNotify(NotifyFlag,self,0);
+    Intf.SendNotify(NotifyFlag, self, 0);
   end;
 end;
 
 procedure TFrmMain.FormCreate(Sender: TObject);
 begin
-  FCurrFrom:=nil;
+  FCurrFrom := nil;
 end;
 
 procedure TFrmMain.FormDestroy(Sender: TObject);
-var i:Integer;
+var i: Integer;
 begin
   for i := 0 to self.lst_sel.Items.Count - 1 do
     self.lst_sel.Items.Objects[i].Free;
@@ -70,20 +70,20 @@ begin
 end;
 
 procedure TFrmMain.lst_selClick(Sender: TObject);
-var ClsMgr:TClsMgr;
-    idx:Integer;
+var ClsMgr: TClsMgr;
+  idx:      Integer;
 begin
-  idx:=lst_sel.ItemIndex;
-  if idx<>-1 then
+  idx := lst_sel.ItemIndex;
+  if idx <> -1 then
   begin
-    if FCurrFrom<>nil then
+    if FCurrFrom <> nil then
       FCurrFrom.Free;
 
-    ClsMgr:=TClsMgr(self.lst_sel.Items.Objects[idx]);
-    FCurrFrom:=ClsMgr.CreateForm(self);
-    FCurrFrom.Parent:=self.pnl_view;
-    FCurrFrom.BorderStyle:=bsNone;
-    FCurrFrom.Align:=alClient;
+    ClsMgr := TClsMgr(self.lst_sel.Items.Objects[idx]);
+    FCurrFrom := ClsMgr.CreateForm(self);
+    FCurrFrom.Parent := self.pnl_view;
+    FCurrFrom.BorderStyle := bsNone;
+    FCurrFrom.Align := alClient;
     FCurrFrom.Show;
   end;
 end;
@@ -92,13 +92,13 @@ end;
 
 constructor TClsMgr.Create(FrmClass: TFormClass);
 begin
-  self.FFrmCls:=FrmClass;
+  self.FFrmCls := FrmClass;
 end;
 
-function TClsMgr.CreateForm(AOwner:TComponent): TForm;
+function TClsMgr.CreateForm(AOwner: TComponent): TForm;
 begin
-  Assert(self.FFrmCls<>nil);
-  Result:=self.FFrmCls.Create(AOwner);
+  Assert(self.FFrmCls <> nil);
+  Result := self.FFrmCls.Create(AOwner);
 end;
 
 destructor TClsMgr.Destroy;
@@ -108,10 +108,10 @@ begin
 end;
 
 procedure TFrmMain.RegCls(const aName: string; cls: TFormClass);
-var ClsMgr:TClsMgr;
+var ClsMgr: TClsMgr;
 begin
-  ClsMgr:=TClsMgr.Create(cls);
-  self.lst_sel.AddItem(aName,ClsMgr);
+  ClsMgr := TClsMgr.Create(cls);
+  self.lst_sel.AddItem(aName, ClsMgr);
 end;
 
 end.

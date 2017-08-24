@@ -30,22 +30,22 @@ implementation
 
 procedure Tfrm_newKey.btn_OkClick(Sender: TObject);
 begin
-  if cb_ParentKey.ItemIndex=-1 then
+  if cb_ParentKey.ItemIndex = -1 then
   begin
     showmessage('请选择父节点！');
     exit;
   end;
-  if trim(edt_KeyName.Text)='' then
+  if trim(edt_KeyName.Text) = '' then
   begin
     showmessage('请输入节点名称！');
     exit;
   end;
-  if Pos(':',edt_KeyName.Text)>0 then
+  if Pos(':', edt_KeyName.Text) > 0 then
   begin
     showmessage('节点名称不能包含'':''!');
     exit;
   end;
-  self.ModalResult:=mrOK;
+  self.ModalResult := mrOK;
 end;
 
 end.

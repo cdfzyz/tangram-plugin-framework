@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, uBaseForm, StdCtrls, Buttons,SysSvc,DBIntf,_Sys;
+  Dialogs, uBaseForm, StdCtrls, Buttons, SysSvc, DBIntf, _Sys;
 
 type
   TfrmEdtUser = class(TBaseForm)
@@ -20,7 +20,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
   private
-    FListFiller:IListFiller;
+    FListFiller: IListFiller;
     function GetPsw: String;
     function GetRoleID: Integer;
     function GetUserName: String;
@@ -30,10 +30,10 @@ type
     function GetRoleName: string;
     { Private declarations }
   public
-    property UserName:String Read GetUserName Write SetUserName;
-    property Psw:String Read GetPsw Write SetPsw;
-    property RoleID:Integer Read GetRoleID Write SetRoleID;
-    property RoleName:string Read GetRoleName;
+    property UserName: String read GetUserName write SetUserName;
+    property Psw: String read GetPsw write SetPsw;
+    property RoleID: Integer read GetRoleID write SetRoleID;
+    property RoleName: string read GetRoleName;
   end;
 
 var
@@ -46,26 +46,26 @@ implementation
 procedure TfrmEdtUser.btn_OKClick(Sender: TObject);
 begin
   inherited;
-  if edt_UserName.Text='' then
+  if edt_UserName.Text = '' then
   begin
     sys.Dialogs.Warning('用户名不能为空！');
     edt_UserName.SetFocus;
     exit;
   end;
-  if cb_Role.ItemIndex=-1 then
+  if cb_Role.ItemIndex = -1 then
   begin
     sys.Dialogs.Warning('请选择角色！');
     cb_Role.SetFocus;
     exit;
   end;
-  self.ModalResult:=mrOK;
+  self.ModalResult := mrOK;
 end;
 
 procedure TfrmEdtUser.FormCreate(Sender: TObject);
 begin
   inherited;
-  FListFiller:=SysService as IListFiller;
-  FListFiller.FillList('[Role]','RoleName',self.cb_Role.Items);
+  FListFiller := SysService as IListFiller;
+  FListFiller.FillList('[Role]', 'RoleName', self.cb_Role.Items);
 end;
 
 procedure TfrmEdtUser.FormDestroy(Sender: TObject);
@@ -76,47 +76,47 @@ end;
 
 function TfrmEdtUser.GetPsw: String;
 begin
-  Result:=self.edt_Psw.Text;
+  Result := self.edt_Psw.Text;
 end;
 
 function TfrmEdtUser.GetRoleID: Integer;
-var idx:Integer;
-    DataRecord:IDataRecord;
+var idx: Integer;
+  DataRecord: IDataRecord;
 begin
-  Result:=0;
-  idx:=self.cb_Role.ItemIndex;
-  if idx<>-1 then
+  Result := 0;
+  idx := self.cb_Role.ItemIndex;
+  if idx <> -1 then
   begin
-    DataRecord:=FListFiller.GetDataRecord(idx,self.cb_Role.Items);
-    Result:=DataRecord.FieldValueAsInteger('ID');
+    DataRecord := FListFiller.GetDataRecord(idx, self.cb_Role.Items);
+    Result := DataRecord.FieldValueAsInteger('ID');
   end;
 end;
 
 function TfrmEdtUser.GetRoleName: string;
 begin
-  Result:=self.cb_Role.Text;
+  Result := self.cb_Role.Text;
 end;
 
 function TfrmEdtUser.GetUserName: String;
 begin
-  Result:=self.edt_UserName.Text;
+  Result := self.edt_UserName.Text;
 end;
 
 procedure TfrmEdtUser.SetPsw(const Value: String);
 begin
-  self.edt_Psw.Text:=Value;
+  self.edt_Psw.Text := Value;
 end;
 
 procedure TfrmEdtUser.SetRoleID(const Value: Integer);
-var i:Integer;
-    DataRecord:IDataRecord;
+var i: Integer;
+  DataRecord: IDataRecord;
 begin
-  for i:=0 to self.cb_Role.Items.Count-1 do
+  for i := 0 to self.cb_Role.Items.Count - 1 do
   begin
-    DataRecord:=FListFiller.GetDataRecord(i,self.cb_Role.Items);
-    if DataRecord.FieldValueAsInteger('ID')=Value then
+    DataRecord := FListFiller.GetDataRecord(i, self.cb_Role.Items);
+    if DataRecord.FieldValueAsInteger('ID') = Value then
     begin
-      self.cb_Role.ItemIndex:=i;
+      self.cb_Role.ItemIndex := i;
       exit;
     end;
   end;
@@ -124,7 +124,7 @@ end;
 
 procedure TfrmEdtUser.SetUserName(const Value: String);
 begin
-  self.edt_UserName.Text:=Value;
+  self.edt_UserName.Text := Value;
 end;
 
 end.

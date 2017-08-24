@@ -11,9 +11,9 @@ interface
 uses
   Classes, SysUtils, Windows, ToolsApi;
 
-Type
+type
   TNewDLLExpt = class(TInterfacedObject, IOTAWizard, IOTARepositoryWizard,
-    IOTAProjectWizard, IOTACreator, IOTAProjectCreator,IOTAProjectCreator50,
+    IOTAProjectWizard, IOTACreator, IOTAProjectCreator, IOTAProjectCreator50,
     IOTAProjectCreator80) //
   private
   public
@@ -64,7 +64,7 @@ Type
     function GetProjectPersonality: string;
   end;
 
-  TDLLExportModule = Class(TInterfacedObject, IOTACreator,
+  TDLLExportModule = class(TInterfacedObject, IOTACreator,
     IOTAModuleCreator)
   private
   protected
@@ -161,17 +161,17 @@ end;
 
 function TNewDLLExpt.GetComment: string;
 begin
-  Result:='DLL模块向导';
+  Result := 'DLL模块向导';
 end;
 
 function TNewDLLExpt.GetCreatorType: string;
 begin
-  Result:=sLibrary;
+  Result := sLibrary;
 end;
 
 function TNewDLLExpt.GetExisting: Boolean;
 begin
-  Result:=False;
+  Result := False;
 end;
 
 function TNewDLLExpt.GetFileName: string;
@@ -181,7 +181,7 @@ end;
 
 function TNewDLLExpt.GetFileSystem: string;
 begin
-  Result:='';
+  Result := '';
 end;
 
 function TNewDLLExpt.GetGlyph: Cardinal;
@@ -191,17 +191,17 @@ end;
 
 function TNewDLLExpt.GetIDString: string;
 begin
-  Result:='{A25FE721-78C7-4F08-BC0A-EF0BCE393CA1}';
+  Result := '{A25FE721-78C7-4F08-BC0A-EF0BCE393CA1}';
 end;
 
 function TNewDLLExpt.GetName: string;
 begin
-  Result:='DLL模块';
+  Result := 'DLL模块';
 end;
 
 function TNewDLLExpt.GetOptionFileName: string;
 begin
-  Result:='';
+  Result := '';
 end;
 
 function TNewDLLExpt.GetOwner: IOTAModule;
@@ -209,7 +209,7 @@ var
   IModuleServices: IOTAModuleServices;
   IModule: IOTAModule;
   IProjectGroup: IOTAProjectGroup;
-  i: Integer;
+  i:       Integer;
 begin
   Result := nil;
   IModuleServices := BorlandIDEServices as IOTAModuleServices;
@@ -226,17 +226,17 @@ end;
 
 function TNewDLLExpt.GetPage: string;
 begin
-  Result:=PageName;
+  Result := PageName;
 end;
 
 function TNewDLLExpt.GetProjectPersonality: string;
 begin
-  Result:= sDelphiPersonality;
+  Result := sDelphiPersonality;
 end;
 
 function TNewDLLExpt.GetShowSource: Boolean;
 begin
-  Result:=True;
+  Result := True;
 end;
 
 function TNewDLLExpt.GetState: TWizardState;
@@ -246,7 +246,7 @@ end;
 
 function TNewDLLExpt.GetUnnamed: Boolean;
 begin
-  Result:=True;
+  Result := True;
 end;
 
 procedure TNewDLLExpt.Modified;
@@ -266,13 +266,14 @@ end;
 
 function TNewDLLExpt.NewOptionSource(const ProjectName: string): IOTAFile;
 begin
-  Result:=nil;
+  Result := nil;
 end;
 
 procedure TNewDLLExpt.NewProjectResource(const Project: IOTAProject);
 begin
-  (Project.ProjectOptions as IOTAProjectOptionsConfigurations).BaseConfiguration.AsBoolean['UsePackages']:=True;
-  (Project.ProjectOptions as IOTAProjectOptionsConfigurations).BaseConfiguration.Value['DCC_UsePackage']:='vcl;rtl;Tangram_Core;';
+  (Project.ProjectOptions as IOTAProjectOptionsConfigurations).BaseConfiguration.AsBoolean['UsePackages'] := True;
+  (Project.ProjectOptions as IOTAProjectOptionsConfigurations).BaseConfiguration.Value['DCC_UsePackage'] :=
+    'vcl;rtl;Tangram_Core;';
    //D2009以上下面方法不能用了
  // Project.ProjectOptions.Values['UsePackages']:=True;
   //Project.ProjectOptions.Values['Packages']:='rtl;Tangram_Core';
@@ -282,10 +283,10 @@ function TNewDLLExpt.NewProjectSource(const ProjectName: string): IOTAFile;
 var
   s: String;
 begin
-  s:='library '+ProjectName+';'+#13#10+#13#10
-    +'{$R *.res}'+#13#10+#13#10
-    +'begin '+#13#10
-    +'end.'+#13#10;
+  s := 'library ' + ProjectName + ';' + #13#10 + #13#10
+    + '{$R *.res}' + #13#10 + #13#10
+    + 'begin ' + #13#10
+    + 'end.' + #13#10;
   Result := StringToIOTAFile(s);
 end;
 
@@ -298,7 +299,7 @@ end;
 
 function TDLLExportModule.GetAncestorName: string;
 begin
-  Result:='';
+  Result := '';
 end;
 
 function TDLLExportModule.GetCreatorType: string;
@@ -368,7 +369,7 @@ end;
 function TDLLExportModule.NewImplSource(const ModuleIdent, FormIdent,
   AncestorIdent: string): IOTAFile;
 begin
-  Result := StringToIOTAFile(GetTModuleObjCode(ModuleIdent,'TUserModule'));
+  Result := StringToIOTAFile(GetTModuleObjCode(ModuleIdent, 'TUserModule'));
 end;
 
 function TDLLExportModule.NewIntfSource(const ModuleIdent, FormIdent,

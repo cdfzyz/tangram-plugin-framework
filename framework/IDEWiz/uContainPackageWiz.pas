@@ -3,12 +3,12 @@ unit uContainPackageWiz;
 interface
 
 uses
-  Classes, SysUtils, Windows,ToolsApi;
-Type
-  TContainPackageWiz = class(TInterfacedObject,IOTAWizard,IOTARepositoryWizard,
-    IOTAProjectWizard,IOTACreator,IOTAProjectCreator,IOTAProjectCreator50,IOTAProjectCreator80)
+  Classes, SysUtils, Windows, ToolsApi;
+type
+  TContainPackageWiz = class(TInterfacedObject, IOTAWizard, IOTARepositoryWizard,
+    IOTAProjectWizard, IOTACreator, IOTAProjectCreator, IOTAProjectCreator50, IOTAProjectCreator80)
   private
-    FUnitList:TStrings;
+    FUnitList: TStrings;
   public
     constructor Create;
     destructor Destroy; override;
@@ -60,9 +60,9 @@ procedure RegContainPackageWiz;
 
 implementation
 
-uses uExptConst,uSelPackages,Controls;
+uses uExptConst, uSelPackages, Controls;
 
-const PackageName='NewPackage.dpk';
+const PackageName = 'NewPackage.dpk';
 
 procedure RegContainPackageWiz;
 begin
@@ -82,7 +82,7 @@ end;
 
 constructor TContainPackageWiz.Create;
 begin
-  FUnitList:=TStringList.Create;
+  FUnitList := TStringList.Create;
 end;
 
 destructor TContainPackageWiz.Destroy;
@@ -98,10 +98,10 @@ end;
 
 procedure TContainPackageWiz.Execute;
 begin
-  frmSelPackages:=TfrmSelPackages.Create(nil);
+  frmSelPackages := TfrmSelPackages.Create(nil);
   try
     FUnitList.Clear;
-    if frmSelPackages.ShowModal=mrOK then
+    if frmSelPackages.ShowModal = mrOK then
     begin
       frmSelPackages.GetUnitList(FUnitList);
       (BorlandIDEServices as IOTAModuleServices).CreateModule(self);
@@ -113,52 +113,52 @@ end;
 
 function TContainPackageWiz.GetAuthor: string;
 begin
-  Result:=Author;
+  Result := Author;
 end;
 
 function TContainPackageWiz.GetComment: string;
 begin
-  Result:='把多个包合并成一个包';
+  Result := '把多个包合并成一个包';
 end;
 
 function TContainPackageWiz.GetCreatorType: string;
 begin
-  Result:=sPackage;
+  Result := sPackage;
 end;
 
 function TContainPackageWiz.GetExisting: Boolean;
 begin
-  Result:=False;
+  Result := False;
 end;
 
 function TContainPackageWiz.GetFileName: string;
 begin
-  Result:=GetCurrentDir+'\'+PackageName;
+  Result := GetCurrentDir + '\' + PackageName;
 end;
 
 function TContainPackageWiz.GetFileSystem: string;
 begin
-  Result:='';
+  Result := '';
 end;
 
 function TContainPackageWiz.GetGlyph: Cardinal;
 begin
-  Result:=LoadIcon(HInstance,'PKGWIZ');
+  Result := LoadIcon(HInstance, 'PKGWIZ');
 end;
 
 function TContainPackageWiz.GetIDString: string;
 begin
-  Result:='{5885C7DB-F6BF-46E2-88C6-34292F38EF20}';
+  Result := '{5885C7DB-F6BF-46E2-88C6-34292F38EF20}';
 end;
 
 function TContainPackageWiz.GetName: string;
 begin
-  Result:='包合并向导';
+  Result := '包合并向导';
 end;
 
 function TContainPackageWiz.GetOptionFileName: string;
 begin
-  Result:='';
+  Result := '';
 end;
 
 function TContainPackageWiz.GetOwner: IOTAModule;
@@ -166,7 +166,7 @@ var
   IModuleServices: IOTAModuleServices;
   IModule: IOTAModule;
   IProjectGroup: IOTAProjectGroup;
-  i: Integer;
+  i:       Integer;
 begin
   Result := nil;
   IModuleServices := BorlandIDEServices as IOTAModuleServices;
@@ -183,27 +183,27 @@ end;
 
 function TContainPackageWiz.GetPage: string;
 begin
-  Result:=PageName;
+  Result := PageName;
 end;
 
 function TContainPackageWiz.GetProjectPersonality: string;
 begin
-  Result:= sDelphiPersonality;
+  Result := sDelphiPersonality;
 end;
 
 function TContainPackageWiz.GetShowSource: Boolean;
 begin
-  Result:=True;
+  Result := True;
 end;
 
 function TContainPackageWiz.GetState: TWizardState;
 begin
-  Result:=[wsEnabled];
+  Result := [wsEnabled];
 end;
 
 function TContainPackageWiz.GetUnnamed: Boolean;
 begin
-  Result:=True;
+  Result := True;
 end;
 
 procedure TContainPackageWiz.Modified;
@@ -218,12 +218,12 @@ end;
 
 procedure TContainPackageWiz.NewDefaultProjectModule(
   const Project: IOTAProject);
-var i:Integer;
+var i: Integer;
 begin
-  for i:=0 to FUnitList.Count-1 do
+  for i := 0 to FUnitList.Count - 1 do
   begin
     try
-      Project.AddFile(FUnitList[i]+'.dcu',False);
+      Project.AddFile(FUnitList[i] + '.dcu', False);
     except
       on E: Exception do
         OutputDebugString(PChar(E.Message));
@@ -249,37 +249,37 @@ end;
 
 function TContainPackageWiz.NewProjectSource(
   const ProjectName: string): IOTAFile;
-var s:String;
+var s: String;
 begin
-  s:='package '+ProjectName+';'+#13#10  
-         +#13#10
-         +'{$R *.res}'+#13#10
-         +'{$ALIGN 8}'+#13#10
-         +'{$ASSERTIONS ON}'+#13#10
-         +'{$BOOLEVAL OFF}'+#13#10
-         +'{$DEBUGINFO ON}'+#13#10
-         +'{$EXTENDEDSYNTAX ON}'+#13#10
-         +'{$IMPORTEDDATA ON}'+#13#10
-         +'{$IOCHECKS ON}'+#13#10
-         +'{$LOCALSYMBOLS ON}'+#13#10
-         +'{$LONGSTRINGS ON}'+#13#10
-         +'{$OPENSTRINGS ON}'+#13#10
-         +'{$OPTIMIZATION ON}'+#13#10
-         +'{$OVERFLOWCHECKS OFF}'+#13#10
-         +'{$RANGECHECKS OFF}'+#13#10
-         +'{$REFERENCEINFO ON}'+#13#10
-         +'{$SAFEDIVIDE OFF}'+#13#10
-         +'{$STACKFRAMES OFF}'+#13#10
-         +'{$TYPEDADDRESS OFF}'+#13#10
-         +'{$VARSTRINGCHECKS ON}'+#13#10
-         +'{$WRITEABLECONST OFF}'+#13#10
-         +'{$MINENUMSIZE 1}'+#13#10
-         +'{$IMAGEBASE $400000}'+#13#10
-         +'{$RUNONLY}'+#13#10
-         +'{$IMPLICITBUILD OFF}'+#13#10
-         +#13#10
-         +'end.';
-  Result:=StringToIOTAFile(s);
+  s := 'package ' + ProjectName + ';' + #13#10
+    + #13#10
+    + '{$R *.res}' + #13#10
+    + '{$ALIGN 8}' + #13#10
+    + '{$ASSERTIONS ON}' + #13#10
+    + '{$BOOLEVAL OFF}' + #13#10
+    + '{$DEBUGINFO ON}' + #13#10
+    + '{$EXTENDEDSYNTAX ON}' + #13#10
+    + '{$IMPORTEDDATA ON}' + #13#10
+    + '{$IOCHECKS ON}' + #13#10
+    + '{$LOCALSYMBOLS ON}' + #13#10
+    + '{$LONGSTRINGS ON}' + #13#10
+    + '{$OPENSTRINGS ON}' + #13#10
+    + '{$OPTIMIZATION ON}' + #13#10
+    + '{$OVERFLOWCHECKS OFF}' + #13#10
+    + '{$RANGECHECKS OFF}' + #13#10
+    + '{$REFERENCEINFO ON}' + #13#10
+    + '{$SAFEDIVIDE OFF}' + #13#10
+    + '{$STACKFRAMES OFF}' + #13#10
+    + '{$TYPEDADDRESS OFF}' + #13#10
+    + '{$VARSTRINGCHECKS ON}' + #13#10
+    + '{$WRITEABLECONST OFF}' + #13#10
+    + '{$MINENUMSIZE 1}' + #13#10
+    + '{$IMAGEBASE $400000}' + #13#10
+    + '{$RUNONLY}' + #13#10
+    + '{$IMPLICITBUILD OFF}' + #13#10
+    + #13#10
+    + 'end.';
+  Result := StringToIOTAFile(s);
 end;
 
 end.

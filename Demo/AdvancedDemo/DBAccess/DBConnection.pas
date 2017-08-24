@@ -8,108 +8,110 @@ unit DBConnection;
 
 interface
 
-uses SysUtils,Controls,ADODB,DBIntf,SvcInfoIntf;
+uses SysUtils, Controls, ADODB, DBIntf, SvcInfoIntf;
 
-Type
-  TDBConnection=Class(TInterfacedObject,IDBConnection,ISvcInfo)
+type
+  TDBConnection = class(TInterfacedObject, IDBConnection, ISvcInfo)
   private
-    FConnection:TADOConnection;
+    FConnection: TADOConnection;
   protected
     {IDBConnection}
-    function GetConnected:Boolean;
-    procedure SetConnected(Const Value:Boolean);
+    function GetConnected: Boolean;
+    procedure SetConnected(const Value: Boolean);
 
     procedure ConnConfig;
-    function GetDBConnection:TObject;
+    function GetDBConnection: TObject;
     {ISvcInfo}
-    function GetModuleName:String;
-    function GetTitle:String;
-    function GetVersion:String;
-    function GetComments:String;
+    function GetModuleName: String;
+    function GetTitle: String;
+    function GetVersion: String;
+    function GetComments: String;
   public
-    Constructor Create;
-    Destructor Destroy;override; 
+    constructor Create;
+    destructor Destroy; override;
   end;
-  
+
 implementation
 
-uses SysSvc,SysFactory,RegIntf,DBConfig,EncdDecdIntf,_sys,ActiveX;
+uses SysSvc, SysFactory, RegIntf, DBConfig, EncdDecdIntf, _sys, ActiveX;
 
-Const Key_DBConn='SYSTEM\DBCONNECTION';
-      Key_ConnStr='CONNSTR';
-      Key_EncdDecd='dbconn#$@';
+const Key_DBConn = 'SYSTEM\DBCONNECTION';
+  Key_ConnStr    = 'CONNSTR';
+  Key_EncdDecd   = 'dbconn#$@';
 { TDBConnection }
 
 function TDBConnection.GetComments: String;
 begin
-  Result:='用于连接数据库';
+  Result := '用于连接数据库';
 end;
 
 function TDBConnection.GetModuleName: String;
 begin
-  Result:=ExtractFileName(SysUtils.GetModuleName(HInstance));
+  Result := ExtractFileName(SysUtils.GetModuleName(HInstance));
 end;
 
 function TDBConnection.GetTitle: String;
 begin
-  Result:='数据库连接接口(IDBConnection)';
+  Result := '数据库连接接口(IDBConnection)';
 end;
 
 function TDBConnection.GetVersion: String;
 begin
-  Result:='20100426.001';
+  Result := '20100426.001';
 end;
 
 function TDBConnection.GetConnected: Boolean;
 begin
-  Result:=FConnection.Connected;
+  Result := FConnection.Connected;
 end;
 
 function TDBConnection.GetDBConnection: TObject;
 begin
-  Result:=FConnection;
+  Result := FConnection;
 end;
 
 procedure TDBConnection.SetConnected(const Value: Boolean);
-var ConnStr:WideString;
-    Reg:IRegistry;
-    EncdDecd:IEncdDecd;
+var ConnStr: WideString;
+  Reg:       IRegistry;
+  EncdDecd:  IEncdDecd;
 begin
   if Value then
   begin
-    if SysService.QueryInterface(IEncdDecd,EncdDecd)=S_OK then
+    if SysService.QueryInterface(IEncdDecd, EncdDecd) = S_OK then
     begin
-      Reg:=SysService as IRegistry;
+      Reg := SysService as IRegistry;
       if Reg.OpenKey(Key_DBConn) then
       begin
-        if Reg.ReadString(Key_ConnStr,ConnStr) then
+        if Reg.ReadString(Key_ConnStr, ConnStr) then
         begin
-          FConnection.ConnectionString:=EncdDecd.Decrypt(Key_EncdDecd,ConnStr);
-          FConnection.Connected:=Value;
+          FConnection.ConnectionString := EncdDecd.Decrypt(Key_EncdDecd, ConnStr);
+          FConnection.Connected := Value;
         end;
       end;
-    end else Raise Exception.Create('未找到IEncdDecd接口！');
-  end else FConnection.Connected:=Value;
+    end
+    else raise Exception.Create('未找到IEncdDecd接口！');
+  end
+  else FConnection.Connected := Value;
 end;
 
 procedure TDBConnection.ConnConfig;
-var ConnStr:WideString;
-    Intf:IEncdDecd;
-    Reg:IRegistry;
+var ConnStr: WideString;
+  Intf:      IEncdDecd;
+  Reg:       IRegistry;
 begin
-  Intf:=SysService as IEncdDecd;
-  Reg:=SysService as IRegistry;
-  if Reg.OpenKey(Key_DBConn,True) then
+  Intf := SysService as IEncdDecd;
+  Reg := SysService as IRegistry;
+  if Reg.OpenKey(Key_DBConn, True) then
   begin
-    Frm_DBConfig:=TFrm_DBConfig.Create(nil);
+    Frm_DBConfig := TFrm_DBConfig.Create(nil);
     try
-      Reg.ReadString(Key_ConnStr,ConnStr);
-      Frm_DBConfig.DBConnStr:=Intf.Decrypt(Key_EncdDecd,ConnStr);
-      if Frm_DBConfig.ShowModal=mrOK then
+      Reg.ReadString(Key_ConnStr, ConnStr);
+      Frm_DBConfig.DBConnStr := Intf.Decrypt(Key_EncdDecd, ConnStr);
+      if Frm_DBConfig.ShowModal = mrOK then
       begin
-        ConnStr:=Intf.Encrypt(Key_EncdDecd,Frm_DBConfig.DBConnStr);
+        ConnStr := Intf.Encrypt(Key_EncdDecd, Frm_DBConfig.DBConnStr);
 
-        Reg.WriteString(Key_ConnStr,ConnStr);
+        Reg.WriteString(Key_ConnStr, ConnStr);
         Reg.SaveData;
       end;
     finally
@@ -120,8 +122,8 @@ end;
 
 constructor TDBConnection.Create;
 begin
-  FConnection:=TADOConnection.Create(nil);
-  FConnection.LoginPrompt:=False;
+  FConnection := TADOConnection.Create(nil);
+  FConnection.LoginPrompt := False;
 end;
 
 destructor TDBConnection.Destroy;
@@ -130,15 +132,15 @@ begin
   inherited;
 end;
 
-function CreateDBConnection(param:Integer):TObject;
+function CreateDBConnection(param: Integer): TObject;
 begin
   CoInitialize(nil);
-  Result:=TDBConnection.Create;
+  Result := TDBConnection.Create;
   CoUnInitialize;
 end;
 
 initialization
-  TSingletonFactory.Create(IDBConnection,@CreateDBConnection);
+  TSingletonFactory.Create(IDBConnection, @CreateDBConnection);
 
 finalization
 

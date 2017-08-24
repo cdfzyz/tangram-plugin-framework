@@ -8,12 +8,12 @@ unit ModuleInstallerIntf;
 {$weakpackageunit on}
 interface
 
-Type
-  IModuleInstaller=Interface
+type
+  IModuleInstaller = interface
     ['{97E777E9-0541-47DD-BCD3-4DB2BCB3145D}']
-    procedure InstallModule(const ModuleFile:String);
-    procedure UninstallModule(const ModuleFile:string);
-  End;
+    procedure InstallModule(const ModuleFile: String);
+    procedure UninstallModule(const ModuleFile: string);
+  end;
 implementation
 
 end.

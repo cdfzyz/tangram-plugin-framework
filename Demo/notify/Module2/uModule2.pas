@@ -2,34 +2,34 @@ unit uModule2;
 
 interface
 
-uses SysUtils,Classes,uTangramModule,SysModule,RegIntf;
+uses SysUtils, Classes, uTangramModule, SysModule, RegIntf;
 
-Type
-  TUserModule=Class(TModule)
-  private 
-  public 
-    Constructor Create; override;
-    Destructor Destroy; override;
+type
+  TUserModule = class(TModule)
+  private
+  public
+    constructor Create; override;
+    destructor Destroy; override;
 
     procedure Init; override;
     procedure final; override;
-    procedure Notify(Flags: Integer; Intf: IInterface;Param:Integer); override;
+    procedure Notify(Flags: Integer; Intf: IInterface; Param: Integer); override;
 
-    class procedure RegisterModule(Reg:IRegistry);override;
-    class procedure UnRegisterModule(Reg:IRegistry);override;
-  End;
+    class procedure RegisterModule(Reg: IRegistry); override;
+    class procedure UnRegisterModule(Reg: IRegistry); override;
+  end;
 
 implementation
 
-uses SysSvc,notifyIntf,uFrmWebbrowser,uFrmOptions;
+uses SysSvc, notifyIntf, uFrmWebbrowser, uFrmOptions;
 
 const
-  InstallKey='SYSTEM\LOADMODULE\USER';
+  InstallKey = 'SYSTEM\LOADMODULE\USER';
 
 { TUserModule }
 
 constructor TUserModule.Create;
-begin 
+begin
   inherited;
   //当前模块加载后执行，不要在这里取接口...
 end;
@@ -52,24 +52,24 @@ begin
   inherited;
 end;
 
-procedure TUserModule.Notify(Flags: Integer; Intf: IInterface;Param:Integer);
+procedure TUserModule.Notify(Flags: Integer; Intf: IInterface; Param: Integer);
 begin
-  if Flags=NotifyFlag then
+  if Flags = NotifyFlag then
   begin
-    (Intf as IClsRegister).RegCls('浏览器',TFrmWebbrowser);
-    (Intf as IClsRegister).RegCls('选    项',TFrmOptions);
+    (Intf as IClsRegister).RegCls('浏览器', TFrmWebbrowser);
+    (Intf as IClsRegister).RegCls('选    项', TFrmOptions);
   end;
 end;
 
 class procedure TUserModule.RegisterModule(Reg: IRegistry);
 begin
-  DefaultRegisterModule(Reg,InstallKey);
+  DefaultRegisterModule(Reg, InstallKey);
 end;
 
 class procedure TUserModule.UnRegisterModule(Reg: IRegistry);
-begin 
-  DefaultUnRegisterModule(Reg,InstallKey);
-end; 
+begin
+  DefaultUnRegisterModule(Reg, InstallKey);
+end;
 
 initialization
   RegisterModuleClass(TUserModule);

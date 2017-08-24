@@ -8,13 +8,13 @@ unit uNewFormExpt;
 
 interface
 uses
-  Classes, SysUtils,Controls, Windows,ToolsApi;
+  Classes, SysUtils, Controls, Windows, ToolsApi;
 
-Type
-  TNewFormExpt = class(TInterfacedObject,IOTAWizard,IOTARepositoryWizard,
-    IOTAProjectWizard,IOTACreator,IOTAModuleCreator)
+type
+  TNewFormExpt = class(TInterfacedObject, IOTAWizard, IOTARepositoryWizard,
+    IOTAProjectWizard, IOTACreator, IOTAModuleCreator)
   private
-   FFileName:String;
+    FFileName: String;
   protected
     {IOTARepositoryWizard}
     function GetAuthor: string;
@@ -97,112 +97,112 @@ begin
 end;
 
 procedure TNewFormExpt.Execute;
-var tmpUnitName,tmpClassName:String;
+var tmpUnitName, tmpClassName: String;
 begin
-  (BorlandIDEServices as IOTAModuleServices).GetNewModuleAndClassName('Unit',tmpUnitName,tmpClassName,FFileName);
+  (BorlandIDEServices as IOTAModuleServices).GetNewModuleAndClassName('Unit', tmpUnitName, tmpClassName, FFileName);
   (BorlandIDEServices as IOTAModuleServices).CreateModule(self);
 end;
 
 procedure TNewFormExpt.FormCreated(const FormEditor: IOTAFormEditor);
 begin
-  
+
 end;
 
 function TNewFormExpt.GetAncestorName: string;
 begin
-  Result:='BaseForm';
+  Result := 'BaseForm';
 end;
 
 function TNewFormExpt.GetAuthor: string;
 begin
-  Result:=Author;
+  Result := Author;
 end;
 
 function TNewFormExpt.GetComment: string;
 begin
-  Result:='窗体生成向导';
+  Result := '窗体生成向导';
 end;
 
 function TNewFormExpt.GetCreatorType: string;
 begin
-  Result:=sForm;
+  Result := sForm;
 end;
 
 function TNewFormExpt.GetExisting: Boolean;
 begin
-  Result:=False;
+  Result := False;
 end;
 
 function TNewFormExpt.GetFileSystem: string;
 begin
-  Result:='';
+  Result := '';
 end;
 
 function TNewFormExpt.GetFormName: string;
 begin
-  Result:='NewForm1';//这里还点小问题,要自动生成名称。。。
+  Result := 'NewForm1';//这里还点小问题,要自动生成名称。。。
 end;
 
 function TNewFormExpt.GetGlyph: Cardinal;
 begin
-  Result:=LoadIcon(HInstance,'F');
+  Result := LoadIcon(HInstance, 'F');
 end;
 
 function TNewFormExpt.GetIDString: string;
 begin
-  Result:='{77B20477-1261-4E61-97A3-DC2821C8E102}';
+  Result := '{77B20477-1261-4E61-97A3-DC2821C8E102}';
 end;
 
 function TNewFormExpt.GetImplFileName: string;
 begin
-  Result:=FFileName;
+  Result := FFileName;
 end;
 
 function TNewFormExpt.GetIntfFileName: string;
 begin
-  Result:='';
+  Result := '';
 end;
 
 function TNewFormExpt.GetMainForm: Boolean;
 begin
-  Result:=False;
+  Result := False;
 end;
 
 function TNewFormExpt.GetName: string;
 begin
-  Result:='普通窗体';
+  Result := '普通窗体';
 end;
 
 function TNewFormExpt.GetOwner: IOTAModule;
 begin
-  Result:=ToolsAPI.GetActiveProject;
+  Result := ToolsAPI.GetActiveProject;
   if (Result = nil) then
     Result := GetFirstModuleSupporting(IOTAProject) as IOTAProject;
 end;
 
 function TNewFormExpt.GetPage: string;
 begin
-  Result:=PageName;
+  Result := PageName;
 end;
 
 function TNewFormExpt.GetShowForm: Boolean;
 begin
-  Result:=True;
+  Result := True;
 end;
 
 function TNewFormExpt.GetShowSource: Boolean;
 begin
-  Result:=True;
+  Result := True;
 end;
 
 function TNewFormExpt.GetState: TWizardState;
 begin
-  Result:=[wsEnabled];
+  Result := [wsEnabled];
 end;
 
 function TNewFormExpt.GetUnnamed: Boolean;
 begin
-  Result:=True;
+  Result := True;
 end;
 
 procedure TNewFormExpt.Modified;
@@ -225,7 +225,7 @@ end;
 function TNewFormExpt.NewIntfSource(const ModuleIdent, FormIdent,
   AncestorIdent: string): IOTAFile;
 begin
-  Result:=nil;
+  Result := nil;
 end;
 
 end.

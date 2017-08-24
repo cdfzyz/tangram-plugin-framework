@@ -22,9 +22,9 @@ type
 var
   FrmMain: TFrmMain;
 
-implementation 
+implementation
 
-uses SysSvc,ObjRefIntf,ShowFormIntf;
+uses SysSvc, ObjRefIntf, ShowFormIntf;
 
 {$R *.dfm}
 

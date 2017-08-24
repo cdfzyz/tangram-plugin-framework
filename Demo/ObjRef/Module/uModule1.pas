@@ -2,34 +2,34 @@ unit uModule1;
 
 interface
 
-uses SysUtils,Classes,uTangramModule,SysModule,RegIntf;
+uses SysUtils, Classes, uTangramModule, SysModule, RegIntf;
 
-Type
-  TUserModule=Class(TModule)
-  private 
-  public 
-    Constructor Create; override;
-    Destructor Destroy; override;
+type
+  TUserModule = class(TModule)
+  private
+  public
+    constructor Create; override;
+    destructor Destroy; override;
 
     procedure Init; override;
     procedure final; override;
-    procedure Notify(Flags: Integer; Intf: IInterface;Param:Integer); override;
+    procedure Notify(Flags: Integer; Intf: IInterface; Param: Integer); override;
 
-    class procedure RegisterModule(Reg:IRegistry);override;
-    class procedure UnRegisterModule(Reg:IRegistry);override;
-  End;
+    class procedure RegisterModule(Reg: IRegistry); override;
+    class procedure UnRegisterModule(Reg: IRegistry); override;
+  end;
 
 implementation
 
 uses SysSvc;
 
 const
-  InstallKey='SYSTEM\LOADMODULE\USER';
+  InstallKey = 'SYSTEM\LOADMODULE\USER';
 
 { TUserModule }
 
 constructor TUserModule.Create;
-begin 
+begin
   inherited;
   //当前模块加载后执行，不要在这里取接口...
 end;
@@ -52,7 +52,7 @@ begin
   inherited;
 end;
 
-procedure TUserModule.Notify(Flags: Integer; Intf: IInterface;Param:Integer);
+procedure TUserModule.Notify(Flags: Integer; Intf: IInterface; Param: Integer);
 begin
   inherited;
 
@@ -61,14 +61,14 @@ end;
 class procedure TUserModule.RegisterModule(Reg: IRegistry);
 begin
   //注册模块
-  DefaultRegisterModule(Reg,InstallKey);
+  DefaultRegisterModule(Reg, InstallKey);
 end;
 
 class procedure TUserModule.UnRegisterModule(Reg: IRegistry);
-begin 
+begin
   //取消注册模块
-  DefaultUnRegisterModule(Reg,InstallKey);
-end; 
+  DefaultUnRegisterModule(Reg, InstallKey);
+end;
 
 initialization
   RegisterModuleClass(TUserModule);

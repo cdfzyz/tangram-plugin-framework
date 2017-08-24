@@ -11,9 +11,9 @@ interface
 uses
   Classes, SysUtils, Windows, ToolsApi;
 
-Type
+type
   TNewPackageExpt = class(TInterfacedObject, IOTAWizard, IOTARepositoryWizard,
-    IOTAProjectWizard, IOTACreator, IOTAProjectCreator,IOTAProjectCreator50,
+    IOTAProjectWizard, IOTACreator, IOTAProjectCreator, IOTAProjectCreator50,
     IOTAProjectCreator80)
   private
   public
@@ -63,7 +63,7 @@ Type
     function GetProjectPersonality: string;
   end;
 
-  TPackageExportModule = Class(TInterfacedObject, IOTACreator,
+  TPackageExportModule = class(TInterfacedObject, IOTACreator,
     IOTAModuleCreator)
   private
   protected
@@ -208,7 +208,7 @@ var
   IModuleServices: IOTAModuleServices;
   IModule: IOTAModule;
   IProjectGroup: IOTAProjectGroup;
-  i: Integer;
+  i:       Integer;
 begin
   Result := nil;
   IModuleServices := BorlandIDEServices as IOTAModuleServices;
@@ -230,7 +230,7 @@ end;
 
 function TNewPackageExpt.GetProjectPersonality: string;
 begin
-  Result:= sDelphiPersonality;
+  Result := sDelphiPersonality;
 end;
 
 function TNewPackageExpt.GetShowSource: Boolean;
@@ -392,7 +392,7 @@ end;
 function TPackageExportModule.NewImplSource(const ModuleIdent, FormIdent,
   AncestorIdent: string): IOTAFile;
 begin
-  Result := StringToIOTAFile(GetTModuleObjCode(ModuleIdent,'TUserModule'));
+  Result := StringToIOTAFile(GetTModuleObjCode(ModuleIdent, 'TUserModule'));
 end;
 
 function TPackageExportModule.NewIntfSource(const ModuleIdent, FormIdent,
