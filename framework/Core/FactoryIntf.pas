@@ -9,22 +9,22 @@ unit FactoryIntf;
 
 interface
 
-uses uIntfObj, ObjRefIntf;
+uses
+  uIntfObj,
+  ObjRefIntf;
 
 type
   TIntfCreatorFunc = function(param: Integer): TObject;
 
   IEnumKey = interface
     ['{BCF06768-CF57-41C8-AC40-C17135A80089}']
-    procedure EnumKey(const IntfName: String);
+    procedure EnumKey(const IntfName: string);
   end;
 
   TFactory = class(TIntfObj)
   private
-
   protected
     FParam: Integer;
-
     function GetObj(out Obj: TObject; out AutoFree: Boolean): Boolean; virtual;
   public
     //Constructor Create;
@@ -32,12 +32,9 @@ type
 
     function GetIntf(const IID: TGUID; out Obj): HResult; virtual; abstract;
     procedure ReleaseIntf; virtual; abstract;
-
     function Supports(const IntfName: string): Boolean; virtual; abstract;
     procedure EnumKeys(Intf: IEnumKey); virtual; abstract;
-
     function GetObjRef: IObjRef; dynamic;
-
     procedure prepare(param: Integer);
   end;
 
@@ -91,13 +88,15 @@ begin
 end;
 
 function TFactory.GetObjRef: IObjRef;
-var autoFree: Boolean;
+var
+  autoFree: Boolean;
   obj: TObject;
 begin
   Result := nil;
   if self.GetObj(obj, autoFree) then
     Result := TObjRef.Create(obj, autoFree)
-  else Result := TObjRef.Create(nil, autoFree);
+  else
+    Result := TObjRef.Create(nil, autoFree);
 end;
 
 procedure TFactory.prepare(param: Integer);
@@ -106,3 +105,4 @@ begin
 end;
 
 end.
+

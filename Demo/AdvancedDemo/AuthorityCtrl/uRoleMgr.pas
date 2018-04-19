@@ -11,7 +11,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, uBaseForm, ComCtrls, ImgList, ExtCtrls, ToolWin, DBClient, SysSvc, DB,
-  DBIntf, AuthoritySvrIntf;
+  DBIntf, AuthoritySvrIntf, System.ImageList;
 
 type
   PNodeData = ^TNodeData;

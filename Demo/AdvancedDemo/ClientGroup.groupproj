@@ -1,180 +1,192 @@
-﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-		<PropertyGroup>
-			<ProjectGuid>{78E4228B-FEC9-4348-A97F-D255C7C561CD}</ProjectGuid>
-		</PropertyGroup>
-		<ItemGroup>
-			<Projects Include="MainAPP\MainAPP.dproj">
-				<Dependencies/>
-			</Projects>
-			<Projects Include="MainAPP2\MainAPP2.dproj">
-				<Dependencies/>
-			</Projects>
-			<Projects Include="Base\Base.dproj">
-				<Dependencies/>
-			</Projects>
-			<Projects Include="System\Sys.dproj">
-				<Dependencies/>
-			</Projects>
-			<Projects Include="Custom\Custom.dproj">
-				<Dependencies/>
-			</Projects>
-			<Projects Include="DBObj\DBObj.dproj">
-				<Dependencies/>
-			</Projects>
-			<Projects Include="DBAccess\DBSupport.dproj">
-				<Dependencies/>
-			</Projects>
-			<Projects Include="MadisSupport\MidasSupport.dproj">
-				<Dependencies/>
-			</Projects>
-			<Projects Include="AuthorityCtrl\AuthorityCtrl.dproj">
-				<Dependencies/>
-			</Projects>
-			<Projects Include="Test2\test2.dproj">
-				<Dependencies/>
-			</Projects>
-			<Projects Include="Test\test.dproj">
-				<Dependencies/>
-			</Projects>
-			<Projects Include="MadisSvr\MidServer.dproj">
-				<Dependencies/>
-			</Projects>
-			<Projects Include="..\..\framework\Core\Tangram_Core.dproj">
-				<Dependencies/>
-			</Projects>
-		</ItemGroup>
-		<ProjectExtensions>
-			<Borland.Personality>Default.Personality.12</Borland.Personality>
-			<Borland.ProjectType/>
-			<BorlandProject>
-				<Default.Personality/>
-			</BorlandProject>
-		</ProjectExtensions>
-		<Target Name="MainAPP">
-			<MSBuild Projects="MainAPP\MainAPP.dproj"/>
-		</Target>
-		<Target Name="MainAPP:Clean">
-			<MSBuild Targets="Clean" Projects="MainAPP\MainAPP.dproj"/>
-		</Target>
-		<Target Name="MainAPP:Make">
-			<MSBuild Targets="Make" Projects="MainAPP\MainAPP.dproj"/>
-		</Target>
-		<Target Name="MainAPP2">
-			<MSBuild Projects="MainAPP2\MainAPP2.dproj"/>
-		</Target>
-		<Target Name="MainAPP2:Clean">
-			<MSBuild Targets="Clean" Projects="MainAPP2\MainAPP2.dproj"/>
-		</Target>
-		<Target Name="MainAPP2:Make">
-			<MSBuild Targets="Make" Projects="MainAPP2\MainAPP2.dproj"/>
-		</Target>
-		<Target Name="Base">
-			<MSBuild Projects="Base\Base.dproj"/>
-		</Target>
-		<Target Name="Base:Clean">
-			<MSBuild Targets="Clean" Projects="Base\Base.dproj"/>
-		</Target>
-		<Target Name="Base:Make">
-			<MSBuild Targets="Make" Projects="Base\Base.dproj"/>
-		</Target>
-		<Target Name="Sys">
-			<MSBuild Projects="System\Sys.dproj"/>
-		</Target>
-		<Target Name="Sys:Clean">
-			<MSBuild Targets="Clean" Projects="System\Sys.dproj"/>
-		</Target>
-		<Target Name="Sys:Make">
-			<MSBuild Targets="Make" Projects="System\Sys.dproj"/>
-		</Target>
-		<Target Name="Custom">
-			<MSBuild Projects="Custom\Custom.dproj"/>
-		</Target>
-		<Target Name="Custom:Clean">
-			<MSBuild Targets="Clean" Projects="Custom\Custom.dproj"/>
-		</Target>
-		<Target Name="Custom:Make">
-			<MSBuild Targets="Make" Projects="Custom\Custom.dproj"/>
-		</Target>
-		<Target Name="DBObj">
-			<MSBuild Projects="DBObj\DBObj.dproj"/>
-		</Target>
-		<Target Name="DBObj:Clean">
-			<MSBuild Targets="Clean" Projects="DBObj\DBObj.dproj"/>
-		</Target>
-		<Target Name="DBObj:Make">
-			<MSBuild Targets="Make" Projects="DBObj\DBObj.dproj"/>
-		</Target>
-		<Target Name="DBSupport">
-			<MSBuild Projects="DBAccess\DBSupport.dproj"/>
-		</Target>
-		<Target Name="DBSupport:Clean">
-			<MSBuild Targets="Clean" Projects="DBAccess\DBSupport.dproj"/>
-		</Target>
-		<Target Name="DBSupport:Make">
-			<MSBuild Targets="Make" Projects="DBAccess\DBSupport.dproj"/>
-		</Target>
-		<Target Name="MidasSupport">
-			<MSBuild Projects="MadisSupport\MidasSupport.dproj"/>
-		</Target>
-		<Target Name="MidasSupport:Clean">
-			<MSBuild Targets="Clean" Projects="MadisSupport\MidasSupport.dproj"/>
-		</Target>
-		<Target Name="MidasSupport:Make">
-			<MSBuild Targets="Make" Projects="MadisSupport\MidasSupport.dproj"/>
-		</Target>
-		<Target Name="AuthorityCtrl">
-			<MSBuild Projects="AuthorityCtrl\AuthorityCtrl.dproj"/>
-		</Target>
-		<Target Name="AuthorityCtrl:Clean">
-			<MSBuild Targets="Clean" Projects="AuthorityCtrl\AuthorityCtrl.dproj"/>
-		</Target>
-		<Target Name="AuthorityCtrl:Make">
-			<MSBuild Targets="Make" Projects="AuthorityCtrl\AuthorityCtrl.dproj"/>
-		</Target>
-		<Target Name="test2">
-			<MSBuild Projects="Test2\test2.dproj"/>
-		</Target>
-		<Target Name="test2:Clean">
-			<MSBuild Targets="Clean" Projects="Test2\test2.dproj"/>
-		</Target>
-		<Target Name="test2:Make">
-			<MSBuild Targets="Make" Projects="Test2\test2.dproj"/>
-		</Target>
-		<Target Name="test">
-			<MSBuild Projects="Test\test.dproj"/>
-		</Target>
-		<Target Name="test:Clean">
-			<MSBuild Targets="Clean" Projects="Test\test.dproj"/>
-		</Target>
-		<Target Name="test:Make">
-			<MSBuild Targets="Make" Projects="Test\test.dproj"/>
-		</Target>
-		<Target Name="MidServer">
-			<MSBuild Projects="MadisSvr\MidServer.dproj"/>
-		</Target>
-		<Target Name="MidServer:Clean">
-			<MSBuild Targets="Clean" Projects="MadisSvr\MidServer.dproj"/>
-		</Target>
-		<Target Name="MidServer:Make">
-			<MSBuild Targets="Make" Projects="MadisSvr\MidServer.dproj"/>
-		</Target>
-		<Target Name="Tangram_Core">
-			<MSBuild Projects="..\..\framework\Core\Tangram_Core.dproj"/>
-		</Target>
-		<Target Name="Tangram_Core:Clean">
-			<MSBuild Targets="Clean" Projects="..\..\framework\Core\Tangram_Core.dproj"/>
-		</Target>
-		<Target Name="Tangram_Core:Make">
-			<MSBuild Targets="Make" Projects="..\..\framework\Core\Tangram_Core.dproj"/>
-		</Target>
-		<Target Name="Build">
-			<CallTarget Targets="MainAPP;MainAPP2;Base;Sys;Custom;DBObj;DBSupport;MidasSupport;AuthorityCtrl;test2;test;MidServer;Tangram_Core"/>
-		</Target>
-		<Target Name="Clean">
-			<CallTarget Targets="MainAPP:Clean;MainAPP2:Clean;Base:Clean;Sys:Clean;Custom:Clean;DBObj:Clean;DBSupport:Clean;MidasSupport:Clean;AuthorityCtrl:Clean;test2:Clean;test:Clean;MidServer:Clean;Tangram_Core:Clean"/>
-		</Target>
-		<Target Name="Make">
-			<CallTarget Targets="MainAPP:Make;MainAPP2:Make;Base:Make;Sys:Make;Custom:Make;DBObj:Make;DBSupport:Make;MidasSupport:Make;AuthorityCtrl:Make;test2:Make;test:Make;MidServer:Make;Tangram_Core:Make"/>
-		</Target>
-		<Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
-	</Project>
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{78E4228B-FEC9-4348-A97F-D255C7C561CD}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="MainAPP\MainAPP.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="MainAPP2\MainAPP2.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Base\Base.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="System\Sys.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Custom\Custom.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="DBObj\DBObj.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="DBAccess\DBSupport.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="MadisSupport\MidasSupport.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="AuthorityCtrl\AuthorityCtrl.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Test2\test2.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Test\test.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\..\framework\Core\Tangram_Core.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\..\Utils\EncdDecd\EncdDecd.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\..\Utils\Log\Log.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="MainAPP">
+        <MSBuild Projects="MainAPP\MainAPP.dproj"/>
+    </Target>
+    <Target Name="MainAPP:Clean">
+        <MSBuild Projects="MainAPP\MainAPP.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="MainAPP:Make">
+        <MSBuild Projects="MainAPP\MainAPP.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="MainAPP2">
+        <MSBuild Projects="MainAPP2\MainAPP2.dproj"/>
+    </Target>
+    <Target Name="MainAPP2:Clean">
+        <MSBuild Projects="MainAPP2\MainAPP2.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="MainAPP2:Make">
+        <MSBuild Projects="MainAPP2\MainAPP2.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Base">
+        <MSBuild Projects="Base\Base.dproj"/>
+    </Target>
+    <Target Name="Base:Clean">
+        <MSBuild Projects="Base\Base.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Base:Make">
+        <MSBuild Projects="Base\Base.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Sys">
+        <MSBuild Projects="System\Sys.dproj"/>
+    </Target>
+    <Target Name="Sys:Clean">
+        <MSBuild Projects="System\Sys.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Sys:Make">
+        <MSBuild Projects="System\Sys.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Custom">
+        <MSBuild Projects="Custom\Custom.dproj"/>
+    </Target>
+    <Target Name="Custom:Clean">
+        <MSBuild Projects="Custom\Custom.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Custom:Make">
+        <MSBuild Projects="Custom\Custom.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="DBObj">
+        <MSBuild Projects="DBObj\DBObj.dproj"/>
+    </Target>
+    <Target Name="DBObj:Clean">
+        <MSBuild Projects="DBObj\DBObj.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="DBObj:Make">
+        <MSBuild Projects="DBObj\DBObj.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="DBSupport">
+        <MSBuild Projects="DBAccess\DBSupport.dproj"/>
+    </Target>
+    <Target Name="DBSupport:Clean">
+        <MSBuild Projects="DBAccess\DBSupport.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="DBSupport:Make">
+        <MSBuild Projects="DBAccess\DBSupport.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="MidasSupport">
+        <MSBuild Projects="MadisSupport\MidasSupport.dproj"/>
+    </Target>
+    <Target Name="MidasSupport:Clean">
+        <MSBuild Projects="MadisSupport\MidasSupport.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="MidasSupport:Make">
+        <MSBuild Projects="MadisSupport\MidasSupport.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="AuthorityCtrl">
+        <MSBuild Projects="AuthorityCtrl\AuthorityCtrl.dproj"/>
+    </Target>
+    <Target Name="AuthorityCtrl:Clean">
+        <MSBuild Projects="AuthorityCtrl\AuthorityCtrl.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="AuthorityCtrl:Make">
+        <MSBuild Projects="AuthorityCtrl\AuthorityCtrl.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="test2">
+        <MSBuild Projects="Test2\test2.dproj"/>
+    </Target>
+    <Target Name="test2:Clean">
+        <MSBuild Projects="Test2\test2.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="test2:Make">
+        <MSBuild Projects="Test2\test2.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="test">
+        <MSBuild Projects="Test\test.dproj"/>
+    </Target>
+    <Target Name="test:Clean">
+        <MSBuild Projects="Test\test.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="test:Make">
+        <MSBuild Projects="Test\test.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Tangram_Core">
+        <MSBuild Projects="..\..\framework\Core\Tangram_Core.dproj"/>
+    </Target>
+    <Target Name="Tangram_Core:Clean">
+        <MSBuild Projects="..\..\framework\Core\Tangram_Core.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Tangram_Core:Make">
+        <MSBuild Projects="..\..\framework\Core\Tangram_Core.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="EncdDecd">
+        <MSBuild Projects="..\..\Utils\EncdDecd\EncdDecd.dproj"/>
+    </Target>
+    <Target Name="EncdDecd:Clean">
+        <MSBuild Projects="..\..\Utils\EncdDecd\EncdDecd.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="EncdDecd:Make">
+        <MSBuild Projects="..\..\Utils\EncdDecd\EncdDecd.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Log">
+        <MSBuild Projects="..\..\Utils\Log\Log.dproj"/>
+    </Target>
+    <Target Name="Log:Clean">
+        <MSBuild Projects="..\..\Utils\Log\Log.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Log:Make">
+        <MSBuild Projects="..\..\Utils\Log\Log.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="MainAPP;MainAPP2;Base;Sys;Custom;DBObj;DBSupport;MidasSupport;AuthorityCtrl;test2;test;Tangram_Core;EncdDecd;Log"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="MainAPP:Clean;MainAPP2:Clean;Base:Clean;Sys:Clean;Custom:Clean;DBObj:Clean;DBSupport:Clean;MidasSupport:Clean;AuthorityCtrl:Clean;test2:Clean;test:Clean;Tangram_Core:Clean;EncdDecd:Clean;Log:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="MainAPP:Make;MainAPP2:Make;Base:Make;Sys:Make;Custom:Make;DBObj:Make;DBSupport:Make;MidasSupport:Make;AuthorityCtrl:Make;test2:Make;test:Make;Tangram_Core:Make;EncdDecd:Make;Log:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

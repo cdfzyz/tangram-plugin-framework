@@ -8,7 +8,11 @@ unit SysFactory;
 
 interface
 
-uses Classes, SysUtils, FactoryIntf, SvcInfoIntf;
+uses
+  Classes,
+  SysUtils,
+  FactoryIntf,
+  SvcInfoIntf;
 
 type
   // 工厂基类
@@ -37,10 +41,11 @@ type
     procedure GetSvcInfo(Intf: ISvcInfoGetter); override;
     function GetObj(out Obj: TObject; out AutoFree: Boolean): Boolean; override;
   public
-    constructor Create(const IID: TGUID; IntfCreatorFunc: TIntfCreatorFunc); overload;
-    constructor Create(const IntfName: string; IntfCreatorFunc: TIntfCreatorFunc); overload;
+    constructor Create(const IID: TGUID; IntfCreatorFunc: TIntfCreatorFunc);
+      overload;
+    constructor Create(const IntfName: string; IntfCreatorFunc: TIntfCreatorFunc);
+      overload;
     destructor Destroy; override;
-
     function GetIntf(const IID: TGUID; out Obj): HResult; override;
     procedure ReleaseIntf; override;
   end;
@@ -61,7 +66,6 @@ type
     constructor Create(const IntfName: string; IntfCreatorFunc: TIntfCreatorFunc;
       IntfRelease: Boolean = False); overload;
     destructor Destroy; override;
-
     function GetIntf(const IID: TGUID; out Obj): HResult; override;
     procedure ReleaseIntf; override;
   end;
@@ -72,10 +76,10 @@ type
     FOwnsObj: Boolean;
   protected
   public
-    constructor Create(const IID: TGUID; Instance: TObject;
-      OwnsObj: Boolean = False; IntfRelease: Boolean = False); overload;
-    constructor Create(const IntfName: string; Instance: TObject;
-      OwnsObj: Boolean = False; IntfRelease: Boolean = False); overload;
+    constructor Create(const IID: TGUID; Instance: TObject; OwnsObj: Boolean =
+      False; IntfRelease: Boolean = False); overload;
+    constructor Create(const IntfName: string; Instance: TObject; OwnsObj:
+      Boolean = False; IntfRelease: Boolean = False); overload;
     destructor Destroy; override;
 
     //function GetIntf(const IID: TGUID; out Obj): HResult; override;
@@ -84,7 +88,9 @@ type
 
 implementation
 
-uses SysFactoryMgr, SysMsg;
+uses
+  SysFactoryMgr,
+  SysMsg;
 
 { TBaseFactory }
 
@@ -116,8 +122,8 @@ end;
 
 { TIntfFactory }
 
-constructor TIntfFactory.Create(const IntfName: string;
-  IntfCreatorFunc: TIntfCreatorFunc);
+constructor TIntfFactory.Create(const IntfName: string; IntfCreatorFunc:
+  TIntfCreatorFunc);
 begin
   if not Assigned(IntfCreatorFunc) then
     raise Exception.CreateFmt(Err_IntfCreatorFuncIsNil, [IntfName]);
@@ -127,8 +133,8 @@ begin
   inherited Create(IntfName);
 end;
 
-constructor TIntfFactory.Create(const IID: TGUID;
-  IntfCreatorFunc: TIntfCreatorFunc);
+constructor TIntfFactory.Create(const IID: TGUID; IntfCreatorFunc:
+  TIntfCreatorFunc);
 begin
   self.Create(GUIDToString(IID), IntfCreatorFunc);
 end;
@@ -154,7 +160,8 @@ begin
             InnerGetSvcInfo(tmpIntf, nil);
         end;
       end
-      else tmpObj.Free;
+      else
+        tmpObj.Free;
     end;
   end;
 end;
@@ -192,8 +199,8 @@ begin
   Intf.SvcInfo(FSvcInfoRec);
 end;
 
-procedure TIntfFactory.InnerGetSvcInfo(Intf: IInterface;
-  SvcInfoGetter: ISvcInfoGetter);
+procedure TIntfFactory.InnerGetSvcInfo(Intf: IInterface; SvcInfoGetter:
+  ISvcInfoGetter);
 var
   SvcInfoIntf: ISvcInfo;
   SvcInfoIntfEx: ISvcInfoEx;
@@ -215,8 +222,7 @@ begin
     end;
     SvcInfoIntf := nil;
   end
-  else
-  if Intf.QueryInterface(ISvcInfoEx, SvcInfoIntfEx) = S_OK then
+  else if Intf.QueryInterface(ISvcInfoEx, SvcInfoIntfEx) = S_OK then
   begin
     Flag := 2;
     if SvcInfoGetter <> nil then
@@ -233,8 +239,8 @@ end;
 
 { TSingletonFactory }
 
-constructor TSingletonFactory.Create(const IntfName: string;
-  IntfCreatorFunc: TIntfCreatorFunc; IntfRelease: Boolean);
+constructor TSingletonFactory.Create(const IntfName: string; IntfCreatorFunc:
+  TIntfCreatorFunc; IntfRelease: Boolean);
 begin
   FInstance := nil;
   FIntfRef := nil;
@@ -243,8 +249,8 @@ begin
   inherited Create(IntfName);
 end;
 
-constructor TSingletonFactory.Create(const IID: TGUID;
-  IntfCreatorFunc: TIntfCreatorFunc; IntfRelease: Boolean);
+constructor TSingletonFactory.Create(const IID: TGUID; IntfCreatorFunc:
+  TIntfCreatorFunc; IntfRelease: Boolean);
 begin
   self.Create(GUIDToString(IID), IntfCreatorFunc, IntfRelease);
 end;
@@ -273,15 +279,14 @@ begin
   end;
 end;
 
-
 destructor TSingletonFactory.Destroy;
 begin
 
   inherited;
 end;
 
-function TSingletonFactory.GetObj(out Obj: TObject;
-  out AutoFree: Boolean): Boolean;
+function TSingletonFactory.GetObj(out Obj: TObject; out AutoFree: Boolean):
+  Boolean;
 begin
   Obj := Self.FInstance;
   AutoFree := False;
@@ -292,7 +297,7 @@ procedure TSingletonFactory.GetSvcInfo(Intf: ISvcInfoGetter);
 var
   SvcInfoIntf: ISvcInfo;
   SvcInfoIntfEx: ISvcInfoEx;
-  SvcInfoRec:  TSvcInfoRec;
+  SvcInfoRec: TSvcInfoRec;
 begin
   if FInstance = nil then
   begin
@@ -314,8 +319,7 @@ begin
     end;
     Intf.SvcInfo(SvcInfoRec);
   end
-  else
-  if FInstance.GetInterface(ISvcInfoEx, SvcInfoIntfEx) then
+  else if FInstance.GetInterface(ISvcInfoEx, SvcInfoIntfEx) then
     SvcInfoIntfEx.GetSvcInfo(Intf)
   else
   begin
@@ -353,25 +357,24 @@ begin
   if Instance = nil then
     raise Exception.CreateFmt(Err_InstanceIsNil, [IntfName]);
 
-  inherited Create(IntfName, nil, IntfRelease);//往上后FIntfRef会被赋为nil
+  inherited Create(IntfName, nil, IntfRelease); //往上后FIntfRef会被赋为nil
   FOwnsObj := OwnsObj or IntfRelease or (Instance is TInterfacedObject);
   FInstance := Instance;
 end;
 
-constructor TObjFactory.Create(const IID: TGUID; Instance: TObject;
-  OwnsObj: Boolean; IntfRelease: Boolean);
-var IIDStr: String;
-  tmpIntf:  IInterface;
+constructor TObjFactory.Create(const IID: TGUID; Instance: TObject; OwnsObj:
+  Boolean; IntfRelease: Boolean);
+var
+  IIDStr: string;
+  tmpIntf: IInterface;
 begin
   IIDStr := GUIDToString(IID);
   if not Instance.GetInterface(IID, tmpIntf) then
-    raise Exception.CreateFmt(Err_ObjNotImpIntf, [Instance.ClassName,
-      IIDStr]);
+    raise Exception.CreateFmt(Err_ObjNotImpIntf, [Instance.ClassName, IIDStr]);
 
-  self.Create(IIDStr, Instance, OwnsObj, IntfRelease);
+  Self.Create(IIDStr, Instance, OwnsObj, IntfRelease);
   FIntfRef := tmpIntf;
 end;
-
 
 destructor TObjFactory.Destroy;
 begin
@@ -386,3 +389,4 @@ begin
 end;
 
 end.
+

@@ -8,7 +8,11 @@ unit SysFactoryEx;
 
 interface
 
-uses Classes, SysUtils, FactoryIntf, SvcInfoIntf;
+uses
+  Classes,
+  SysUtils,
+  FactoryIntf,
+  SvcInfoIntf;
 
 type
   //基类
@@ -25,7 +29,6 @@ type
     {Inherited}
     function GetIntf(const IID: TGUID; out Obj): HResult; override;
     procedure ReleaseIntf; override;
-
     function Supports(const IntfName: string): Boolean; override;
     procedure EnumKeys(Intf: IEnumKey); override;
   end;
@@ -43,7 +46,6 @@ type
     constructor Create(IIDs: array of TGUID; IntfCreatorFunc: TIntfCreatorFunc;
       IntfRelease: Boolean = False);
     destructor Destroy; override;
-
     function GetIntf(const IID: TGUID; out Obj): HResult; override;
     procedure ReleaseIntf; override;
   end;
@@ -53,22 +55,26 @@ type
     FOwnsObj: Boolean;
   protected
   public
-    constructor Create(const IIDs: array of TGUID; Instance: TObject;
-      OwnsObj: Boolean = False; IntfRelease: Boolean = False);
+    constructor Create(const IIDs: array of TGUID; Instance: TObject; OwnsObj:
+      Boolean = False; IntfRelease: Boolean = False);
     destructor Destroy; override;
 
     {Inherited}
     //function GetIntf(const IID : TGUID; out Obj):HResult;override;
     procedure ReleaseIntf; override;
   end;
+
 implementation
 
-uses SysFactoryMgr, SysMsg;
+uses
+  SysFactoryMgr,
+  SysMsg;
 
 { TBaseFactoryEx }
 
 constructor TBaseFactoryEx.Create(const IIDs: array of TGUID);
-var i: Integer;
+var
+  i: Integer;
   IIDStr: string;
 begin
   FIIDList := TStringList.Create;
@@ -97,7 +103,8 @@ begin
 end;
 
 procedure TBaseFactoryEx.EnumKeys(Intf: IEnumKey);
-var i: Integer;
+var
+  i: Integer;
 begin
   if Assigned(Intf) then
   begin
@@ -123,8 +130,8 @@ end;
 
 { TSingletonFactoryEx }
 
-constructor TSingletonFactoryEx.Create(IIDs: array of TGUID;
-  IntfCreatorFunc: TIntfCreatorFunc; IntfRelease: Boolean);
+constructor TSingletonFactoryEx.Create(IIDs: array of TGUID; IntfCreatorFunc:
+  TIntfCreatorFunc; IntfRelease: Boolean);
 begin
   if length(IIDs) = 0 then
     raise Exception.Create(Err_IIDsParamIsEmpty);
@@ -162,8 +169,8 @@ begin
   end;
 end;
 
-function TSingletonFactoryEx.GetObj(out Obj: TObject;
-  out AutoFree: Boolean): Boolean;
+function TSingletonFactoryEx.GetObj(out Obj: TObject; out AutoFree: Boolean):
+  Boolean;
 begin
   Obj := Self.FInstance;
   AutoFree := False;
@@ -177,7 +184,8 @@ begin
 end;
 
 procedure TSingletonFactoryEx.GetSvcInfo(Intf: ISvcInfoGetter);
-var SvcInfoIntf: ISvcInfo;
+var
+  SvcInfoIntf: ISvcInfo;
   SvcInfoIntfEx: ISvcInfoEx;
   SvcInfoRec: TSvcInfoRec;
   i: Integer;
@@ -241,8 +249,8 @@ end;
 
 { TObjFactoryEx }
 
-constructor TObjFactoryEx.Create(const IIDs: array of TGUID;
-  Instance: TObject; OwnsObj: Boolean; IntfRelease: Boolean);
+constructor TObjFactoryEx.Create(const IIDs: array of TGUID; Instance: TObject;
+  OwnsObj: Boolean; IntfRelease: Boolean);
 begin
   if length(IIDs) = 0 then
     raise Exception.Create(Err_IIDsParamIsEmpty);
@@ -250,7 +258,7 @@ begin
   if Instance = nil then
     raise Exception.CreateFmt(Err_InstanceIsNil, [GUIDToString(IIDs[0])]);
 
-  inherited Create(IIDs, nil, IntfRelease);//往上后FIntfRef会被赋为nil
+  inherited Create(IIDs, nil, IntfRelease); //往上后FIntfRef会被赋为nil
   FOwnsObj := OwnsObj or IntfRelease or (Instance is TInterfacedObject);
   FInstance := Instance;
   FInstance.GetInterface(IInterface, FIntfRef);
@@ -269,3 +277,4 @@ begin
 end;
 
 end.
+

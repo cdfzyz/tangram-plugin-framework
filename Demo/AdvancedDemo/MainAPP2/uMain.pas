@@ -11,7 +11,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, MainFormIntf, Menus, ExtCtrls, ComCtrls, ToolWin, Buttons, SvcInfoIntf,
-  ImgList, StdCtrls;
+  ImgList, StdCtrls, System.ImageList;
 
 const Msg_ClosePage = WM_USER + 100;
 

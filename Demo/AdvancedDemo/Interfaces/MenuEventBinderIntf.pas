@@ -6,19 +6,23 @@
 -------------------------------------}
 unit MenuEventBinderIntf;
 {$weakpackageunit on}
+
 interface
 
-uses Classes, Graphics;
+uses
+  Classes,
+  Graphics;
 
 type
   IMenuEventBinder = interface
     ['{1B1BA5A6-097F-422F-83E8-952B5EE451CB}']
-    procedure RegMenuEvent(const Key: String; MenuClick: TNotifyEvent);
-    procedure RegToolEvent(const Key: String; ToolClick: TNotifyEvent; Img: TGraphic);
+    procedure RegMenuEvent(const Key: string; MenuClick: TNotifyEvent);
+    procedure RegToolEvent(const Key: string; ToolClick: TNotifyEvent; Img:
+      TGraphic);
     //function GetObj(const Key:String):TObject;
   end;
 
 implementation
 
-
 end.
+

@@ -2,8 +2,15 @@ unit TestPlugin;
 
 interface
 
-uses SysUtils, Classes, Graphics, MainFormIntf, MenuRegIntf,
-  uTangramModule, SysModule, RegIntf;
+uses
+  SysUtils,
+  Classes,
+  Graphics,
+  MainFormIntf,
+  MenuRegIntf,
+  uTangramModule,
+  SysModule,
+  RegIntf;
 
 type
   TTestPlugin = class(TModule)
@@ -11,18 +18,18 @@ type
   public
     constructor Create; override;
     destructor Destroy; override;
-
     procedure Init; override;
     procedure final; override;
     procedure Notify(Flags: Integer; Intf: IInterface; Param: Integer); override;
-
     class procedure RegisterModule(Reg: IRegistry); override;
     class procedure UnRegisterModule(Reg: IRegistry); override;
   end;
+
 implementation
 
-const InstallKey = 'SYSTEM\LOADMODULE\USER';
-  ValueKey       = 'Module=%s;load=True';
+const
+  InstallKey = 'SYSTEM\LOADMODULE\USER';
+  ValueKey = 'Module=%s;load=True';
 { TTestPlugin }
 
 constructor TTestPlugin.Create;
@@ -56,7 +63,8 @@ begin
 end;
 
 class procedure TTestPlugin.RegisterModule(Reg: IRegistry);
-var ModuleFullName, ModuleName, Value: String;
+var
+  ModuleFullName, ModuleName, Value: string;
 begin
   if Reg.OpenKey(InstallKey, True) then
   begin
@@ -72,7 +80,8 @@ begin
 end;
 
 class procedure TTestPlugin.UnRegisterModule(Reg: IRegistry);
-var ModuleName: String;
+var
+  ModuleName: string;
 begin
   if Reg.OpenKey(InstallKey) then
   begin
@@ -84,6 +93,8 @@ end;
 
 initialization
   RegisterModuleClass(TTestPlugin);
+
 finalization
 
 end.
+

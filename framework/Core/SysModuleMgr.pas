@@ -8,9 +8,22 @@ unit SysModuleMgr;
 
 interface
 
-uses SysUtils, Classes, Windows, Contnrs, RegIntf, SplashFormIntf,
-  ModuleInfoIntf, SvcInfoIntf, SysModule, ModuleLoaderIntf, StrUtils,
-  uIntfObj, ModuleInstallerIntf, SysNotifyService, NotifyServiceIntf,
+uses
+  SysUtils,
+  Classes,
+  Windows,
+  Contnrs,
+  RegIntf,
+  SplashFormIntf,
+  ModuleInfoIntf,
+  SvcInfoIntf,
+  SysModule,
+  ModuleLoaderIntf,
+  StrUtils,
+  uIntfObj,
+  ModuleInstallerIntf,
+  SysNotifyService,
+  NotifyServiceIntf,
   Forms;
 
 type
@@ -20,55 +33,50 @@ type
 
   TTangramModule = class(TObject)
   private
-    FLoadBatch: String;
+    FLoadBatch: string;
     FModuleHandle: HMODULE;
-    FModuleFileName: String;
+    FModuleFileName: string;
     FModuleObj: TModule;
     FModuleCls: TModuleClass;
     FValidModule: Boolean;
     function GetModuleType: TModuleType;
     function LoadModule: THandle;
     procedure UnLoadModule;
-    function GetModuleName: String;
+    function GetModuleName: string;
   protected
-
   public
-    constructor Create(const mFile: String;
-      LoadBatch: String = ''; CreateModuleObjInstance: Boolean = True);
+    constructor Create(const mFile: string; LoadBatch: string = '';
+      CreateModuleObjInstance: Boolean = True);
     destructor Destroy; override;
-
-    property ModuleFileName: String read FModuleFileName;
+    property ModuleFileName: string read FModuleFileName;
     property ModuleType: TModuleType read GetModuleType;
-    property ModuleName: String read GetModuleName;
-
+    property ModuleName: string read GetModuleName;
     procedure ModuleNotify(Flags: Integer; Intf: IInterface; Param: Cardinal);
-    procedure ModuleInit(const LoadBatch: String);
+    procedure ModuleInit(const LoadBatch: string);
     procedure ModuleFinal;
-
     procedure Install;
     procedure UnInstall;
-
     property IsValidModule: Boolean read FValidModule;
   end;
 
-  TModuleMgr = class(TIntfObj, IModuleInfo,
-    IModuleLoader, IModuleInstaller, ISvcInfoEx)
+  TModuleMgr = class(TIntfObj, IModuleInfo, IModuleLoader, IModuleInstaller,
+    ISvcInfoEx)
   private
     SplashForm: ISplashForm;
     Tick: Cardinal;
     FModuleList: TObjectList;
-    FLoadBatch: String;
+    FLoadBatch: string;
     FNotifyService: TNotifyService;
-    procedure WriteErrFmt(const err: String; const Args: array of const);
+    procedure WriteErrFmt(const err: string; const Args: array of const);
     function FormatPath(const s: string): string;
-    procedure GetModuleList(RegIntf: IRegistry; ModuleList: TStrings;
-      const Key: String);
+    procedure GetModuleList(RegIntf: IRegistry; ModuleList: TStrings; const Key:
+      string);
     function FindModule(const ModuleFile: string): TTangramModule;
   protected
     {IModuleLoader}
     procedure LoadBegin;
     procedure LoadModuleFromFile(const ModuleFile: string);
-    procedure LoadModulesFromDir(const Dir: String = '');
+    procedure LoadModulesFromDir(const Dir: string = '');
     procedure LoadFinish;
     procedure UnLoadModule(const ModuleFile: string);
     function ModuleLoaded(const ModuleFile: string): Boolean;
@@ -77,12 +85,11 @@ type
     { ISvcInfoEx }
     procedure GetSvcInfo(Intf: ISvcInfoGetter);
     {IModuleInstaller}
-    procedure InstallModule(const ModuleFile: String);
+    procedure InstallModule(const ModuleFile: string);
     procedure UninstallModule(const ModuleFile: string);
   public
     constructor Create;
     destructor Destroy; override;
-
     procedure LoadModules;
     procedure Init;
     procedure final;
@@ -90,30 +97,42 @@ type
 
 implementation
 
-uses SysSvc, LogIntf, LoginIntf, StdVcl, AxCtrls, SysFactoryMgr,
-  SysFactory, SysFactoryEx, IniFiles, RegObj, uSvcInfoObj, SysMsg;
+uses
+  SysSvc,
+  LogIntf,
+  LoginIntf,
+  StdVcl,
+  AxCtrls,
+  SysFactoryMgr,
+  SysFactory,
+  SysFactoryEx,
+  IniFiles,
+  RegObj,
+  uSvcInfoObj,
+  SysMsg;
 
 {$WARN SYMBOL_DEPRECATED OFF}
 {$WARN SYMBOL_PLATFORM OFF}
 
 const
   Value_Module = 'Module';
-  Value_Load   = 'LOAD';
+  Value_Load = 'LOAD';
   SplashFormWaitTime = 1500;
   key_LoadModule = 'SYSTEM\LOADMODULE';
 
 function CreateRegObj(Param: Integer): TObject;
-var RegFile, IniFile, AppPath: String;
+var
+  RegFile, IniFile, AppPath: string;
   Ini: TIniFile;
 begin
   AppPath := ExtractFilePath(ParamStr(0));
   IniFile := AppPath + 'Root.ini';
-  ini := TIniFile.Create(IniFile);
+  Ini := TIniFile.Create(IniFile);
   try
-    RegFile := AppPath + ini.ReadString('Default', 'Reg', 'Tangram.xml');
+    RegFile := AppPath + Ini.ReadString('Default', 'Reg', 'Tangram.xml');
     Result := TRegObj.Create(RegFile);
   finally
-    ini.Free;
+    Ini.Free;
   end;
 end;
 
@@ -124,7 +143,7 @@ end;
 
 { TTangramModule }
 
-constructor TTangramModule.Create(const mFile: String; LoadBatch: String = '';
+constructor TTangramModule.Create(const mFile: string; LoadBatch: string = '';
   CreateModuleObjInstance: Boolean = True);
 var
   GetModuleClassPro: TGetModuleClassPro;
@@ -154,18 +173,20 @@ begin
   inherited;
 end;
 
-function TTangramModule.GetModuleName: String;
+function TTangramModule.GetModuleName: string;
 begin
   Result := ExtractFileName(FModuleFileName);
 end;
 
 function TTangramModule.GetModuleType: TModuleType;
-var ext: String;
+var
+  ext: string;
 begin
   ext := ExtractFileExt(self.FModuleFileName);
   if SameText(ext, '.bpl') then
     Result := mtBPL
-  else Result := mtDLL;
+  else
+    Result := mtDLL;
 end;
 
 function TTangramModule.LoadModule: THandle;
@@ -185,7 +206,7 @@ begin
     FModuleObj.final;
 end;
 
-procedure TTangramModule.ModuleInit(const LoadBatch: String);
+procedure TTangramModule.ModuleInit(const LoadBatch: string);
 begin
   if FModuleObj <> nil then
   begin
@@ -195,7 +216,8 @@ begin
 end;
 
 procedure TTangramModule.Install;
-var Reg: IRegistry;
+var
+  Reg: IRegistry;
 begin
   if FModuleCls <> nil then
   begin
@@ -204,14 +226,16 @@ begin
   end;
 end;
 
-procedure TTangramModule.ModuleNotify(Flags: Integer; Intf: IInterface; Param: Cardinal);
+procedure TTangramModule.ModuleNotify(Flags: Integer; Intf: IInterface; Param:
+  Cardinal);
 begin
   if FModuleObj <> nil then
     FModuleObj.Notify(Flags, Intf, Param);
 end;
 
 procedure TTangramModule.UnInstall;
-var Reg: IRegistry;
+var
+  Reg: IRegistry;
 begin
   if FModuleCls <> nil then
   begin
@@ -233,7 +257,8 @@ end;
 { TModuleMgr }
 
 procedure TModuleMgr.GetSvcInfo(Intf: ISvcInfoGetter);
-var SvrInfo: TSvcInfoRec;
+var
+  SvrInfo: TSvcInfoRec;
 begin
   SvrInfo.ModuleName := ExtractFileName(SysUtils.GetModuleName(HInstance));
   SvrInfo.GUID := GUIDToString(IModuleInfo);
@@ -245,7 +270,8 @@ begin
   SvrInfo.GUID := GUIDToString(IModuleLoader);
   SvrInfo.Title := '模块加载接口(IModuleLoader)';
   SvrInfo.Version := '20110225.001';
-  SvrInfo.Comments := '用户可以用此接口自主加载模块，不用框架默认的从注册表加载方式';
+  SvrInfo.Comments :=
+    '用户可以用此接口自主加载模块，不用框架默认的从注册表加载方式';
   Intf.SvcInfo(SvrInfo);
 
   SvrInfo.GUID := GUIDToString(IModuleInstaller);
@@ -294,12 +320,12 @@ function TModuleMgr.FormatPath(const s: string): string;
 const
   Var_AppPath = '($APP_PATH)';
 begin
-  Result := StringReplace(s, Var_AppPath, ExtractFilePath(Paramstr(0)),
-    [rfReplaceAll, rfIgnoreCase]);
+  Result := StringReplace(s, Var_AppPath, ExtractFilePath(Paramstr(0)), [rfReplaceAll,
+    rfIgnoreCase]);
 end;
 
 procedure TModuleMgr.GetModuleList(RegIntf: IRegistry; ModuleList: TStrings;
-  const Key: String);
+  const Key: string);
 var
   SubKeyList, ValueList, aList: TStrings;
   i: Integer;
@@ -416,9 +442,9 @@ end;
 procedure TModuleMgr.LoadModules;
 var
   aList: TStrings;
-  i:     Integer;
+  i: Integer;
   RegIntf: IRegistry;
-  ModuleFile: String;
+  ModuleFile: string;
 begin
   aList := TStringList.Create;
   try
@@ -430,9 +456,8 @@ begin
       ModuleFile := aList[i];
 
       if Assigned(SplashForm) then
-        SplashForm.loading(Format(Msg_LoadingModule,
-          [ExtractFileName(ModuleFile)]));
-      // 加载包
+        SplashForm.loading(Format(Msg_LoadingModule, [ExtractFileName(ModuleFile)]));
+          // 加载包
       if FileExists(ModuleFile) then
         LoadModuleFromFile(ModuleFile)
       else
@@ -454,7 +479,8 @@ begin
 end;
 
 procedure TModuleMgr.LoadBegin;
-var BatchID: TGUID;
+var
+  BatchID: TGUID;
 begin
   if CreateGUID(BatchID) = S_OK then
     self.FLoadBatch := GUIDToString(BatchID);
@@ -465,10 +491,11 @@ begin
   self.Init;
 end;
 
-procedure TModuleMgr.LoadModulesFromDir(const Dir: String);
-var DR: TSearchRec;
-  ZR:   Integer;
-  TmpPath, FileExt, FullFileName: String;
+procedure TModuleMgr.LoadModulesFromDir(const Dir: string);
+var
+  DR: TSearchRec;
+  ZR: Integer;
+  TmpPath, FileExt, FullFileName: string;
 begin
   if Dir = '' then
     TmpPath := ExtractFilePath(ParamStr(0))
@@ -476,38 +503,39 @@ begin
   begin
     if RightStr(Dir, 1) = '\' then
       TmpPath := Dir
-    else tmpPath := Dir + '\';
+    else
+      TmpPath := Dir + '\';
   end;
   ZR := SysUtils.FindFirst(TmpPath + '*.*', FaAnyfile, DR);
   try
     while ZR = 0 do
     begin
-      if ((DR.Attr and FaDirectory <> FaDirectory)
-        and (DR.Attr and FaVolumeID <> FaVolumeID))
-        and (DR.Name <> '.') and (DR.Name <> '..') then
+      if ((DR.Attr and FaDirectory <> FaDirectory) and (DR.Attr and FaVolumeID
+        <> FaVolumeID)) and (DR.Name <> '.') and (DR.Name <> '..') then
       begin
-        FullFileName := tmpPath + DR.Name;
+        FullFileName := TmpPath + DR.Name;
         FileExt := ExtractFileExt(FullFileName);
 
-        if SameText(FileExt, '.dll') or
-          SameText(FileExt, '.bpl') then
+        if SameText(FileExt, '.dll') or SameText(FileExt, '.bpl') then
           self.LoadModuleFromFile(FullFileName);
       end;
       ZR := SysUtils.FindNext(DR);
-    end;//end while
+    end; //end while
   finally
     SysUtils.FindClose(DR);
   end;
 end;
 
 procedure TModuleMgr.LoadModuleFromFile(const ModuleFile: string);
-var Module: TTangramModule;
+var
+  Module: TTangramModule;
 begin
   try
     Module := TTangramModule.Create(ModuleFile, self.FLoadBatch);
     if Module.IsValidModule then
       FModuleList.Add(Module)
-    else Module.Free;
+    else
+      Module.Free;
   except
     on E: Exception do
     begin
@@ -517,9 +545,10 @@ begin
 end;
 
 procedure TModuleMgr.UnLoadModule(const moduleFile: string);
-var Module: TTangramModule;
+var
+  Module: TTangramModule;
 begin
-  Module := self.FindModule(ModuleFile);
+  Module := self.FindModule(moduleFile);
   if Module <> nil then
     FModuleList.Remove(Module);
 end;
@@ -543,8 +572,7 @@ begin
   FactoryManager.ReleaseIntf;
 end;
 
-procedure TModuleMgr.WriteErrFmt(const err: String;
-  const Args: array of const);
+procedure TModuleMgr.WriteErrFmt(const err: string; const Args: array of const);
 var
   Log: ILog;
 begin
@@ -552,8 +580,9 @@ begin
     Log.WriteLogFmt(err, Args);
 end;
 
-procedure TModuleMgr.InstallModule(const ModuleFile: String);
-var Module: TTangramModule;
+procedure TModuleMgr.InstallModule(const ModuleFile: string);
+var
+  Module: TTangramModule;
 begin
   Module := self.FindModule(ModuleFile);
   if Module = nil then
@@ -571,7 +600,8 @@ begin
 end;
 
 procedure TModuleMgr.UninstallModule(const ModuleFile: string);
-var Module: TTangramModule;
+var
+  Module: TTangramModule;
 begin
   Module := self.FindModule(ModuleFile);
   if Module = nil then
@@ -593,3 +623,4 @@ initialization
 finalization
 
 end.
+

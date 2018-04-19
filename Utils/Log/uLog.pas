@@ -8,7 +8,11 @@ unit uLog;
 
 interface
 
-uses SysUtils, DateUtils, LogIntf, SvcInfoIntf;
+uses
+  SysUtils,
+  DateUtils,
+  LogIntf,
+  SvcInfoIntf;
 
 type
   TLogObj = class(TInterfacedObject, ILog, ISvcInfo)
@@ -16,14 +20,14 @@ type
     procedure WriteToFile(const Msg: string);
   protected
     {ILog}
-    procedure WriteLog(const Str: String);
-    procedure WriteLogFmt(const Str: String; const Args: array of const);
-    function GetLogFileName: String;
+    procedure WriteLog(const Str: string);
+    procedure WriteLogFmt(const Str: string; const Args: array of const);
+    function GetLogFileName: string;
     {ISvcInfo}
-    function GetModuleName: String;
-    function GetTitle: String;
-    function GetVersion: String;
-    function GetComments: String;
+    function GetModuleName: string;
+    function GetTitle: string;
+    function GetVersion: string;
+    function GetComments: string;
   public
     constructor Create;
     destructor Destroy; override;
@@ -31,12 +35,15 @@ type
 
 implementation
 
-uses SysSvc, SysFactory;
+uses
+  SysSvc,
+  SysFactory;
 
 { TLogObj }
 
-function TLogObj.GetLogFileName: String;
-var Logpath: String;
+function TLogObj.GetLogFileName: string;
+var
+  Logpath: string;
 begin
   Logpath := ExtractFilePath(ParamStr(0)) + 'Logs\';
   if not DirectoryExists(Logpath) then
@@ -56,48 +63,50 @@ begin
   inherited;
 end;
 
-function TLogObj.GetComments: String;
+function TLogObj.GetComments: string;
 begin
   Result := '封装日志相关操作';
 end;
 
-function TLogObj.GetModuleName: String;
+function TLogObj.GetModuleName: string;
 begin
   Result := ExtractFileName(SysUtils.GetModuleName(HInstance));
 end;
 
-function TLogObj.GetTitle: String;
+function TLogObj.GetTitle: string;
 begin
   Result := '日志接口(ILog)';
 end;
 
-function TLogObj.GetVersion: String;
+function TLogObj.GetVersion: string;
 begin
   Result := '20110417.002';
 end;
 
-procedure TLogObj.WriteLog(const Str: String);
+procedure TLogObj.WriteLog(const Str: string);
 begin
   WriteToFile(Str);
 end;
 
-procedure TLogObj.WriteLogFmt(const Str: String; const Args: array of const);
+procedure TLogObj.WriteLogFmt(const Str: string; const Args: array of const);
 begin
   WriteToFile(Format(Str, Args));
 end;
 
 procedure TLogObj.WriteToFile(const Msg: string);
-var FileName: String;
+var
+  FileName: string;
   FileHandle: TextFile;
 begin
   FileName := GetLogFileName;
-  assignfile(FileHandle, FileName);
+  AssignFile(FileHandle, FileName);
   try
     if FileExists(FileName) then
-      append(FileHandle)//Reset(FileHandle)
-    else ReWrite(FileHandle);
+      Append(FileHandle)//Reset(FileHandle)
+    else
+      Rewrite(FileHandle);
 
-    WriteLn(FileHandle, FormatDateTime('[HH:MM:SS]', now) + '  ' + Msg);
+    Writeln(FileHandle, FormatDateTime('[HH:MM:SS]', Now) + '  ' + Msg);
   finally
     CloseFile(FileHandle);
   end;
@@ -110,6 +119,8 @@ end;
 
 initialization
   TIntfFactory.Create(ILog, @Create_LogObj);
+
 finalization
 
 end.
+

@@ -8,7 +8,12 @@ unit EncdDecdObj;
 
 interface
 
-uses SysUtils, Classes, Windows, EncdDecdIntf, SvcInfoIntf;
+uses
+  SysUtils,
+  Classes,
+  Windows,
+  EncdDecdIntf,
+  SvcInfoIntf;
 
 type
   TEncdDecdObj = class(TInterfacedObject, IEncdDecd, ISvcInfo)
@@ -18,35 +23,45 @@ type
     function Encrypt(const Key, SrcStr: string): string;
     function Decrypt(const Key, SrcStr: string): string;
     function MD5(const Input: string): string;
-
     procedure Base64EncodeStream(Input, Output: TStream);
     procedure Base64DecodeStream(Input, Output: TStream);
     function Base64EncodeString(const Input: string): string;
     function Base64DecodeString(const Input: string): string;
     {ISvcInfo}
-    function GetModuleName: String;
-    function GetTitle: String;
-    function GetVersion: String;
-    function GetComments: String;
+    function GetModuleName: string;
+    function GetTitle: string;
+    function GetVersion: string;
+    function GetComments: string;
   public
   end;
 
 implementation
 
-uses SysFactory, Base64EncdDecd;
+uses
+  SysFactory,
+  Base64EncdDecd;
 
 const
   EncryptDefaultKey = 'aAbcDe*1';
   ADVAPI32 = 'advapi32.dll';
-function CryptAcquireContext(phProv: PULONG; pszContainer: PAnsiChar; pszProvider: PAnsiChar;
-  dwProvType: DWORD; dwFlags: DWORD): BOOL; stdcall; external ADVAPI32 name 'CryptAcquireContextA';
-function CryptCreateHash(hProv: ULONG; Algid: ULONG; hKey: ULONG; dwFlags: DWORD; phHash: PULONG): BOOL;
-  stdcall; external ADVAPI32 name 'CryptCreateHash';
-function CryptHashData(hHash: ULONG; const pbData: PBYTE; dwDataLen: DWORD; dwFlags: DWORD): BOOL;
-  stdcall; external ADVAPI32 name 'CryptHashData';
-function CryptGetHashParam(hHash: ULONG; dwParam: DWORD; pbData: PBYTE; pdwDataLen: PDWORD; dwFlags: DWORD): BOOL;
-  stdcall; external ADVAPI32 name 'CryptGetHashParam';
-function CryptDestroyHash(hHash: ULONG): BOOL; stdcall; external ADVAPI32 name 'CryptDestroyHash';
+
+function CryptAcquireContext(phProv: PULONG; pszContainer: PAnsiChar;
+  pszProvider: PAnsiChar; dwProvType: DWORD; dwFlags: DWORD): BOOL; stdcall;
+  external ADVAPI32 name 'CryptAcquireContextA';
+
+function CryptCreateHash(hProv: ULONG; Algid: ULONG; hKey: ULONG; dwFlags: DWORD;
+  phHash: PULONG): BOOL; stdcall; external ADVAPI32 name 'CryptCreateHash';
+
+function CryptHashData(hHash: ULONG; const pbData: PByte; dwDataLen: DWORD;
+  dwFlags: DWORD): BOOL; stdcall; external ADVAPI32 name 'CryptHashData';
+
+function CryptGetHashParam(hHash: ULONG; dwParam: DWORD; pbData: PByte;
+  pdwDataLen: PDWORD; dwFlags: DWORD): BOOL; stdcall; external ADVAPI32 name
+  'CryptGetHashParam';
+
+function CryptDestroyHash(hHash: ULONG): BOOL; stdcall; external ADVAPI32 name
+  'CryptDestroyHash';
+
 function CryptReleaseContext(hProv: ULONG; dwFlags: DWORD): BOOL; stdcall;
   external ADVAPI32 name 'CryptReleaseContext';
 
@@ -60,27 +75,30 @@ var
   keyStr, dest: string;
   SrcPos: Integer;
   SrcAsc: Integer;
-  Range:  Integer;
+  Range: Integer;
 begin
   if Key = '' then
     keyStr := EncryptDefaultKey
-  else keyStr := Key;
+  else
+    keyStr := Key;
   KeyLen := Length(keyStr);
   KeyPos := 0;
   Range := $FFFF + 1;
   Randomize;
   offset := Random(Range);
-  dest := format('%1.4x', [offset]);
+  dest := Format('%1.4x', [offset]);
   for SrcPos := 1 to Length(SrcStr) do
   begin
     SrcAsc := (Ord(SrcStr[SrcPos]) + offset) mod $FFFF;
     if KeyPos < KeyLen then
-      KeyPos := KeyPos + 1 else KeyPos := 1;
+      KeyPos := KeyPos + 1
+    else
+      KeyPos := 1;
     SrcAsc := SrcAsc xor Ord(keyStr[KeyPos]);
-    dest := dest + format('%1.4x', [SrcAsc]);
+    dest := dest + Format('%1.4x', [SrcAsc]);
     offset := SrcAsc;
   end;
-  Result := Dest;
+  Result := dest;
 end;
 
 function TEncdDecdObj.Decrypt(const Key, SrcStr: string): string;
@@ -94,32 +112,36 @@ var
   TmpSrcAsc: Integer;
 begin
   if SrcStr = '' then
-    exit;
+    Exit;
   if Key = '' then
     keyStr := EncryptDefaultKey
-  else keyStr := Key;
+  else
+    keyStr := Key;
   KeyLen := Length(keyStr);
   KeyPos := 0;
-  offset := StrToInt('$' + copy(SrcStr, 1, 4));
+  offset := StrToInt('$' + Copy(SrcStr, 1, 4));
   SrcPos := 5;
-  if copy(SrcStr, SrcPos, 2) <> '' then
+  if Copy(SrcStr, SrcPos, 2) <> '' then
   begin
     repeat
-      SrcAsc := StrToInt('$' + copy(SrcStr, SrcPos, 4));
+      SrcAsc := StrToInt('$' + Copy(SrcStr, SrcPos, 4));
       if KeyPos < KeyLen then
-        KeyPos := KeyPos + 1 else KeyPos := 1;
+        KeyPos := KeyPos + 1
+      else
+        KeyPos := 1;
       TmpSrcAsc := SrcAsc xor Ord(keyStr[KeyPos]);
       if TmpSrcAsc <= offset then
         TmpSrcAsc := $FFFF + TmpSrcAsc - offset
       else
         TmpSrcAsc := TmpSrcAsc - offset;
-      dest := dest + chr(TmpSrcAsc);
-      offset := srcAsc;
+      dest := dest + Chr(TmpSrcAsc);
+      offset := SrcAsc;
       SrcPos := SrcPos + 4;
     until SrcPos >= Length(SrcStr);
-    Result := Dest;
+    Result := dest;
   end
-  else Result := '';
+  else
+    Result := '';
 end;
 
 function TEncdDecdObj.MD5(const Input: string): string;
@@ -131,19 +153,20 @@ const
   ALG_CLASS_HASH = (4 shl 13);
   ALG_TYPE_ANY = 0;
   ALG_SID_MD5 = 3;
-  CALG_MD5   = (ALG_CLASS_HASH or ALG_TYPE_ANY or ALG_SID_MD5);
+  CALG_MD5 = (ALG_CLASS_HASH or ALG_TYPE_ANY or ALG_SID_MD5);
 var
   hCryptProvider: ULONG;
   hHash: ULONG;
   bHash: array[0..$7F] of Byte;
   dwHashLen: DWORD;
   pbContent: PByte;
-  I:     Integer;
+  I: Integer;
 begin
   dwHashLen := 16;
   pbContent := Pointer(PChar(Input));
   Result := '';
-  if CryptAcquireContext(@hCryptProvider, nil, nil, PROV_RSA_FULL, CRYPT_VERIFYCONTEXT or CRYPT_MACHINE_KEYSET) then
+  if CryptAcquireContext(@hCryptProvider, nil, nil, PROV_RSA_FULL,
+    CRYPT_VERIFYCONTEXT or CRYPT_MACHINE_KEYSET) then
   begin
     if CryptCreateHash(hCryptProvider, CALG_MD5, 0, 0, @hHash) then
     begin
@@ -167,22 +190,22 @@ begin
   Result := TEncdDecdObj.Create;
 end;
 
-function TEncdDecdObj.GetComments: String;
+function TEncdDecdObj.GetComments: string;
 begin
   Result := '封装常用的加解密函数';
 end;
 
-function TEncdDecdObj.GetModuleName: String;
+function TEncdDecdObj.GetModuleName: string;
 begin
   Result := ExtractFileName(SysUtils.GetModuleName(HInstance));
 end;
 
-function TEncdDecdObj.GetTitle: String;
+function TEncdDecdObj.GetTitle: string;
 begin
   Result := '加解密接口(IEncdDecd)';
 end;
 
-function TEncdDecdObj.GetVersion: String;
+function TEncdDecdObj.GetVersion: string;
 begin
   Result := '20100421.001';
 end;
@@ -209,6 +232,8 @@ end;
 
 initialization
   TIntfFactory.Create(IEncdDecd, @Create_EncdDecdObj);
+
 finalization
 
 end.
+

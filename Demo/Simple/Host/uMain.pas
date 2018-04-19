@@ -3,8 +3,8 @@ unit uMain;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, uIntf, StdCtrls;
+  Windows, Messages, SysUtils, Variants, Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms,
+  Vcl.Dialogs, uIntf, Vcl.StdCtrls;
 
 type
   TFrmMain = class(TForm, IIntf1)

@@ -6,18 +6,20 @@
 -------------------------------------}
 unit AuthoritySvrIntf;
 {$weakpackageunit on}
+
 interface
 
 type
   IAuthorityRegistrar = interface
     ['{F2A8A69F-70C2-4086-B167-18C1C1761E54}']
-    procedure RegAuthorityItem(const Key, Path, aItemName: string; Default: Boolean = False);
+    procedure RegAuthorityItem(const Key, Path, aItemName: string; Default:
+      Boolean = False);
   end;
 
   IAuthorityCtrl = interface
     ['{44BB7145-9CF1-4C51-A567-25415801921D}']
     procedure RegAuthority(aIntf: IAuthorityRegistrar);
-    procedure HandleAuthority(const Key: String; aEnable: Boolean);
+    procedure HandleAuthority(const Key: string; aEnable: Boolean);
   end;
 
   IAuthoritySvr = interface
@@ -30,3 +32,4 @@ type
 implementation
 
 end.
+

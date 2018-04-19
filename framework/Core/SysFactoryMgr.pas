@@ -8,7 +8,14 @@ unit SysFactoryMgr;
 
 interface
 
-uses SysUtils, Classes, FactoryIntf, SvcInfoIntf, uHashList, uIntfObj;
+uses
+  System.Types,
+  SysUtils,
+  Classes,
+  FactoryIntf,
+  SvcInfoIntf,
+  uIntfObj,
+  System.Generics.Collections;
 
 type
   TSysFactoryList = class(TObject)
@@ -17,11 +24,9 @@ type
     function GetItems(Index: integer): TFactory;
     function GetCount: Integer;
   protected
-
   public
     constructor Create;
     destructor Destroy; override;
-
     function Add(aFactory: TFactory): integer;
     function IndexOf(const IntfName: string): Integer;
     function GetFactory(const IntfName: string): TFactory;
@@ -34,11 +39,11 @@ type
   TSysFactoryManager = class(TIntfObj, IEnumKey)
   private
     FSysFactoryList: TSysFactoryList;
-    FIndexList: ThashList;
+    FIndexList: TDictionary<string, Pointer>;
     FKeyList: TStrings;
   protected
     {IEnumKey}
-    procedure EnumKey(const IntfName: String);
+    procedure EnumKey(const IntfName: string);
   public
     procedure RegisterFactory(aIntfFactory: TFactory);
     procedure UnRegisterFactory(aFactory: TFactory); overload;
@@ -46,7 +51,6 @@ type
     property FactoryList: TSysFactoryList read FSysFactoryList;
     function Exists(const IntfName: string): Boolean;
     procedure ReleaseIntf;
-
     constructor Create;
     destructor Destroy; override;
   end;
@@ -58,9 +62,11 @@ function FactoryManager: TSysFactoryManager;
 
 implementation
 
-uses SysMsg;
+uses
+  SysMsg;
 
-var FFactoryManager: TSysFactoryManager;
+var
+  FFactoryManager: TSysFactoryManager;
 
 function FactoryManager: TSysFactoryManager;
 begin
@@ -84,7 +90,8 @@ begin
 end;
 
 destructor TSysFactoryList.Destroy;
-var i: Integer;
+var
+  i: Integer;
 begin
   for i := Flist.Count - 1 downto 0 do
     TObject(FList[i]).Free;
@@ -144,7 +151,7 @@ end;
 constructor TSysFactoryManager.Create;
 begin
   FSysFactoryList := TSysFactoryList.Create;
-  FIndexList := THashList.Create(256);
+  FIndexList := TDictionary<string, Pointer>.Create;
   FKeyList := TStringList.Create;
 end;
 
@@ -162,10 +169,12 @@ begin
 end;
 
 function TSysFactoryManager.FindFactory(const IntfName: string): TFactory;
-var PFactory: Pointer;
+var
+  PFactory: Pointer;
 begin
   Result := nil;
-  PFactory := FIndexList.ValueOf(IntfName);
+  if not FIndexList.TryGetValue(IntfName, PFactory) then
+    PFactory := nil;
   if PFactory <> nil then
     Result := TFactory(PFactory)
   else
@@ -182,8 +191,9 @@ begin
 end;
 
 procedure TSysFactoryManager.RegisterFactory(aIntfFactory: TFactory);
-var i: Integer;
-  IntfName: String;
+var
+  i: Integer;
+  IntfName: string;
 begin
   FSysFactoryList.Add(aIntfFactory);
 
@@ -199,13 +209,14 @@ begin
 end;
 
 procedure TSysFactoryManager.ReleaseIntf;
-var i: Integer;
+var
+  i: Integer;
 begin
-  for I := 0 to self.FSysFactoryList.Count - 1 do
+  for i := 0 to self.FSysFactoryList.Count - 1 do
     self.FSysFactoryList.Items[i].ReleaseIntf;
 end;
 
-procedure TSysFactoryManager.EnumKey(const IntfName: String);
+procedure TSysFactoryManager.EnumKey(const IntfName: string);
 begin
   self.FIndexList.Remove(IntfName);
 end;
@@ -222,6 +233,9 @@ end;
 
 initialization
   FFactoryManager := nil;
+
 finalization
   FFactoryManager.Free;
+
 end.
+

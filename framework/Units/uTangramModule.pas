@@ -1,33 +1,42 @@
 {------------------------------------
-  功能说明：模块导出单元
+  功能说明：模块导出单元 给ConfigTool.exe提供接口
   创建日期：2011.01.04
   作者：wei
   版权：wei
 -------------------------------------}
 unit uTangramModule;
 {$weakpackageunit on}
+
 interface
 
-uses SysUtils, RegIntf, SysModule;
+uses
+  SysUtils,
+  RegIntf,
+  SysModule;
 
 procedure InstallModule(Reg: IRegistry);
+
 procedure UnInstallModule(Reg: IRegistry);
 
 function GetModuleClass: TModuleClass;
 /////////////////////////////////////////////////////////////
+
 procedure RegisterModuleClass(ModuleClass: TModuleClass);
-procedure DefaultRegisterModule(Reg: IRegistry; const InstallKey: string; load: Boolean = True);
-procedure DefaultUnRegisterModule(Reg: IRegistry; const InstallKey: String);
+
+procedure DefaultRegisterModule(Reg: IRegistry; const InstallKey: string; load:
+  Boolean = True);
+
+procedure DefaultUnRegisterModule(Reg: IRegistry; const InstallKey: string);
 
 exports
   InstallModule,
   UnInstallModule,
   GetModuleClass;
 
-
 implementation
 
-var FModuleClass: TModuleClass;
+var
+  FModuleClass: TModuleClass;
 
 procedure RegisterModuleClass(ModuleClass: TModuleClass);
 begin
@@ -35,9 +44,12 @@ begin
   FModuleClass := ModuleClass;
 end;
 
-procedure DefaultRegisterModule(Reg: IRegistry; const InstallKey: string; load: Boolean);
-const ValueKey = 'Module=%s;load=%s';
-var ModuleFullName, ModuleName, Value: String;
+procedure DefaultRegisterModule(Reg: IRegistry; const InstallKey: string; load:
+  Boolean);
+const
+  ValueKey = 'Module=%s;load=%s';
+var
+  ModuleFullName, ModuleName, Value: string;
 begin
   if Reg = nil then
     exit;
@@ -51,8 +63,9 @@ begin
   end;
 end;
 
-procedure DefaultUnRegisterModule(Reg: IRegistry; const InstallKey: String);
-var ModuleName: String;
+procedure DefaultUnRegisterModule(Reg: IRegistry; const InstallKey: string);
+var
+  ModuleName: string;
 begin
   if Reg = nil then
     exit;
@@ -87,3 +100,4 @@ end;
 //finalization
 
 end.
+

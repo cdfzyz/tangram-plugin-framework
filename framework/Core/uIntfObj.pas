@@ -12,7 +12,6 @@ interface
 type
   TIntfObj = class(TObject, IInterface)
   private
-
   protected
     {IInterface}
     function QueryInterface(const IID: TGUID; out Obj): HResult; stdcall;
@@ -20,6 +19,7 @@ type
     function _Release: Integer; stdcall;
   public
   end;
+
 implementation
 
 { TIntfObj }
@@ -43,3 +43,4 @@ begin
 end;
 
 end.
+

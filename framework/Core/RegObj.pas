@@ -10,7 +10,7 @@ unit RegObj;
 interface
 
 uses SysUtils, Classes, RegIntf, XMLDoc, XMLIntf, Variants, ActiveX,
-  SvcInfoIntf, MenuRegIntf;
+  SvcInfoIntf, MenuRegIntf, qxml;
 
 type
   TRegObj = class(TInterfacedObject, IRegistry, ISvcInfo,

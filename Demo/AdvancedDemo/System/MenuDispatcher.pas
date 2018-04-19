@@ -8,12 +8,21 @@ unit MenuDispatcher;
 
 interface
 
-uses SysUtils, Classes, Graphics, ComCtrls, Menus, Contnrs, MenuEventBinderIntf,
-  SvcInfoIntf, RegIntf, MainFormIntf;
+uses
+  SysUtils,
+  Classes,
+  Graphics,
+  ComCtrls,
+  Menus,
+  Contnrs,
+  MenuEventBinderIntf,
+  SvcInfoIntf,
+  RegIntf,
+  MainFormIntf;
 
 type
   TItem = class(TObject)
-    Key: String;
+    Key: string;
     Obj: TObject;
     Event: TNotifyEvent;
   end;
@@ -30,13 +39,14 @@ type
     function _AddRef: Integer; stdcall;
     function _Release: Integer; stdcall;
     {IMenuEventBinder}
-    procedure RegMenuEvent(const Key: String; MenuClick: TNotifyEvent);
-    procedure RegToolEvent(const Key: String; ToolClick: TNotifyEvent; Img: TGraphic);
+    procedure RegMenuEvent(const Key: string; MenuClick: TNotifyEvent);
+    procedure RegToolEvent(const Key: string; ToolClick: TNotifyEvent; Img:
+      TGraphic);
     {ISvcInfo}
-    function GetModuleName: String;
-    function GetTitle: String;
-    function GetVersion: String;
-    function GetComments: String;
+    function GetModuleName: string;
+    function GetTitle: string;
+    function GetVersion: string;
+    function GetComments: string;
   public
     constructor Create;
     destructor Destroy; override;
@@ -44,35 +54,39 @@ type
 
 implementation
 
-uses SysSvc, SysFactory;//SplashFormIntf
+uses
+  SysSvc,
+  SysFactory; //SplashFormIntf
 
-const MenuKey = 'SYSTEM\MENU';
-  ToolKey     = 'SYSTEM\TOOL';
+const
+  MenuKey = 'SYSTEM\MENU';
+  ToolKey = 'SYSTEM\TOOL';
 { TMenuDispatcher }
 
-function TMenuDispatcher.GetComments: String;
+function TMenuDispatcher.GetComments: string;
 begin
   Result := '可以给菜单或工具栏按扭绑定事件。';
 end;
 
-function TMenuDispatcher.GetModuleName: String;
+function TMenuDispatcher.GetModuleName: string;
 begin
   Result := ExtractFileName(SysUtils.GetModuleName(HInstance));
 end;
 
-function TMenuDispatcher.GetTitle: String;
+function TMenuDispatcher.GetTitle: string;
 begin
   Result := '菜单事件绑定接口(IMenuEventBinder)';
 end;
 
-function TMenuDispatcher.GetVersion: String;
+function TMenuDispatcher.GetVersion: string;
 begin
   Result := '20100423.001';
 end;
 
-procedure TMenuDispatcher.RegMenuEvent(const Key: String;
-  MenuClick: TNotifyEvent);
-var i: Integer;
+procedure TMenuDispatcher.RegMenuEvent(const Key: string; MenuClick:
+  TNotifyEvent);
+var
+  i: Integer;
   aItem: TItem;
 begin
   for i := 0 to FList.Count - 1 do
@@ -102,12 +116,13 @@ begin
 end;
 
 procedure TMenuDispatcher.CreateMenu;
-var Reg: IRegistry;
+var
+  Reg: IRegistry;
   aList: TStrings;
-  i:     Integer;
+  i: Integer;
   aItem: TItem;
   vName: string;
-  vStr:  WideString;
+  vStr: WideString;
   MainForm: IMainForm;
 begin
   if SysService.QueryInterface(IRegistry, Reg) = S_OK then
@@ -139,7 +154,8 @@ begin
 end;
 
 procedure TMenuDispatcher.OnClick(Sender: TObject);
-var i: Integer;
+var
+  i: Integer;
   aItem: TItem;
 begin
   for i := 0 to FList.Count - 1 do
@@ -153,9 +169,10 @@ begin
   end;
 end;
 
-procedure TMenuDispatcher.RegToolEvent(const Key: String;
-  ToolClick: TNotifyEvent; Img: TGraphic);
-var i: Integer;
+procedure TMenuDispatcher.RegToolEvent(const Key: string; ToolClick:
+  TNotifyEvent; Img: TGraphic);
+var
+  i: Integer;
   aItem: TItem;
   ImgIndex: Integer;
 begin
@@ -177,12 +194,13 @@ begin
 end;
 
 procedure TMenuDispatcher.CreateTool;
-var Reg: IRegistry;
+var
+  Reg: IRegistry;
   aList, vList: TStrings;
-  i:     Integer;
+  i: Integer;
   aItem: TItem;
   vName, aStr: string;
-  vStr:  WideString;
+  vStr: WideString;
   MainForm: IMainForm;
 begin
   if SysService.QueryInterface(IRegistry, Reg) = S_OK then
@@ -204,8 +222,9 @@ begin
             ExtractStrings([','], [], pchar(aStr), vList);
             aItem := TItem.Create;
             aItem.Key := vName;
-            aItem.Obj := MainForm.CreateToolButton(vList.Values['Caption'], self.OnClick, vList.Values['Hint']);
-            //if TToolButton(aItem.Obj).Caption<>'' then//不是分隔线就先不显示,等绑定事件再显示
+            aItem.Obj := MainForm.CreateToolButton(vList.Values['Caption'], self.OnClick,
+              vList.Values['Hint']);
+              //if TToolButton(aItem.Obj).Caption<>'' then//不是分隔线就先不显示,等绑定事件再显示
             //  TToolButton(aItem.Obj).Visible:=False
             //else TToolButton(aItem.Obj).Width:=8;
             aItem.Event := nil;
@@ -230,8 +249,7 @@ begin
   Result := -1;
 end;
 
-function TMenuDispatcher.QueryInterface(const IID: TGUID;
-  out Obj): HResult;
+function TMenuDispatcher.QueryInterface(const IID: TGUID; out Obj): HResult;
 begin
   if GetInterface(IID, Obj) then
     Result := 0
@@ -244,3 +262,4 @@ initialization
 finalization
 
 end.
+

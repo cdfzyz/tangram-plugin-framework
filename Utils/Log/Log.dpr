@@ -4,7 +4,9 @@ library Log;
 
 uses
   uLogModule in 'uLogModule.pas',
-  uLog in 'uLog.pas';
+  uLog in 'uLog.pas',
+  CnDebug in 'CnDebug.pas';
 
 begin
 end.
+

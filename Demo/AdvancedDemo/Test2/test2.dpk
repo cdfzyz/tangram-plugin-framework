@@ -1,10 +1,11 @@
 package test2;
 
 {$R *.res}
+{$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
 {$ALIGN 8}
 {$ASSERTIONS ON}
 {$BOOLEVAL OFF}
-{$DEBUGINFO ON}
+{$DEBUGINFO OFF}
 {$EXTENDEDSYNTAX ON}
 {$IMPORTEDDATA ON}
 {$IOCHECKS ON}
@@ -22,6 +23,7 @@ package test2;
 {$WRITEABLECONST OFF}
 {$MINENUMSIZE 1}
 {$IMAGEBASE $400000}
+{$ENDIF IMPLICITBUILDING}
 {$DESCRIPTION '²âÊÔ°ü'}
 {$RUNONLY}
 {$IMPLICITBUILD OFF}
@@ -38,7 +40,6 @@ requires
 contains
   Test2FrameUnit in 'Test2FrameUnit.pas' {Frame2: TFrame},
   Test2Form2 in 'Test2Form2.pas' {Form3},
-  _Sys in '..\¹«¹²\_Sys.pas',
   Test2Plugin in 'Test2Plugin.pas',
   Test2DB in 'Test2DB.pas' {FrmTestDB},
   Test2FrameDB in 'Test2FrameDB.pas' {Frame3: TFrame},

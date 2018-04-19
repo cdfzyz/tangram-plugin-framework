@@ -6,10 +6,19 @@
 -------------------------------------}
 unit _Sys;
 {$weakpackageunit on}
+
 interface
 
-uses SysUtils, Classes, SysSvc, SysInfoIntf, DialogIntf, MainFormIntf, LogIntf,
-  DBIntf, EncdDecdIntf;
+uses
+  SysUtils,
+  Classes,
+  SysSvc,
+  SysInfoIntf,
+  DialogIntf,
+  MainFormIntf,
+  LogIntf,
+  DBIntf,
+  EncdDecdIntf;
 
 type
   ISysSvcHelper = interface
@@ -23,7 +32,6 @@ type
 
   TSysSvcHelper = class(TInterfacedObject, ISysSvcHelper)
   private
-
   public
     function SysInfo: ISysInfo;
     function Dialogs: IDialog;
@@ -36,7 +44,8 @@ function Sys: ISysSvcHelper;
 
 implementation
 
-const ERR_IntfNotFound = '找不到%s接口！';
+const
+  ERR_IntfNotFound = '找不到%s接口！';
 
 procedure RiaseIntfNotFoundErr(IID: TGUID);
 begin
@@ -80,4 +89,5 @@ begin
     RiaseIntfNotFoundErr(ISysInfo);
 end;
 
-end. 
+end.
+

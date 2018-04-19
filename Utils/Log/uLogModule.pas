@@ -2,7 +2,12 @@ unit uLogModule;
 
 interface
 
-uses SysUtils, Classes, uTangramModule, SysModule, RegIntf;
+uses
+  SysUtils,
+  Classes,
+  uTangramModule,
+  SysModule,
+  RegIntf;
 
 type
   TUserModule = class(TModule)
@@ -10,18 +15,17 @@ type
   public
     constructor Create; override;
     destructor Destroy; override;
-
     procedure Init; override;
     procedure final; override;
     procedure Notify(Flags: Integer; Intf: IInterface; Param: Integer); override;
-
     class procedure RegisterModule(Reg: IRegistry); override;
     class procedure UnRegisterModule(Reg: IRegistry); override;
   end;
 
 implementation
 
-uses SysSvc;
+uses
+  SysSvc;
 
 const
   InstallKey = 'SYSTEM\LOADMODULE';
@@ -72,6 +76,8 @@ end;
 
 initialization
   RegisterModuleClass(TUserModule);
+
 finalization
 
 end.
+

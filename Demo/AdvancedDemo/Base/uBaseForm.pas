@@ -9,8 +9,18 @@ unit uBaseForm;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, _sys, StdCtrls, AuthoritySvrIntf;
+  Windows,
+  Messages,
+  SysUtils,
+  Variants,
+  Classes,
+  Graphics,
+  Controls,
+  Forms,
+  Dialogs,
+  _Sys,
+  StdCtrls,
+  AuthoritySvrIntf;
 
 type
   TBaseForm = class(TForm, IAuthorityCtrl)
@@ -21,30 +31,30 @@ type
     class procedure RegAuthority(aIntf: IAuthorityRegistrar); virtual;
     {IAuthorityCtrl}
     procedure IAuthorityCtrl.RegAuthority = Intf_RegAuthority;
-    procedure HandleAuthority(const Key: String; aEnable: Boolean); virtual;
+    procedure HandleAuthority(const Key: string; aEnable: Boolean); virtual;
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
-    class procedure RegistryAuthority;//注册权限
+    class procedure RegistryAuthority; //注册权限
   end;
 
   TRegAuthorityPro = procedure(aIntf: IAuthorityRegistrar) of object;
+
   TAuthorityReg = class(TInterfacedObject, IAuthorityCtrl)
   private
     FRegAuthorityPro: TRegAuthorityPro;
   protected
     {IAuthorityCtrl}
     procedure RegAuthority(aIntf: IAuthorityRegistrar);
-    procedure HandleAuthority(const Key: String; aEnable: Boolean);
+    procedure HandleAuthority(const Key: string; aEnable: Boolean);
   public
     constructor Create(RegAuthorityPro: TRegAuthorityPro);
   end;
-var
-  BaseForm: TBaseForm;
 
 implementation
 
-uses SysSvc;
+uses
+  SysSvc;
 
 {$R *.dfm}
 
@@ -63,20 +73,21 @@ begin
 end;
 
 procedure TBaseForm.DoHandleAuthority;
-var AuthoritySvr: IAuthoritySvr;
+var
+  AuthoritySvr: IAuthoritySvr;
 begin
   if SysService.QueryInterface(IAuthoritySvr, AuthoritySvr) = S_OK then
-    AuthoritySvr.AuthorityCtrl(self);
+    AuthoritySvr.AuthorityCtrl(Self);
 end;
 
-procedure TBaseForm.HandleAuthority(const Key: String; aEnable: Boolean);
+procedure TBaseForm.HandleAuthority(const Key: string; aEnable: Boolean);
 begin
 
 end;
 
 procedure TBaseForm.Intf_RegAuthority(aIntf: IAuthorityRegistrar);
 begin
-  self.RegAuthority(aIntf);
+  Self.RegAuthority(aIntf);
 end;
 
 class procedure TBaseForm.RegAuthority(aIntf: IAuthorityRegistrar);
@@ -85,10 +96,11 @@ begin
 end;
 
 class procedure TBaseForm.RegistryAuthority;
-var AuthoritySvr: IAuthoritySvr;
+var
+  AuthoritySvr: IAuthoritySvr;
 begin
   if SysService.QueryInterface(IAuthoritySvr, AuthoritySvr) = S_OK then
-    AuthoritySvr.RegAuthority(TAuthorityReg.Create(self.RegAuthority));
+    AuthoritySvr.RegAuthority(TAuthorityReg.Create(Self.RegAuthority));
 end;
 
 { TAuthorityReg }
@@ -98,8 +110,7 @@ begin
   FRegAuthorityPro := RegAuthorityPro;
 end;
 
-procedure TAuthorityReg.HandleAuthority(const Key: String;
-  aEnable: Boolean);
+procedure TAuthorityReg.HandleAuthority(const Key: string; aEnable: Boolean);
 begin
 
 end;
@@ -111,3 +122,4 @@ begin
 end;
 
 end.
+

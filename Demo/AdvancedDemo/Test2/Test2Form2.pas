@@ -167,7 +167,11 @@ begin
 end;
 
 procedure TForm3.FormCreate(Sender: TObject);
+var
+  AuthoritySvr: IAuthoritySvr;
 begin
+  if SysService.QueryInterface(IAuthoritySvr, AuthoritySvr) = S_OK then
+    AuthoritySvr.RegAuthority(Self);
   //FEvenHandle:=sys.EventFactory.RegisterEvent(self,[Ev_Timer],1);
 end;
 

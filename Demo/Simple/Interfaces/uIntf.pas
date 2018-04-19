@@ -3,7 +3,7 @@ unit uIntf;
 
 interface
 
-uses Forms, Graphics;
+uses Vcl.Forms, Vcl.Graphics;
 
 type
   //主窗体实现的接口

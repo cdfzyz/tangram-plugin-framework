@@ -2,7 +2,7 @@ object frm_Main: Tfrm_Main
   Left = 206
   Top = 166
   Caption = #20027#31383#20307
-  ClientHeight = 404
+  ClientHeight = 424
   ClientWidth = 633
   Color = clAppWorkSpace
   Font.Charset = DEFAULT_CHARSET
@@ -21,7 +21,7 @@ object frm_Main: Tfrm_Main
   TextHeight = 13
   object StatusBar: TStatusBar
     Left = 0
-    Top = 385
+    Top = 405
     Width = 633
     Height = 19
     Panels = <
