@@ -1,4 +1,4 @@
-unit uDBPlugin;
+ï»¿unit uDBPlugin;
 
 interface
 
@@ -59,7 +59,7 @@ end;
 class procedure TDBPlugin.RegisterModule(Reg: IRegistry);
 var ModuleFullName, ModuleName, Value: String;
 begin
-  //×¢²áÄ£¿é
+  //æ³¨å†Œæ¨¡å—
   if Reg.OpenKey(InstallKey, True) then
   begin
     ModuleFullName := SysUtils.GetModuleName(HInstance);
@@ -73,7 +73,7 @@ end;
 class procedure TDBPlugin.UnRegisterModule(Reg: IRegistry);
 var ModuleName: String;
 begin
-  //È¡Ïû×¢²áÄ£¿é
+  //å–æ¶ˆæ³¨å†Œæ¨¡å—
   if Reg.OpenKey(InstallKey) then
   begin
     ModuleName := ExtractFileName(SysUtils.GetModuleName(HInstance));

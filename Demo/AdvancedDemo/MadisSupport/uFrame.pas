@@ -1,4 +1,4 @@
-unit uFrame;
+锘縰nit uFrame;
 
 interface
 
@@ -28,7 +28,7 @@ var Intf: IInvokeServer;
 begin
   Intf := SysService as IInvokeServer;
   d := Intf.AppServer.GetDateTime;
-  Sys.Dialogs.ShowMessageFmt('服务器时间：%s', [DateTimeToStr(d)]);
+  Sys.Dialogs.ShowMessageFmt('鏈嶅姟鍣ㄦ椂闂达細%s', [DateTimeToStr(d)]);
 end;
 
 end.

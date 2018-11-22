@@ -1,8 +1,8 @@
-{------------------------------------
-  ¹¦ÄÜËµÃ÷£ºÊµÏÖÈ¨ÏŞ¿ØÖÆ·şÎñ½Ó¿Ú
-  ´´½¨ÈÕÆÚ£º2010/05/11
-  ×÷Õß£ºwzw
-  °æÈ¨£ºwzw
+ï»¿{------------------------------------
+  åŠŸèƒ½è¯´æ˜ï¼šå®ç°æƒé™æ§åˆ¶æœåŠ¡æ¥å£
+  åˆ›å»ºæ—¥æœŸï¼š2010/05/11
+  ä½œè€…ï¼šwzw
+  ç‰ˆæƒï¼šwzw
 -------------------------------------}
 unit ImpAuthoritySvrIntf;
 
@@ -71,7 +71,7 @@ end;
 
 function TAuthoritySvr.GetComments: string;
 begin
-  Result := 'È¨ÏŞ¹ÜÀíÏà¹Ø';
+  Result := 'æƒé™ç®¡ç†ç›¸å…³';
 end;
 
 function TAuthoritySvr.GetModuleName: string;
@@ -81,7 +81,7 @@ end;
 
 function TAuthoritySvr.GetTitle: string;
 begin
-  Result := 'È¨ÏŞ·şÎñ½Ó¿Ú(IAuthoritySvr)';
+  Result := 'æƒé™æœåŠ¡æ¥å£(IAuthoritySvr)';
 end;
 
 function TAuthoritySvr.GetVersion: string;
@@ -228,7 +228,7 @@ begin
   if SysService.QueryInterface(IDBAccess, DBAccess) = S_OK then
   begin
     Intf := SysService as IProgressForm;
-    Intf.ShowMsg('ÕıÔÚ¸üĞÂÏµÍ³È¨ÏŞ£¬ÇëÉÔµÈ......');
+    Intf.ShowMsg('æ­£åœ¨æ›´æ–°ç³»ç»Ÿæƒé™ï¼Œè¯·ç¨ç­‰......');
     try
       NotifyIntf := SysService as INotifyService;
       DBAccess.QuerySQL(Cds_RegAuthority, Format(Sql, [TableName]));
@@ -240,7 +240,7 @@ begin
         DBAccess.ApplyUpdate(TableName, Cds_RegAuthority);
         DBAccess.CommitTrans;
         Intf.Hide;
-        Dialog.ShowInfo('È¨ÏŞ¸üĞÂÍê³É£¡');
+        Dialog.ShowInfo('æƒé™æ›´æ–°å®Œæˆï¼');
         Cds_RegAuthority.EmptyDataSet;
       except
         on E: Exception do
@@ -254,7 +254,7 @@ begin
     end;
   end
   else
-    Dialog.ShowError('Î´ÕÒµ½IDBAccess½Ó¿Ú£¬²»ÄÜ¸üĞÂÈ¨ÏŞ£¡');
+    Dialog.ShowError('æœªæ‰¾åˆ°IDBAccessæ¥å£ï¼Œä¸èƒ½æ›´æ–°æƒé™ï¼');
 end;
 
 initialization

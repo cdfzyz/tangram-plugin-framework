@@ -1,4 +1,4 @@
-unit TestIntf;
+﻿unit TestIntf;
 {$weakpackageunit on}
 interface
 type

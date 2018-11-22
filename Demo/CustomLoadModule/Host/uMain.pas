@@ -1,4 +1,4 @@
-unit uMain;
+ï»¿unit uMain;
 
 interface
 
@@ -34,7 +34,7 @@ var intf: ITest;
 begin
   if SysService.QueryInterface(Itest, intf) = S_OK then
     intf.test
-  else showmessage('È¡²»µ½Itest½Ó¿Ú£¬Ä£¿éÎ´¼ÓÔØ£¡');
+  else showmessage('å–ä¸åˆ°Itestæ¥å£ï¼Œæ¨¡å—æœªåŠ è½½ï¼');
 end;
 
 procedure TFrmMain.Button2Click(Sender: TObject);
@@ -49,13 +49,13 @@ end;
 procedure TFrmMain.FormCreate(Sender: TObject);
 var ModuleLoader: IModuleLoader;
 begin
-  //Ê×ÏÈÔÚ¹¤³ÌÎÄ¼ş¼ÓÉÏApplication.LoadModuleFromRegistry:=False;
-  // ÕâÑù¿ò¼Ü¾Í²»»á×Ô¶¯¼ÓÔØÄ£¿éÁË
+  //é¦–å…ˆåœ¨å·¥ç¨‹æ–‡ä»¶åŠ ä¸ŠApplication.LoadModuleFromRegistry:=False;
+  // è¿™æ ·æ¡†æ¶å°±ä¸ä¼šè‡ªåŠ¨åŠ è½½æ¨¡å—äº†
 
-  ModuleLoader := SysService as IModuleLoader; //»ñÈ¡IModuleLoader½Ó¿Ú
-  ModuleLoader.LoadBegin;//¼ÓÔØÇ°¼ÇµÃÏÈµ÷LoadBegin
-  ModuleLoader.LoadModulesFromDir();//´ÓÖ¸¶¨Ä¿Â¼¼ÓÔØÄ£¿é£¬Èç¹ûÄ¿Â¼Îª¿Õ£¬Ôò´Óµ±Ç°³ÌĞòÄ¿Â¼¼ÓÔØÄ£¿é
-  ModuleLoader.LoadFinish;//¼ÓÔØÍê³Éºó£¬¼ÇµÃµ÷LoadFinish£¬ÕâÑùTPlugin.Init²Å»á±»Ö´ĞĞ
+  ModuleLoader := SysService as IModuleLoader; //è·å–IModuleLoaderæ¥å£
+  ModuleLoader.LoadBegin;//åŠ è½½å‰è®°å¾—å…ˆè°ƒLoadBegin
+  ModuleLoader.LoadModulesFromDir();//ä»æŒ‡å®šç›®å½•åŠ è½½æ¨¡å—ï¼Œå¦‚æœç›®å½•ä¸ºç©ºï¼Œåˆ™ä»å½“å‰ç¨‹åºç›®å½•åŠ è½½æ¨¡å—
+  ModuleLoader.LoadFinish;//åŠ è½½å®Œæˆåï¼Œè®°å¾—è°ƒLoadFinishï¼Œè¿™æ ·TPlugin.Initæ‰ä¼šè¢«æ‰§è¡Œ
 end;
 
 end.

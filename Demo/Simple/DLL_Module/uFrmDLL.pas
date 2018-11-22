@@ -1,4 +1,4 @@
-unit uFrmDLL;
+ï»¿unit uFrmDLL;
 
 interface
 
@@ -33,14 +33,14 @@ uses SysSvc, uIntf;
 procedure TfrmDLL.Button1Click(Sender: TObject);
 var Intf: IIntf1;
 begin
-  Intf := SysService as IIntf1;//»ñÈ¡IIntf1½Ó¿Ú,IIntf1ÊÇÖ÷´°ÌåÊµÏÖµÄ
+  Intf := SysService as IIntf1;//è·å–IIntf1æ¥å£,IIntf1æ˜¯ä¸»çª—ä½“å®ç°çš„
   Intf.SetMainFormCaption(self.edt_Caption.Text);
 end;
 
 procedure TfrmDLL.Button2Click(Sender: TObject);
 var Intf: IIntf1;
 begin
-  Intf := SysService as IIntf1;//»ñÈ¡IIntf1½Ó¿Ú,IIntf1ÊÇÖ÷´°ÌåÊµÏÖµÄ
+  Intf := SysService as IIntf1;//è·å–IIntf1æ¥å£,IIntf1æ˜¯ä¸»çª—ä½“å®ç°çš„
 
   Intf.SetMainFormColor(ColorBox1.Selected);
 end;

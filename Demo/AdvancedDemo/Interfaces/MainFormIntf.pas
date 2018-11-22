@@ -1,8 +1,8 @@
-{------------------------------------
-  ¹¦ÄÜËµÃ÷£ºÖ÷´°Ìå½Ó¿Úµ¥Ôª
-  ´´½¨ÈÕÆÚ£º2008/11/09
-  ×÷Õß£ºwzw
-  °æÈ¨£ºwzw
+ï»¿{------------------------------------
+  åŠŸèƒ½è¯´æ˜ï¼šä¸»çª—ä½“æ¥å£å•å…ƒ
+  åˆ›å»ºæ—¥æœŸï¼š2008/11/09
+  ä½œè€…ï¼šwzw
+  ç‰ˆæƒï¼šwzw
 -------------------------------------}
 unit MainFormIntf;
 {$weakpackageunit on}
@@ -11,39 +11,39 @@ interface
 uses Forms, Classes, Graphics;
 
 type
-  //µ¥»÷(Ñ¡Ôñ)¿ì½İÏî
+  //å•å‡»(é€‰æ‹©)å¿«æ·é¡¹
   IShortCutClick = interface
     ['{AEC846D1-8E5D-4EAE-993C-12616927C754}']
-    //×¢²á¿ì½İ²Ëµ¥Ãæ°å
+    //æ³¨å†Œå¿«æ·èœå•é¢æ¿
     procedure RegPanel(FrameClass: TCustomFrameClass);
   end;
-  //Ñ¡Ôñ¿ì½İ²Ëµ¥
+  //é€‰æ‹©å¿«æ·èœå•
   TShortCutClick = procedure(pIntf: IShortCutClick) of object;
 
-  //Ö÷´°¿ÚÊµÏÖµÄ½Ó¿Ú
+  //ä¸»çª—å£å®ç°çš„æ¥å£
   IMainForm = interface
     ['{C3DF922D-4AA5-4874-B0A3-72699DA671C8}']
-    //´´½¨ÆÕÍ¨²Ëµ¥
+    //åˆ›å»ºæ™®é€šèœå•
     function CreateMenu(const Path: string; MenuClick: TNotifyEvent): TObject;
-    //È¡Ïû×¢²á²Ëµ¥
+    //å–æ¶ˆæ³¨å†Œèœå•
     procedure DeleteMenu(const Path: string);
-    //´´½¨¹¤¾ßÀ¸
+    //åˆ›å»ºå·¥å…·æ 
     function CreateToolButton(const aCaption: String; onClick: TNotifyEvent; Hint: String = ''): TObject;
-    //×¢²á¿ì½İ²Ëµ¥
+    //æ³¨å†Œå¿«æ·èœå•
     procedure RegShortCut(const aCaption: string; onClick: TShortCutClick);
-    //ÏÔÊ¾×´Ì¬
+    //æ˜¾ç¤ºçŠ¶æ€
     procedure ShowStatus(PnlIndex: Integer; const Msg: string);
-    //ÍË³ö³ÌĞò
+    //é€€å‡ºç¨‹åº
     procedure ExitApplication;
-    //¸øImageListÌí¼ÓÍ¼±ê
+    //ç»™ImageListæ·»åŠ å›¾æ ‡
     function AddImage(Img: TGraphic): Integer;
   end;
 
-  //ÏµÍ³´°Ìå½Ó¿Ú
+  //ç³»ç»Ÿçª—ä½“æ¥å£
   IFormMgr = interface
     ['{074BA876-C5DA-4689-BA11-48EB3CF22CF6}']
     function FindForm(const FormClassName: string): TForm;
-    //FormClass:Òª´´½¨µÄ´°ÌåÀà  SingleInstance:ÊÇ·ñÖ»´´½¨Ò»¸öÊµÀı
+    //FormClass:è¦åˆ›å»ºçš„çª—ä½“ç±»  SingleInstance:æ˜¯å¦åªåˆ›å»ºä¸€ä¸ªå®ä¾‹
     function CreateForm(FormClass: TFormClass; SingleInstance: Boolean = True): TForm;
     procedure CloseForm(aForm: TForm);
   end;

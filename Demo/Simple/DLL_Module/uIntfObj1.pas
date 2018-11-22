@@ -1,4 +1,4 @@
-unit uIntfObj1;
+﻿unit uIntfObj1;
 
 interface
 
@@ -31,7 +31,7 @@ end;
 
 function TIntfObj1.GetComments: String;
 begin
-  Result := '���Խӿ�';
+  Result := '测试接口';
 end;
 
 function TIntfObj1.GetModuleName: String;
@@ -41,7 +41,7 @@ end;
 
 function TIntfObj1.GetTitle: String;
 begin
-  Result := 'DLLģ��ʵ�ֵĽӿ�(IIntf2)';
+  Result := 'DLL模块实现的接口(IIntf2)';
 end;
 
 function TIntfObj1.GetVersion: String;

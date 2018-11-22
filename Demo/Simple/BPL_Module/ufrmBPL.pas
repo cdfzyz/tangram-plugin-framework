@@ -1,4 +1,4 @@
-unit ufrmBPL;
+ï»¿unit ufrmBPL;
 
 interface
 
@@ -31,7 +31,7 @@ uses SysSvc, uIntf;
 procedure TfrmBPL.Button1Click(Sender: TObject);
 var Intf: IIntf2;
 begin
-  Intf := SysService as IIntf2; //»ñÈ¡IIntf2½Ó¿Ú£¬IIntf2ÔÚDLLÄ£¿éÊµÏÖ
+  Intf := SysService as IIntf2; //è·å–IIntf2æ¥å£ï¼ŒIIntf2åœ¨DLLæ¨¡å—å®ç°
   Intf.ShowDLlForm;
 end;
 
@@ -39,8 +39,8 @@ procedure TfrmBPL.Button2Click(Sender: TObject);
 var Intf: IIntf1;
   s:      String;
 begin
-  Intf := SysService as IIntf1;//»ñÈ¡IIntf1½Ó¿Ú,IIntf1ÊÇÖ÷´°ÌåÊµÏÖµÄ
-  s := InputBox('Éè±¸Ö÷´°¿Ú±êÌâ', 'ÇëÊäÈë±êÌâÃû×Ö', 'abcde');
+  Intf := SysService as IIntf1;//è·å–IIntf1æ¥å£,IIntf1æ˜¯ä¸»çª—ä½“å®ç°çš„
+  s := InputBox('è®¾å¤‡ä¸»çª—å£æ ‡é¢˜', 'è¯·è¾“å…¥æ ‡é¢˜åå­—', 'abcde');
   Intf.SetMainFormCaption(s);
 end;
 

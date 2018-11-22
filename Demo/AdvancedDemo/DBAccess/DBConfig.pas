@@ -1,4 +1,4 @@
-unit DBConfig;
+﻿unit DBConfig;
 
 interface
 

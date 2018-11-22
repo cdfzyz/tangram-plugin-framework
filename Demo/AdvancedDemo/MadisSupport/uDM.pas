@@ -1,4 +1,4 @@
-unit uDM;
+ï»¿unit uDM;
 
 interface
 
@@ -60,22 +60,22 @@ begin
   r := self.Conn.AppServer.ApplyUpdate(TableName, Cds.Delta);
   if r = 1 then
     Cds.MergeChangeLog
-  else (SysService as IDialog).ShowError('Ìá½»Êı¾İ³ö´í£¡');
+  else (SysService as IDialog).ShowError('æäº¤æ•°æ®å‡ºé”™ï¼');
 end;
 
 procedure Tdm.BeginTrans;
 begin
-  //·½·¨Î´ÊµÏÖ...
+  //æ–¹æ³•æœªå®ç°...
 end;
 
 procedure Tdm.CommitTrans;
 begin
-  //·½·¨Î´ÊµÏÖ...
+  //æ–¹æ³•æœªå®ç°...
 end;
 
 procedure Tdm.RollbackTrans;
 begin
-  //·½·¨Î´ÊµÏÖ...
+  //æ–¹æ³•æœªå®ç°...
 end;
 
 procedure Tdm.ExecuteSQL(const SQLStr: String);
@@ -173,21 +173,21 @@ var SvcInfoRec: TSvcInfoRec;
 begin
   SvcInfoRec.ModuleName := ExtractFileName(SysUtils.GetModuleName(HInstance));
   SvcInfoRec.GUID := GUIDToString(IDBConnection);
-  SvcInfoRec.Title := 'MidasÁ¬½Ó½Ó¿Ú(IDBConnection)';
+  SvcInfoRec.Title := 'Midasè¿æ¥æ¥å£(IDBConnection)';
   SvcInfoRec.Version := '20100609.001';
-  SvcInfoRec.Comments := 'ÓÃÓÚÁ¬½ÓMidasÖĞ¼ä²ã·şÎñÆ÷';
+  SvcInfoRec.Comments := 'ç”¨äºè¿æ¥Midasä¸­é—´å±‚æœåŠ¡å™¨';
   Intf.SvcInfo(SvcInfoRec);
 
   SvcInfoRec.GUID := GUIDToString(IDBAccess);
-  SvcInfoRec.Title := 'MidasÊı¾İ¿â·ÃÎÊ½Ó¿Ú(IDBAccess)';
+  SvcInfoRec.Title := 'Midasæ•°æ®åº“è®¿é—®æ¥å£(IDBAccess)';
   SvcInfoRec.Version := '20100609.001';
-  SvcInfoRec.Comments := 'ÓÃÓÚ²Ù×÷Êı¾İ¿â';
+  SvcInfoRec.Comments := 'ç”¨äºæ“ä½œæ•°æ®åº“';
   Intf.SvcInfo(SvcInfoRec);
 
   SvcInfoRec.GUID := GUIDToString(IInvokeServer);
-  SvcInfoRec.Title := 'MidasÔ¶³Ì·½·¨µ÷ÓÃ½Ó¿Ú(IInvokeServer)';
+  SvcInfoRec.Title := 'Midasè¿œç¨‹æ–¹æ³•è°ƒç”¨æ¥å£(IInvokeServer)';
   SvcInfoRec.Version := '20100609.001';
-  SvcInfoRec.Comments := 'ÓÃÓÚÔ¶³Ì·½·¨µ÷ÓÃ';
+  SvcInfoRec.Comments := 'ç”¨äºè¿œç¨‹æ–¹æ³•è°ƒç”¨';
   Intf.SvcInfo(SvcInfoRec);
 end;
 

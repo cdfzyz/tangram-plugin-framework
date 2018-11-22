@@ -1,4 +1,4 @@
-unit ProgressForm;
+﻿unit ProgressForm;
 
 interface
 

@@ -1,4 +1,4 @@
-unit ShowFormIntf;
+﻿unit ShowFormIntf;
 {$WEAKPACKAGEUNIT on}
 interface
 

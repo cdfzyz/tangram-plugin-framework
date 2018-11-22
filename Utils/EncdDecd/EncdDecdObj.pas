@@ -1,8 +1,8 @@
-{------------------------------------
-  ¹¦ÄÜËµÃ÷£ºÊµÏÖIEncdDecd½Ó¿Ú(¼Ó½âÃÜ½Ó¿Ú)
-  ´´½¨ÈÕÆÚ£º2008/12/21
-  ×÷Õß£ºWZW
-  °æÈ¨£ºWZW
+ï»¿{------------------------------------
+  åŠŸèƒ½è¯´æ˜ï¼šå®ç°IEncdDecdæ¥å£(åŠ è§£å¯†æ¥å£)
+  åˆ›å»ºæ—¥æœŸï¼š2008/12/21
+  ä½œè€…ï¼šWZW
+  ç‰ˆæƒï¼šWZW
 -------------------------------------}
 unit EncdDecdObj;
 
@@ -192,7 +192,7 @@ end;
 
 function TEncdDecdObj.GetComments: string;
 begin
-  Result := '·â×°³£ÓÃµÄ¼Ó½âÃÜº¯Êı';
+  Result := 'å°è£…å¸¸ç”¨çš„åŠ è§£å¯†å‡½æ•°';
 end;
 
 function TEncdDecdObj.GetModuleName: string;
@@ -202,7 +202,7 @@ end;
 
 function TEncdDecdObj.GetTitle: string;
 begin
-  Result := '¼Ó½âÃÜ½Ó¿Ú(IEncdDecd)';
+  Result := 'åŠ è§£å¯†æ¥å£(IEncdDecd)';
 end;
 
 function TEncdDecdObj.GetVersion: string;

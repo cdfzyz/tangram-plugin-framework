@@ -1,8 +1,8 @@
-{------------------------------------
-  ¹¦ÄÜËµÃ÷£ºÊµÏÖILog½Ó¿Ú
-  ´´½¨ÈÕÆÚ£º2008/11/21
-  ×÷Õß£ºwzw
-  °æÈ¨£ºwzw
+ï»¿{------------------------------------
+  åŠŸèƒ½è¯´æ˜ï¼šå®ç°ILogæ¥å£
+  åˆ›å»ºæ—¥æœŸï¼š2008/11/21
+  ä½œè€…ï¼šwzw
+  ç‰ˆæƒï¼šwzw
 -------------------------------------}
 unit uLog;
 
@@ -65,7 +65,7 @@ end;
 
 function TLogObj.GetComments: string;
 begin
-  Result := '·â×°ÈÕÖ¾Ïà¹Ø²Ù×÷';
+  Result := 'å°è£…æ—¥å¿—ç›¸å…³æ“ä½œ';
 end;
 
 function TLogObj.GetModuleName: string;
@@ -75,7 +75,7 @@ end;
 
 function TLogObj.GetTitle: string;
 begin
-  Result := 'ÈÕÖ¾½Ó¿Ú(ILog)';
+  Result := 'æ—¥å¿—æ¥å£(ILog)';
 end;
 
 function TLogObj.GetVersion: string;

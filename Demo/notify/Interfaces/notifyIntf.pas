@@ -1,4 +1,4 @@
-unit notifyIntf;
+﻿unit notifyIntf;
 {$weakpackageunit on}
 interface
 

@@ -1,8 +1,8 @@
-{------------------------------------
-  ¹¦ÄÜËµÃ÷£ºÊµÏÖIlogIn½Ó¿Ú
-  ´´½¨ÈÕÆÚ£º2008/12/31
-  ×÷Õß£ºWZW
-  °æÈ¨£ºWZW
+ï»¿{------------------------------------
+  åŠŸèƒ½è¯´æ˜ï¼šå®ç°IlogInæ¥å£
+  åˆ›å»ºæ—¥æœŸï¼š2008/12/31
+  ä½œè€…ï¼šWZW
+  ç‰ˆæƒï¼šWZW
 -------------------------------------}
 unit ImpLoginIntf;
 
@@ -35,7 +35,7 @@ uses SysSvc, LoginForm, SysFactory;
 
 function TLogin.GetComments: String;
 begin
-  Result := 'µÇÂ¼¿ò½Ó¿Ú¡£½øÈëÏµÍ³Ê±¼ì²éµÇÂ¼ÓÃ£¬Ò²ÓÃÓÚËø¶¨ÏµÍ³ºÍÇĞ»»ÓÃ»§¡£';
+  Result := 'ç™»å½•æ¡†æ¥å£ã€‚è¿›å…¥ç³»ç»Ÿæ—¶æ£€æŸ¥ç™»å½•ç”¨ï¼Œä¹Ÿç”¨äºé”å®šç³»ç»Ÿå’Œåˆ‡æ¢ç”¨æˆ·ã€‚';
 end;
 
 function TLogin.GetModuleName: String;
@@ -45,7 +45,7 @@ end;
 
 function TLogin.GetTitle: String;
 begin
-  Result := 'µÇÂ¼¿ò½Ó¿Ú(ILogin)';
+  Result := 'ç™»å½•æ¡†æ¥å£(ILogin)';
 end;
 
 function TLogin.GetVersion: String;
@@ -55,12 +55,12 @@ end;
 
 procedure TLogin.ChangeUser;
 begin
- // sys.Dialogs.ShowError('ILogin.ChangeUser·½·¨Î´ÊµÏÖ£¡');
+ // sys.Dialogs.ShowError('ILogin.ChangeUseræ–¹æ³•æœªå®ç°ï¼');
 end;
 
 procedure TLogin.LockSystem;
 begin
-  //sys.Dialogs.ShowError('ILogin.LockSystem·½·¨Î´ÊµÏÖ£¡');
+  //sys.Dialogs.ShowError('ILogin.LockSystemæ–¹æ³•æœªå®ç°ï¼');
 end;
 
 function TLogin.Login: Boolean;

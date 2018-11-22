@@ -1,4 +1,4 @@
-unit uDBSupportPlugin;
+﻿unit uDBSupportPlugin;
 
 interface
 uses SysUtils, Classes, Graphics, MainFormIntf, MenuRegIntf,

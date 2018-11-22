@@ -1,8 +1,8 @@
-{------------------------------------
-  ¹¦ÄÜËµÃ÷£ºÎª·½±ãµ÷ÓÃ³£ÓÃ½Ó¿Ú
-  ´´½¨ÈÕÆÚ£º2010/04/13
-  ×÷Õß£ºWZW
-  °æÈ¨£ºWZW
+ï»¿{------------------------------------
+  åŠŸèƒ½è¯´æ˜ï¼šä¸ºæ–¹ä¾¿è°ƒç”¨å¸¸ç”¨æ¥å£
+  åˆ›å»ºæ—¥æœŸï¼š2010/04/13
+  ä½œè€…ï¼šWZW
+  ç‰ˆæƒï¼šWZW
 -------------------------------------}
 unit _Sys;
 {$weakpackageunit on}
@@ -45,7 +45,7 @@ function Sys: ISysSvcHelper;
 implementation
 
 const
-  ERR_IntfNotFound = 'ÕÒ²»µ½%s½Ó¿Ú£¡';
+  ERR_IntfNotFound = 'æ‰¾ä¸åˆ°%sæ¥å£ï¼';
 
 procedure RiaseIntfNotFoundErr(IID: TGUID);
 begin

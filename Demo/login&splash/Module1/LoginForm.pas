@@ -1,4 +1,4 @@
-unit LoginForm;
+ï»¿unit LoginForm;
 
 interface
 
@@ -30,12 +30,12 @@ implementation
 
 procedure Tfrm_Login.btn_OkClick(Sender: TObject);
 begin
-  if (self.edt_UserName.Text = 'test') and//ÕâÀïÅĞ¶ÏÓÃ»§ºÍÃÜÂë...
+  if (self.edt_UserName.Text = 'test') and//è¿™é‡Œåˆ¤æ–­ç”¨æˆ·å’Œå¯†ç ...
     (self.edt_Psw.Text = '123') then
   begin
     self.ModalResult := mrOK;
   end
-  else showmessage('ÇëÊäÈëÓÃ»§Ãû£ºtest ÃÜÂë£º 123');
+  else showmessage('è¯·è¾“å…¥ç”¨æˆ·åï¼štest å¯†ç ï¼š 123');
 end;
 
 end.

@@ -1,4 +1,4 @@
-unit uFrmOptions;
+﻿unit uFrmOptions;
 
 interface
 

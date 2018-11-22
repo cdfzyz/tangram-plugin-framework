@@ -1,8 +1,8 @@
-{------------------------------------
-  ¹¦ÄÜËµÃ÷£ºSys°ü²å¼ş¶ÔÏó
-  ´´½¨ÈÕÆÚ£º2010.04.23
-  ×÷Õß£ºWZW
-  °æÈ¨£ºWZW
+ï»¿{------------------------------------
+  åŠŸèƒ½è¯´æ˜ï¼šSysåŒ…æ’ä»¶å¯¹è±¡
+  åˆ›å»ºæ—¥æœŸï¼š2010.04.23
+  ä½œè€…ï¼šWZW
+  ç‰ˆæƒï¼šWZW
 -------------------------------------}
 unit SysPlugin;
 
@@ -64,9 +64,9 @@ class procedure TSysPlugin.RegisterModule(Reg: IRegistry);
 var
   ModuleFullName, ModuleName, Value: string;
 begin
-  //×¢²á²Ëµ¥
+  //æ³¨å†Œèœå•
   Self.RegMenu(Reg as IMenuReg);
-  //×¢²á°ü
+  //æ³¨å†ŒåŒ…
   if Reg.OpenKey(InstallKey, True) then
   begin
     ModuleFullName := SysUtils.GetModuleName(HInstance);
@@ -79,20 +79,20 @@ end;
 
 class procedure TSysPlugin.RegMenu(Reg: IMenuReg);
 begin
-  Reg.RegMenu(Key_Line, 'ÎÄ¼ş\-');
-  Reg.RegMenu(Key_ExitApp, 'ÎÄ¼ş\ÍË³öÏµÍ³');
-  Reg.RegMenu(Key_SvcInfo, '¹¤¾ß\ÏµÍ³½Ó¿Ú');
-  Reg.RegMenu(Key_ConfigTool, '¹¤¾ß\ÅäÖÃ¹¤¾ß');
-  Reg.RegMenu(Key_About, '°ïÖú\¹ØÓÚ');
+  Reg.RegMenu(Key_Line, 'æ–‡ä»¶\-');
+  Reg.RegMenu(Key_ExitApp, 'æ–‡ä»¶\é€€å‡ºç³»ç»Ÿ');
+  Reg.RegMenu(Key_SvcInfo, 'å·¥å…·\ç³»ç»Ÿæ¥å£');
+  Reg.RegMenu(Key_ConfigTool, 'å·¥å…·\é…ç½®å·¥å…·');
+  Reg.RegMenu(Key_About, 'å¸®åŠ©\å…³äº');
 end;
 
 class procedure TSysPlugin.UnRegisterModule(Reg: IRegistry);
 var
   ModuleName: string;
 begin
-  //È¡Ïû×¢²á²Ëµ¥
+  //å–æ¶ˆæ³¨å†Œèœå•
   Self.UnRegMenu(Reg as IMenuReg);
-  //È¡Ïû×¢²á°ü
+  //å–æ¶ˆæ³¨å†ŒåŒ…
   if Reg.OpenKey(InstallKey) then
   begin
     ModuleName := ExtractFileName(SysUtils.GetModuleName(HInstance));
@@ -133,7 +133,7 @@ begin
   if FileExists(ConfigTool) then
     WinExec(PAnsiChar(AnsiString(ConfigTool)), SW_SHOWDEFAULT)
   else
-    raise Exception.CreateFmt('Ä©ÕÒµ½%s£¡', [ConfigTool]);
+    raise Exception.CreateFmt('æœ«æ‰¾åˆ°%sï¼', [ConfigTool]);
 end;
 
 procedure TSysPlugin.ExitApp(Sender: TObject);
@@ -152,7 +152,7 @@ var
   MenuEventBinder: IMenuEventBinder;
 begin
   inherited;
-  //°ó¶¨²Ëµ¥ÊÂ¼ş
+  //ç»‘å®šèœå•äº‹ä»¶
   MenuEventBinder := SysService as IMenuEventBinder;
   MenuEventBinder.RegMenuEvent(Key_ExitApp, Self.ExitApp);
   MenuEventBinder.RegMenuEvent(Key_SvcInfo, Self.SvcInfoClick);

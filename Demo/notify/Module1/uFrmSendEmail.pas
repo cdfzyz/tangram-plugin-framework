@@ -1,4 +1,4 @@
-unit uFrmSendEmail;
+锘縰nit uFrmSendEmail;
 
 interface
 
@@ -33,7 +33,7 @@ implementation
 
 procedure TfrmSendEmail.Button1Click(Sender: TObject);
 begin
-  showmessage('这只是个界面演示，没有发送功能！');
+  showmessage('杩欏彧鏄釜鐣岄潰婕旂ず锛屾病鏈夊彂閫佸姛鑳斤紒');
 end;
 
 end.

@@ -1,4 +1,4 @@
-unit uEdtRole;
+ï»¿unit uEdtRole;
 
 interface
 
@@ -36,7 +36,7 @@ begin
   inherited;
   if edt_RoleName.Text = '' then
   begin
-    sys.Dialogs.Warning('½ÇÉ«Ãû³Æ²»ÄÜÎª¿Õ£¡');
+    sys.Dialogs.Warning('è§’è‰²åç§°ä¸èƒ½ä¸ºç©ºï¼');
     edt_RoleName.SetFocus;
     exit;
   end;

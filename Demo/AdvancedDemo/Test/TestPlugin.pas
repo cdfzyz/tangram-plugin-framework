@@ -1,4 +1,4 @@
-unit TestPlugin;
+﻿unit TestPlugin;
 
 interface
 
@@ -68,9 +68,6 @@ var
 begin
   if Reg.OpenKey(InstallKey, True) then
   begin
-    //s:=inttostr(HInstance);
-    //MessageBox(GetActiveWindow,pchar(s),'ok',0);
-    //exit;
     ModuleFullName := SysUtils.GetModuleName(HInstance);
     ModuleName := ExtractFileName(ModuleFullName);
     Value := Format(ValueKey, [ModuleFullName]);

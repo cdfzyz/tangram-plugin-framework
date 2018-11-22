@@ -1,28 +1,28 @@
-{------------------------------------
-  ¹¦ÄÜËµÃ÷£ºÏµÍ³³£Á¿
-  ´´½¨ÈÕÆÚ£º2008/11/19
-  ×÷Õß£ºwzw
-  °æÈ¨£ºwzw
+ï»¿{------------------------------------
+  åŠŸèƒ½è¯´æ˜ï¼šç³»ç»Ÿå¸¸é‡
+  åˆ›å»ºæ—¥æœŸï¼š2008/11/19
+  ä½œè€…ï¼šwzw
+  ç‰ˆæƒï¼šwzw
 -------------------------------------}
 unit uConst;
 {$weakpackageunit on}
 interface
 
 const
-  Key_System = 'SYSTEM';//×¢²á±íÏµÍ³¼ü
-  key_LoadModule = 'SYSTEM\LOADMODULE';//×¢²á±í¼ÓÔØÄ£¿é¼ü
-  key_User = 'USER';//×¢²á±íÓÃ»§×Ô¶¨Òå¼ü
+  Key_System = 'SYSTEM';//æ³¨å†Œè¡¨ç³»ç»Ÿé”®
+  key_LoadModule = 'SYSTEM\LOADMODULE';//æ³¨å†Œè¡¨åŠ è½½æ¨¡å—é”®
+  key_User = 'USER';//æ³¨å†Œè¡¨ç”¨æˆ·è‡ªå®šä¹‰é”®
 
-  //Value_Module='Module';//×¢²á±í¹Ø¼ü×Ö¡£¡£¡£
+  //Value_Module='Module';//æ³¨å†Œè¡¨å…³é”®å­—ã€‚ã€‚ã€‚
   //Value_Load='LOAD';//
 
-  //SplashFormWaitTime=1500;//Flash´°¿Ú×îÉÙµÈ´ıÊ±¼ä(ºÁÃë)
+  //SplashFormWaitTime=1500;//Flashçª—å£æœ€å°‘ç­‰å¾…æ—¶é—´(æ¯«ç§’)
 
-  //EncryptDefaultKey='aA#2%EF3x'; //Ä¬ÈÏ¼ÓÃÜ¼ü
+  //EncryptDefaultKey='aA#2%EF3x'; //é»˜è®¤åŠ å¯†é”®
 
-  //ÒÔÏÂ³£Á¿ÔÚ°ü³õÊ¼»¯Ê±ÓÃ(¼´°üµ¼³öµ¥ÔªµÄInitpackage·½·¨µÄFlasgs²ÎÊıµÄº¬Òâ)
-  Flags_RegAuthority = 1;//×¢²áÈ¨ÏŞ
-  Flags_CreateDB = 2;//´´½¨Êı¾İ¿â
+  //ä»¥ä¸‹å¸¸é‡åœ¨åŒ…åˆå§‹åŒ–æ—¶ç”¨(å³åŒ…å¯¼å‡ºå•å…ƒçš„Initpackageæ–¹æ³•çš„Flasgså‚æ•°çš„å«æ„)
+  Flags_RegAuthority = 1;//æ³¨å†Œæƒé™
+  Flags_CreateDB = 2;//åˆ›å»ºæ•°æ®åº“
 
 implementation
 

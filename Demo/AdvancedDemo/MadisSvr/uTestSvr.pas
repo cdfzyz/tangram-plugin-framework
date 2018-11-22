@@ -1,4 +1,4 @@
-unit uTestSvr;
+锘縰nit uTestSvr;
 
 {$WARN SYMBOL_PLATFORM OFF}
 
@@ -91,7 +91,7 @@ begin
     conn.Connected := True;
   except
     on E: Exception do
-      MessageBox(0, pchar('连接数据库失败：' + E.Message), '错误', MB_OK + MB_ICONERROR);
+      MessageBox(0, pchar('杩炴帴鏁版嵁搴撳け璐ワ細' + E.Message), '閿欒', MB_OK + MB_ICONERROR);
   end;
 end;
 

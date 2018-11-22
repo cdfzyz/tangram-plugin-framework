@@ -1,8 +1,8 @@
-{------------------------------------
-  ¹¦ÄÜËµÃ÷£ºÊµÏÖIDBConnection½Ó¿Ú
-  ´´½¨ÈÕÆÚ£º2010/04/26
-  ×÷Õß£ºwzw
-  °æÈ¨£ºwzw
+ï»¿{------------------------------------
+  åŠŸèƒ½è¯´æ˜ï¼šå®ç°IDBConnectionæ¥å£
+  åˆ›å»ºæ—¥æœŸï¼š2010/04/26
+  ä½œè€…ï¼šwzw
+  ç‰ˆæƒï¼šwzw
 -------------------------------------}
 unit DBConnection;
 
@@ -42,7 +42,7 @@ const Key_DBConn = 'SYSTEM\DBCONNECTION';
 
 function TDBConnection.GetComments: String;
 begin
-  Result := 'ÓÃÓÚÁ¬½ÓÊı¾İ¿â';
+  Result := 'ç”¨äºè¿æ¥æ•°æ®åº“';
 end;
 
 function TDBConnection.GetModuleName: String;
@@ -52,7 +52,7 @@ end;
 
 function TDBConnection.GetTitle: String;
 begin
-  Result := 'Êı¾İ¿âÁ¬½Ó½Ó¿Ú(IDBConnection)';
+  Result := 'æ•°æ®åº“è¿æ¥æ¥å£(IDBConnection)';
 end;
 
 function TDBConnection.GetVersion: String;
@@ -89,7 +89,7 @@ begin
         end;
       end;
     end
-    else raise Exception.Create('Î´ÕÒµ½IEncdDecd½Ó¿Ú£¡');
+    else raise Exception.Create('æœªæ‰¾åˆ°IEncdDecdæ¥å£ï¼');
   end
   else FConnection.Connected := Value;
 end;

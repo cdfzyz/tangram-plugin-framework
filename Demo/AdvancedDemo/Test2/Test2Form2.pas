@@ -1,4 +1,4 @@
-unit Test2Form2;
+ï»¿unit Test2Form2;
 
 interface
 
@@ -57,7 +57,7 @@ implementation
 uses _sys, TestIntf, MainFormIntf, RegIntf, DialogIntf, ProgressFormIntf, LogIntf,
   EncdDecdIntf, SysSvc, SysInfoIntf;//,RemoteMethodIntf
 
-const //È¨ÏŞµÄKEY
+const //æƒé™çš„KEY
   Key1 = '{8453785E-7EB9-4DEE-B876-D0C3CD5EBC20}';
   Key2 = '{FA4E730C-5151-40AC-A883-8A1ADC554BF8}';
   Key3 = '{7CB68E4A-DA34-42E6-995A-A62F77D1376D}';
@@ -84,7 +84,7 @@ begin
   try
     for i := 0 to 2000 do
     begin
-      ProgressForm.ShowMsg('ÕıÔÚ´¦ÀíµÚ[' + inttostr(i) + ']±ÊÊı¾İ£¬ÇëÉÔµÈ...');
+      ProgressForm.ShowMsg('æ­£åœ¨å¤„ç†ç¬¬[' + inttostr(i) + ']ç¬”æ•°æ®ï¼Œè¯·ç¨ç­‰...');
       ProgressForm.progress(2000, i);
     end;
   finally
@@ -94,34 +94,34 @@ end;
 
 procedure TForm3.Button4Click(Sender: TObject);
 begin
-  if Sys.Dialogs.Ask('Ñ¯ÎÊ', '²âÊÔask') then
+  if Sys.Dialogs.Ask('è¯¢é—®', 'æµ‹è¯•ask') then
     Sys.Dialogs.ShowMessage('yes')
   else Sys.Dialogs.ShowMessage('no');
 end;
 
 procedure TForm3.Button5Click(Sender: TObject);
 begin
-  Sys.Log.WriteLog('´íÎóXXXX');
-  Sys.Dialogs.ShowMessage('´íÎóÈÕÖ¾ÒÑĞ´µ½³ÌĞòÄ¿Â¼ÏÂµÄLogsÄ¿Â¼ÖĞ£¡');
+  Sys.Log.WriteLog('é”™è¯¯XXXX');
+  Sys.Dialogs.ShowMessage('é”™è¯¯æ—¥å¿—å·²å†™åˆ°ç¨‹åºç›®å½•ä¸‹çš„Logsç›®å½•ä¸­ï¼');
 end;
 
 procedure TForm3.Button6Click(Sender: TObject);
 const Key = 'abc';
 var str: string;
 begin
-  if sys.Dialogs.InputBox('¼ÓÃÜ²âÊÔ', 'ÇëÊäÈë×Ö·û´®£º', str) then
+  if sys.Dialogs.InputBox('åŠ å¯†æµ‹è¯•', 'è¯·è¾“å…¥å­—ç¬¦ä¸²ï¼š', str) then
   begin
     str := sys.EncdDecd.Encrypt(key, str);
-    sys.Dialogs.ShowMessageFmt('¼ÓÃÜºó£º%s', [str]);
+    sys.Dialogs.ShowMessageFmt('åŠ å¯†åï¼š%s', [str]);
     str := sys.EncdDecd.Decrypt(key, str);
-    sys.Dialogs.ShowMessageFmt('½âÃÜºó£º%s', [str]);
+    sys.Dialogs.ShowMessageFmt('è§£å¯†åï¼š%s', [str]);
   end;
 end;
 
 procedure TForm3.Button7Click(Sender: TObject);
 var str: string;
 begin
-  if Sys.Dialogs.InputBox('MD5¼ÓÃÜ', 'ÇëÊäÈë×Ö·û´®£º', str) then
+  if Sys.Dialogs.InputBox('MD5åŠ å¯†', 'è¯·è¾“å…¥å­—ç¬¦ä¸²ï¼š', str) then
   begin
     str := sys.EncdDecd.MD5(str);
     Sys.Dialogs.ShowMessage(str);
@@ -138,7 +138,7 @@ begin
   if reg.OpenKey(key, True) then
   begin
     if reg.ReadString(Valuename, Value) then
-      sys.Dialogs.ShowMessageFmt('¸Õ²ÅÄãĞ´ÈëµÄÖµÊÇ£º%s', [Value]);
+      sys.Dialogs.ShowMessageFmt('åˆšæ‰ä½ å†™å…¥çš„å€¼æ˜¯ï¼š%s', [Value]);
   end;
 end;
 
@@ -148,14 +148,14 @@ const key = 'User\TestReadWrite';
 var reg: IRegistry;
   inPutStr: string;
 begin
-  if Sys.Dialogs.InputBox('×¢²á±í¶ÁĞ´²âÊÔ', 'ÇëÊäÈëÖµ£º', inPutStr) then
+  if Sys.Dialogs.InputBox('æ³¨å†Œè¡¨è¯»å†™æµ‹è¯•', 'è¯·è¾“å…¥å€¼ï¼š', inPutStr) then
   begin
     reg := SysService as IRegistry;
     if reg.OpenKey(key, True) then
     begin
       reg.WriteString(Valuename, inPutStr);
       reg.SaveData;
-      sys.Dialogs.ShowMessage('±£´æ³É¹¦£¡');
+      sys.Dialogs.ShowMessage('ä¿å­˜æˆåŠŸï¼');
     end;
   end;
 end;
@@ -185,14 +185,14 @@ procedure TForm3.Button10Click(Sender: TObject);
 var MainForm: IMainForm;
 begin
   mainForm := SysService as IMainForm;
-  mainForm.ShowStatus(1, 'ÏÔÊ¾Ê±¼ä');
+  mainForm.ShowStatus(1, 'æ˜¾ç¤ºæ—¶é—´');
   mainForm.ShowStatus(2, DateTimeToStr(now));
 end;
 
 procedure TForm3.Button11Click(Sender: TObject);
 var s: String;
 begin
-  //È¡°üÃèÊö
+  //å–åŒ…æè¿°
   s := GetPackageDescription(pchar(GetModuleName(HInstance)));
   sys.Dialogs.ShowMessage(s);
 end;
@@ -238,18 +238,18 @@ begin
 end;
 
 class procedure TForm3.RegAuthority(aIntf: IAuthorityRegistrar);
-const Path = '²âÊÔÈ¨ÏŞ\½Ó¿ÚÊ¹ÓÃ';
+const Path = 'æµ‹è¯•æƒé™\æ¥å£ä½¿ç”¨';
 begin
-  aIntf.RegAuthorityItem(Key1, Path, 'Ê¹ÓÃtest.bplÖĞÊµÏÖµÄ½Ó¿ÚITest', True);
-  aIntf.RegAuthorityItem(Key2, Path, 'IProgressForm½Ó¿Ú²âÊÔ', True);
-  aIntf.RegAuthorityItem(Key3, Path, 'IDialog½Ó¿Ú²âÊÔ', True);
-  aIntf.RegAuthorityItem(Key4, Path, 'IEncdDecd½Ó¿ÚÆÕÍ¨¼ÓÃÜ²âÊÔ', True);
-  aIntf.RegAuthorityItem(Key5, Path, 'IEncdDecd½Ó¿ÚMD5¼ÓÃÜ²âÊÔ', True);
-  aIntf.RegAuthorityItem(Key6, Path, 'Ğ´´íÎóÈÕÖ¾(ILog½Ó¿Ú)', True);
-  aIntf.RegAuthorityItem(Key7, Path, '×¢²á±íĞ´', True);
-  aIntf.RegAuthorityItem(Key8, Path, '×¢²á±í¶Á', True);
-  aIntf.RegAuthorityItem(Key9, Path, 'ÉèÖÃÖ÷´°Ìå×´Ì¬À¸', True);
-  aIntf.RegAuthorityItem(Key10, Path, '×¢²á±íÎÄ¼ş', True);
+  aIntf.RegAuthorityItem(Key1, Path, 'ä½¿ç”¨test.bplä¸­å®ç°çš„æ¥å£ITest', True);
+  aIntf.RegAuthorityItem(Key2, Path, 'IProgressFormæ¥å£æµ‹è¯•', True);
+  aIntf.RegAuthorityItem(Key3, Path, 'IDialogæ¥å£æµ‹è¯•', True);
+  aIntf.RegAuthorityItem(Key4, Path, 'IEncdDecdæ¥å£æ™®é€šåŠ å¯†æµ‹è¯•', True);
+  aIntf.RegAuthorityItem(Key5, Path, 'IEncdDecdæ¥å£MD5åŠ å¯†æµ‹è¯•', True);
+  aIntf.RegAuthorityItem(Key6, Path, 'å†™é”™è¯¯æ—¥å¿—(ILogæ¥å£)', True);
+  aIntf.RegAuthorityItem(Key7, Path, 'æ³¨å†Œè¡¨å†™', True);
+  aIntf.RegAuthorityItem(Key8, Path, 'æ³¨å†Œè¡¨è¯»', True);
+  aIntf.RegAuthorityItem(Key9, Path, 'è®¾ç½®ä¸»çª—ä½“çŠ¶æ€æ ', True);
+  aIntf.RegAuthorityItem(Key10, Path, 'æ³¨å†Œè¡¨æ–‡ä»¶', True);
 end;
 
 procedure TForm3.Button3Click(Sender: TObject);
@@ -270,7 +270,7 @@ begin
   Method:=SysService as IRemoteMethod;
 
   Method.MethodName:='TBusiness1.Return';
-  Method.Param['s']:='ÎÒÊÇÖĞ¹úÈËabc';
+  Method.Param['s']:='æˆ‘æ˜¯ä¸­å›½äººabc';
   if Method.Execute then
   begin
     Button14.Caption:=inttostr(GetTickCount-c);
@@ -290,8 +290,8 @@ begin
     test := SysService as Itest;
     test := nil;
   end;
-  //ÓĞ20¸ö½Ó¿Ú(IRemoteMethodÊÇµÚ19¸ö)£¬È¡10000´Î»¨200-219ºÁÃë
-  Button15.Caption := '×Ü»¨(ºÁÃë)' + inttostr(GetTickCount - c);
+  //æœ‰20ä¸ªæ¥å£(IRemoteMethodæ˜¯ç¬¬19ä¸ª)ï¼Œå–10000æ¬¡èŠ±200-219æ¯«ç§’
+  Button15.Caption := 'æ€»èŠ±(æ¯«ç§’)' + inttostr(GetTickCount - c);
 end;
 
 end.

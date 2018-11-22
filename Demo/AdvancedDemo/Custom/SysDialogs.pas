@@ -1,8 +1,8 @@
-{------------------------------------
-  ¹¦ÄÜËµÃ÷£ºÊµÏÖIMessageBox½Ó¿Ú
-  ´´½¨ÈÕÆÚ£º2008/11/20
-  ×÷Õß£ºwzw
-  °æÈ¨£ºwzw
+ï»¿{------------------------------------
+  åŠŸèƒ½è¯´æ˜ï¼šå®ç°IMessageBoxæ¥å£
+  åˆ›å»ºæ—¥æœŸï¼š2008/11/20
+  ä½œè€…ï¼šwzw
+  ç‰ˆæƒï¼šwzw
 -------------------------------------}
 unit SysDialogs;
 
@@ -63,7 +63,7 @@ end;
 
 procedure TDialogs.ShowError(const APrompt: string);
 begin
-  application.MessageBox(pchar(APrompt), '´íÎó', MB_ICONERROR);
+  application.MessageBox(pchar(APrompt), 'é”™è¯¯', MB_ICONERROR);
 end;
 
 procedure TDialogs.ShowErrorFmt(const APrompt: string;
@@ -105,7 +105,7 @@ end;
 
 function TDialogs.GetComments: String;
 begin
-  Result := 'ÏµÍ³¶Ô»°¿ò£¬ÊµÏÖÍ³Ò»µÄ¶Ô»°¿òÑùÊ½';
+  Result := 'ç³»ç»Ÿå¯¹è¯æ¡†ï¼Œå®ç°ç»Ÿä¸€çš„å¯¹è¯æ¡†æ ·å¼';
 end;
 
 function TDialogs.GetModuleName: String;
@@ -115,7 +115,7 @@ end;
 
 function TDialogs.GetTitle: String;
 begin
-  Result := 'ÏµÍ³¶Ô»°¿ò½Ó¿Ú(IDialog)';
+  Result := 'ç³»ç»Ÿå¯¹è¯æ¡†æ¥å£(IDialog)';
 end;
 
 function TDialogs.GetVersion: String;

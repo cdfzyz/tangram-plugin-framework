@@ -1,8 +1,8 @@
-{------------------------------------
-  ¹¦ÄÜËµÃ÷£ºÊµÏÖÏµÍ³ĞÅÏ¢
-  ´´½¨ÈÕÆÚ£º2008/11/12
-  ×÷Õß£ºwzw
-  °æÈ¨£ºwzw
+ï»¿{------------------------------------
+  åŠŸèƒ½è¯´æ˜ï¼šå®ç°ç³»ç»Ÿä¿¡æ¯
+  åˆ›å»ºæ—¥æœŸï¼š2008/11/12
+  ä½œè€…ï¼šwzw
+  ç‰ˆæƒï¼šwzw
 -------------------------------------}
 unit ImpSysInfoIntf;
 
@@ -16,9 +16,9 @@ type
     FLoginUserInfo: TLoginUserInfo;
   protected
     {ISysInfo}
-    function RegistryFile: string;//×¢²á±íÎÄ¼ş
-    function AppPath: string;//³ÌĞòÄ¿Â¼
-    function ErrPath: string;//´íÎóÈÕÖ¾Ä¿Â¼
+    function RegistryFile: string;//æ³¨å†Œè¡¨æ–‡ä»¶
+    function AppPath: string;//ç¨‹åºç›®å½•
+    function ErrPath: string;//é”™è¯¯æ—¥å¿—ç›®å½•
     {ISvcInfo}
     function GetModuleName: String;
     function GetTitle: String;
@@ -49,7 +49,7 @@ end;
 
 function TSysInfoObj.GetComments: String;
 begin
-  Result := 'Í¨¹ıËü¿ÉÒÔÈ¡µÃÏµÍ³Ò»Ğ©ĞÅÏ¢£¬±ÈÈç´íÎóÈÕÖ¾±£´æÄ¿Â¼£¬×¢²á±íÎÄ¼şÃûÒÔ¼°µ±Ç°µÇÂ¼ÓÃ»§µÈ¡£';
+  Result := 'é€šè¿‡å®ƒå¯ä»¥å–å¾—ç³»ç»Ÿä¸€äº›ä¿¡æ¯ï¼Œæ¯”å¦‚é”™è¯¯æ—¥å¿—ä¿å­˜ç›®å½•ï¼Œæ³¨å†Œè¡¨æ–‡ä»¶åä»¥åŠå½“å‰ç™»å½•ç”¨æˆ·ç­‰ã€‚';
 end;
 
 function TSysInfoObj.GetModuleName: String;
@@ -59,7 +59,7 @@ end;
 
 function TSysInfoObj.GetTitle: String;
 begin
-  Result := 'ÏµÍ³ĞÅÏ¢½Ó¿Ú(ISysInfo)';
+  Result := 'ç³»ç»Ÿä¿¡æ¯æ¥å£(ISysInfo)';
 end;
 
 function TSysInfoObj.GetVersion: String;

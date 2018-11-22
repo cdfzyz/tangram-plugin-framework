@@ -1,8 +1,8 @@
-{------------------------------------
-  ¹¦ÄÜËµÃ÷£º²Ëµ¥¹ÜÀí...
-  ´´½¨ÈÕÆÚ£º2010/04/23
-  ×÷Õß£ºwzw
-  °æÈ¨£ºwzw
+ï»¿{------------------------------------
+  åŠŸèƒ½è¯´æ˜ï¼šèœå•ç®¡ç†...
+  åˆ›å»ºæ—¥æœŸï¼š2010/04/23
+  ä½œè€…ï¼šwzw
+  ç‰ˆæƒï¼šwzw
 -------------------------------------}
 unit MenuDispatcher;
 
@@ -65,7 +65,7 @@ const
 
 function TMenuDispatcher.GetComments: string;
 begin
-  Result := '¿ÉÒÔ¸ø²Ëµ¥»ò¹¤¾ßÀ¸°´Å¤°ó¶¨ÊÂ¼ş¡£';
+  Result := 'å¯ä»¥ç»™èœå•æˆ–å·¥å…·æ æŒ‰æ‰­ç»‘å®šäº‹ä»¶ã€‚';
 end;
 
 function TMenuDispatcher.GetModuleName: string;
@@ -75,7 +75,7 @@ end;
 
 function TMenuDispatcher.GetTitle: string;
 begin
-  Result := '²Ëµ¥ÊÂ¼ş°ó¶¨½Ó¿Ú(IMenuEventBinder)';
+  Result := 'èœå•äº‹ä»¶ç»‘å®šæ¥å£(IMenuEventBinder)';
 end;
 
 function TMenuDispatcher.GetVersion: string;
@@ -224,7 +224,7 @@ begin
             aItem.Key := vName;
             aItem.Obj := MainForm.CreateToolButton(vList.Values['Caption'], self.OnClick,
               vList.Values['Hint']);
-              //if TToolButton(aItem.Obj).Caption<>'' then//²»ÊÇ·Ö¸ôÏß¾ÍÏÈ²»ÏÔÊ¾,µÈ°ó¶¨ÊÂ¼şÔÙÏÔÊ¾
+              //if TToolButton(aItem.Obj).Caption<>'' then//ä¸æ˜¯åˆ†éš”çº¿å°±å…ˆä¸æ˜¾ç¤º,ç­‰ç»‘å®šäº‹ä»¶å†æ˜¾ç¤º
             //  TToolButton(aItem.Obj).Visible:=False
             //else TToolButton(aItem.Obj).Width:=8;
             aItem.Event := nil;

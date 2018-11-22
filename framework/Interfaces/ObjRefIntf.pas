@@ -1,4 +1,4 @@
-//2011.09.05 by wei
+﻿//2011.09.05 by wei
 unit ObjRefIntf;
 {$weakpackageunit on}
 interface

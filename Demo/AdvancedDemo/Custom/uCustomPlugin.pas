@@ -1,4 +1,4 @@
-unit uCustomPlugin;
+﻿unit uCustomPlugin;
 
 interface
 uses SysUtils, Classes, Graphics, MainFormIntf, MenuRegIntf,

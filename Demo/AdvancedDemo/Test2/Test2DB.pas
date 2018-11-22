@@ -1,4 +1,4 @@
-unit Test2DB;
+ï»¿unit Test2DB;
 
 interface
 
@@ -45,8 +45,8 @@ uses SysSvc, DBIntf, _Sys, MainFormIntf;
 
 {$R *.dfm}
 const
-  Key_Query = '{1A451528-814F-4F90-AA0B-8ECA3728321E}';//²éÑ¯È¨ÏŞ
-  Key_Post  = '{81110FB4-0C78-4CD9-87DF-282E3ED481E7}';//Ìá½»È¨ÏŞ
+  Key_Query = '{1A451528-814F-4F90-AA0B-8ECA3728321E}';//æŸ¥è¯¢æƒé™
+  Key_Post  = '{81110FB4-0C78-4CD9-87DF-282E3ED481E7}';//æäº¤æƒé™
 
 procedure TFrmTestDB.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
@@ -62,7 +62,7 @@ begin
   DBAC := SysService as IDBAccess;
   SqlStr := 'select * from [test]';
   DBAC.QuerySQL(Cds, SqlStr);
-  BitBtn1.Caption := Format('²éÑ¯(ÓÃÊ±%dºÁÃë)', [GetTickCount - c]);
+  BitBtn1.Caption := Format('æŸ¥è¯¢(ç”¨æ—¶%dæ¯«ç§’)', [GetTickCount - c]);
 end;
 
 procedure TFrmTestDB.Button1Click(Sender: TObject);
@@ -73,7 +73,7 @@ begin
   try
     DBAC.ApplyUpdate('[test]', cds);
     DBAC.CommitTrans;
-    //sys.Dialogs.ShowMessage('±£´æ³É¹¦£¡');
+    //sys.Dialogs.ShowMessage('ä¿å­˜æˆåŠŸï¼');
   except
     on E: Exception do
     begin
@@ -99,8 +99,8 @@ end;
 
 class procedure TFrmTestDB.RegAuthority(aIntf: IAuthorityRegistrar);
 begin
-  aIntf.RegAuthorityItem(Key_Query, '²âÊÔÈ¨ÏŞ\Êı¾İ¿â²Ù×÷', '²éÑ¯', True);
-  aIntf.RegAuthorityItem(Key_Post, '²âÊÔÈ¨ÏŞ\Êı¾İ¿â²Ù×÷', 'Ìá½»', True);
+  aIntf.RegAuthorityItem(Key_Query, 'æµ‹è¯•æƒé™\æ•°æ®åº“æ“ä½œ', 'æŸ¥è¯¢', True);
+  aIntf.RegAuthorityItem(Key_Post, 'æµ‹è¯•æƒé™\æ•°æ®åº“æ“ä½œ', 'æäº¤', True);
 end;
 
 procedure TFrmTestDB.Button5Click(Sender: TObject);
@@ -114,7 +114,7 @@ end;
 procedure TFrmTestDB.FormDestroy(Sender: TObject);
 begin
   inherited;
-  (SysService as IListFiller).ClearList(self.ComboBox1.Items);//¼ÇµÃÒªÊÍ·Å
+  (SysService as IListFiller).ClearList(self.ComboBox1.Items);//è®°å¾—è¦é‡Šæ”¾
 end;
 
 procedure TFrmTestDB.ComboBox1Click(Sender: TObject);

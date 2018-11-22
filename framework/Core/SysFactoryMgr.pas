@@ -1,8 +1,8 @@
-{------------------------------------
-  ¹¦ÄÜËµÃ÷£º¹¤³§¹ÜÀí
-  ´´½¨ÈÕÆÚ£º2010/04/20
-  ×÷Õß£ºWZW
-  °æÈ¨£ºWZW
+ï»¿{------------------------------------
+  åŠŸèƒ½è¯´æ˜ï¼šå·¥å‚ç®¡ç†
+  åˆ›å»ºæ—¥æœŸï¼š2010/04/20
+  ä½œè€…ï¼šWZW
+  ç‰ˆæƒï¼šWZW
 -------------------------------------}
 unit SysFactoryMgr;
 
@@ -55,7 +55,7 @@ type
     destructor Destroy; override;
   end;
 
-  //×¢²á½Ó¿ÚÒì³£Àà
+  //æ³¨å†Œæ¥å£å¼‚å¸¸ç±»
   ERegistryIntfException = class(Exception);
 
 function FactoryManager: TSysFactoryManager;

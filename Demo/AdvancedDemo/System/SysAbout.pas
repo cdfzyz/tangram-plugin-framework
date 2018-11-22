@@ -1,4 +1,4 @@
-unit SysAbout;
+ï»¿unit SysAbout;
 
 interface
 
@@ -30,9 +30,9 @@ implementation
 class procedure TFrm_About.Execute;
 begin
   Frm_About := TFrm_About.Create(nil);
-  Frm_About.Label1.Caption := 'Bpl ¿ò¼Ü2.0';
-  Frm_About.Label2.Caption := '×÷Õß£ºwei';
-  Frm_About.Label3.Caption := '²©¿Í£ºhttp://hi.baidu.com/0xcea4';
+  Frm_About.Label1.Caption := 'Bpl æ¡†æ¶2.0';
+  Frm_About.Label2.Caption := 'ä½œè€…ï¼šwei';
+  Frm_About.Label3.Caption := 'åšå®¢ï¼šhttp://hi.baidu.com/0xcea4';
   Frm_About.ShowModal;
   Frm_About.Free;
 end;

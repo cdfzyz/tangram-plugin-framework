@@ -1,8 +1,8 @@
-{------------------------------------
-  ¹¦ÄÜËµÃ÷£ºÄ£¿éµ¼³öµ¥Ôª ¸øConfigTool.exeÌá¹©½Ó¿Ú
-  ´´½¨ÈÕÆÚ£º2011.01.04
-  ×÷Õß£ºwei
-  °æÈ¨£ºwei
+ï»¿{------------------------------------
+  åŠŸèƒ½è¯´æ˜ï¼šæ¨¡å—å¯¼å‡ºå•å…ƒ ç»™ConfigTool.exeæä¾›æ¥å£
+  åˆ›å»ºæ—¥æœŸï¼š2011.01.04
+  ä½œè€…ï¼šwei
+  ç‰ˆæƒï¼šwei
 -------------------------------------}
 unit uTangramModule;
 {$weakpackageunit on}
@@ -40,7 +40,7 @@ var
 
 procedure RegisterModuleClass(ModuleClass: TModuleClass);
 begin
-  //ÕâÀïÒ²ĞíÒª´¦ÀíÖØ¸´×¢²á¡£¡£¡£
+  //è¿™é‡Œä¹Ÿè®¸è¦å¤„ç†é‡å¤æ³¨å†Œã€‚ã€‚ã€‚
   FModuleClass := ModuleClass;
 end;
 
@@ -94,10 +94,6 @@ function GetModuleClass: TModuleClass;
 begin
   Result := FModuleClass;
 end;
-
-//initialization
-//  FModuleClass:=nil;
-//finalization
 
 end.
 

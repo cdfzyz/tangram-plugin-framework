@@ -1,8 +1,8 @@
-{------------------------------------
-  ¹¦ÄÜËµÃ÷£ºÈ¨ÏŞ¹ÜÀí
-  ´´½¨ÈÕÆÚ£º2010/05/22
-  ×÷Õß£ºwzw
-  °æÈ¨£ºwzw
+ï»¿{------------------------------------
+  åŠŸèƒ½è¯´æ˜ï¼šæƒé™ç®¡ç†
+  åˆ›å»ºæ—¥æœŸï¼š2010/05/22
+  ä½œè€…ï¼šwzw
+  ç‰ˆæƒï¼šwzw
 -------------------------------------}
 unit uRoleMgr;
 
@@ -16,7 +16,7 @@ uses
 type
   PNodeData = ^TNodeData;
   TNodeData = record
-    State: Integer;//0:²»Ñ¡ 1:²»È·¶¨ 2:Ñ¡Ôñ
+    State: Integer;//0:ä¸é€‰ 1:ä¸ç¡®å®š 2:é€‰æ‹©
 
     aDefault: Boolean;
     Key: String;
@@ -211,7 +211,7 @@ begin
   try
     self.tv_Authority.Items.Clear;
 
-    RootNode := self.tv_Authority.Items.AddChildFirst(nil, 'ËùÓĞÈ¨ÏŞ');
+    RootNode := self.tv_Authority.Items.AddChildFirst(nil, 'æ‰€æœ‰æƒé™');
     New(NodeData);
     NodeData^.State := 0;
     NodeData^.Key := '';
@@ -368,7 +368,7 @@ begin
   inherited;
   FrmEdtRole := TFrmEdtRole.Create(nil, nil);
   try
-    FrmEdtRole.Caption := 'ĞÂÔö½ÇÉ«';
+    FrmEdtRole.Caption := 'æ–°å¢è§’è‰²';
     if FrmEdtRole.ShowModal = mrOK then
     begin
       FrmEdtRole.ResultData.SaveToDataSet('ID', Cds_Role);
@@ -377,7 +377,7 @@ begin
         DBAC.ApplyUpdate('[Role]', Cds_Role);
         DBAC.CommitTrans;
 
-        self.LoadRoles;//ĞÂÔöÒªÖØĞÂ¼ÓÔØÒ»ÏÂ£¬²»È»Ã»ÓĞID£¬ÒòÎªIDÊÇ×ÔÔöµÄ¡£¡£¡£
+        self.LoadRoles;//æ–°å¢è¦é‡æ–°åŠ è½½ä¸€ä¸‹ï¼Œä¸ç„¶æ²¡æœ‰IDï¼Œå› ä¸ºIDæ˜¯è‡ªå¢çš„ã€‚ã€‚ã€‚
         self.DisRoleInLv;
       except
         on E: Exception do
@@ -403,8 +403,8 @@ begin
   if Assigned(self.lv_Role.Selected) then
   begin
     Rec := IDataRecord(self.lv_Role.Selected.Data);
-    if sys.Dialogs.Confirm('É¾³ı½ÇÉ«', 'ÄúÈ·¶¨ÒªÉ¾³ıµ±Ç°Ñ¡ÖĞµÄ½ÇÉ«Âğ£¿' + #13#10
-      + '×¢Òâ£ºÉ¾³ı½ÇÉ«ºó£¬¸Ã½ÇÉ«ÏÂµÄËùÓĞÓÃ»§½«¶ªÊ§ËùÓĞÈ¨ÏŞ£¡') then
+    if sys.Dialogs.Confirm('åˆ é™¤è§’è‰²', 'æ‚¨ç¡®å®šè¦åˆ é™¤å½“å‰é€‰ä¸­çš„è§’è‰²å—ï¼Ÿ' + #13#10
+      + 'æ³¨æ„ï¼šåˆ é™¤è§’è‰²åï¼Œè¯¥è§’è‰²ä¸‹çš„æ‰€æœ‰ç”¨æˆ·å°†ä¸¢å¤±æ‰€æœ‰æƒé™ï¼') then
     begin
       RoleID := Rec.FieldValueAsInteger('ID');
       if Cds_Role.Locate('ID', RoleID, []) then
@@ -426,7 +426,7 @@ begin
       end;
     end;
   end
-  else sys.Dialogs.ShowInfo('ÇëÏÈÑ¡ÔñÒ»¸ö½ÇÉ«£¡');
+  else sys.Dialogs.ShowInfo('è¯·å…ˆé€‰æ‹©ä¸€ä¸ªè§’è‰²ï¼');
 end;
 
 procedure TFrmRoleMgr.Btn_EdtRoleClick(Sender: TObject);
@@ -437,7 +437,7 @@ begin
     Rec := IDataRecord(self.lv_Role.Selected.Data);
     FrmEdtRole := TFrmEdtRole.Create(nil, Rec);
     try
-      FrmEdtRole.Caption := 'ĞÂÔö½ÇÉ«';
+      FrmEdtRole.Caption := 'æ–°å¢è§’è‰²';
       if FrmEdtRole.ShowModal = mrOK then
       begin
         FrmEdtRole.ResultData.SaveToDataSet('ID', Cds_Role);
@@ -456,7 +456,7 @@ begin
       FrmEdtRole.Free;
     end;
   end
-  else sys.Dialogs.ShowInfo('ÇëÏÈÑ¡ÔñÒ»¸ö½ÇÉ«£¡');
+  else sys.Dialogs.ShowInfo('è¯·å…ˆé€‰æ‹©ä¸€ä¸ªè§’è‰²ï¼');
 end;
 
 procedure TFrmRoleMgr.DisRoleInLv;
@@ -518,7 +518,7 @@ begin
     try
       DBAC.ApplyUpdate('[RoleAuthority]', tmpCds);
       DBAC.CommitTrans;
-      Sys.Dialogs.ShowInfo('±£´æ³É¹¦£¡');
+      Sys.Dialogs.ShowInfo('ä¿å­˜æˆåŠŸï¼');
     except
       on E: Exception do
       begin
@@ -536,7 +536,7 @@ procedure TFrmRoleMgr.CheckToSave;
 begin
   if self.FModified then
   begin
-    if Sys.Dialogs.Ask('½ÇÉ«¹ÜÀí', 'È¨ÏŞÒÑ¾­¸Ä±ä£¬ÊÇ·ñ±£´æ£¿') then
+    if Sys.Dialogs.Ask('è§’è‰²ç®¡ç†', 'æƒé™å·²ç»æ”¹å˜ï¼Œæ˜¯å¦ä¿å­˜ï¼Ÿ') then
       self.Save;
   end;
 end;
@@ -551,7 +551,7 @@ const Key1 = '{B928DA74-D9D0-4616-B91B-D2DE65B0DB58}';
 
 class procedure TFrmRoleMgr.RegAuthority(aIntf: IAuthorityRegistrar);
 begin
-  aIntf.RegAuthorityItem(Key1, 'ÏµÍ³¹ÜÀí\È¨ÏŞ', '½ÇÉ«¹ÜÀí', True);
+  aIntf.RegAuthorityItem(Key1, 'ç³»ç»Ÿç®¡ç†\æƒé™', 'è§’è‰²ç®¡ç†', True);
 end;
 
 procedure TFrmRoleMgr.HandleAuthority(const Key: String; aEnable: Boolean);
@@ -559,7 +559,7 @@ begin
   if Key = Key1 then
   begin
     if not aEnable then
-      raise Exception.Create('¶Ô²»Æğ£¬ÄãÃ»ÓĞÈ¨ÏŞ£¡');
+      raise Exception.Create('å¯¹ä¸èµ·ï¼Œä½ æ²¡æœ‰æƒé™ï¼');
   end;
 end;
 

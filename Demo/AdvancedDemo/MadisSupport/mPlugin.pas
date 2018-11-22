@@ -1,4 +1,4 @@
-unit mPlugin;
+ï»¿unit mPlugin;
 
 interface
 
@@ -34,7 +34,7 @@ const
 constructor TmPlugin.Create;
 begin
   inherited;
-  (SysService as IMainForm).RegShortCut('MidasÔ¶³Ì·½·¨µ÷ÓÃ', self.SortCutClick);
+  (SysService as IMainForm).RegShortCut('Midasè¿œç¨‹æ–¹æ³•è°ƒç”¨', self.SortCutClick);
 
   dm := Tdm.Create(nil);
   TObjFactoryEx.Create([IDBConnection, IDBAccess, IInvokeServer], dm);
@@ -67,7 +67,7 @@ end;
 class procedure TmPlugin.RegisterModule(Reg: IRegistry);
 var ModuleFullName, ModuleName, Value: String;
 begin
-  //×¢²á°ü
+  //æ³¨å†ŒåŒ…
   if Reg.OpenKey(InstallKey, True) then
   begin
     ModuleFullName := SysUtils.GetModuleName(HInstance);
@@ -86,7 +86,7 @@ end;
 class procedure TmPlugin.UnRegisterModule(Reg: IRegistry);
 var ModuleName: String;
 begin
-  //È¡Ïû×¢²á°ü
+  //å–æ¶ˆæ³¨å†ŒåŒ…
   if Reg.OpenKey(InstallKey) then
   begin
     ModuleName := ExtractFileName(SysUtils.GetModuleName(HInstance));

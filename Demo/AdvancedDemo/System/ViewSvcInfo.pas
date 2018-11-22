@@ -1,8 +1,8 @@
-{------------------------------------
-  ¹¦ÄÜËµÃ÷£ºÕ¹Ê¾Æ½Ì¨ËùÓĞ·şÎñ½Ó¿Ú
-  ´´½¨ÈÕÆÚ£º2010.04.21
-  ×÷Õß£ºWZW
-  °æÈ¨£ºWZW
+ï»¿{------------------------------------
+  åŠŸèƒ½è¯´æ˜ï¼šå±•ç¤ºå¹³å°æ‰€æœ‰æœåŠ¡æ¥å£
+  åˆ›å»ºæ—¥æœŸï¼š2010.04.21
+  ä½œè€…ï¼šWZW
+  ç‰ˆæƒï¼šWZW
 -------------------------------------}
 unit ViewSvcInfo;
 
@@ -130,7 +130,7 @@ procedure Tfrm_SvcInfo.ToolButton1Click(Sender: TObject);
 var GUID: String;
   i:      Integer;
 begin
-  if InputQuery('²éÕÒ½Ó¿Ú', 'ÇëÊäÈë½Ó¿ÚµÄGUID£º', GUID) then
+  if InputQuery('æŸ¥æ‰¾æ¥å£', 'è¯·è¾“å…¥æ¥å£çš„GUIDï¼š', GUID) then
   begin
     for i := 0 to self.tv_Svc.Items.Count - 1 do
     begin
@@ -149,16 +149,16 @@ var RNode, PNode, NewNode: TTreeNode;
   SvcInfoRec: PSvcInfoRec;
   ModuleName: String;
 begin
-  RNode := self.GetNode('ËùÓĞ½Ó¿Ú');
+  RNode := self.GetNode('æ‰€æœ‰æ¥å£');
   if RNode = nil then
   begin
-    RNode := self.tv_Svc.Items.AddChild(nil, 'ËùÓĞ½Ó¿Ú');
+    RNode := self.tv_Svc.Items.AddChild(nil, 'æ‰€æœ‰æ¥å£');
     RNode.ImageIndex := 0;
     RNode.SelectedIndex := 0;
   end;
   ModuleName := SvcInfo.ModuleName;
   if ModuleName = '' then
-    ModuleName := '<Î´Öª>';
+    ModuleName := '<æœªçŸ¥>';
   PNode := self.GetNode(ModuleName);
   if PNode = nil then
   begin

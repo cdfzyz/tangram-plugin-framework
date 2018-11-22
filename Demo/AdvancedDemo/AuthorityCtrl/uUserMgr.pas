@@ -1,4 +1,4 @@
-unit uUserMgr;
+ï»¿unit uUserMgr;
 
 interface
 
@@ -56,7 +56,7 @@ begin
   inherited;
   if cds.ChangeCount > 0 then
   begin
-    if sys.Dialogs.Ask('ÓÃ»§¹ÜÀí', 'Êı¾İÒÑ¸Ä±ä£¬ÊÇ·ñ±£´æ£¿') then
+    if sys.Dialogs.Ask('ç”¨æˆ·ç®¡ç†', 'æ•°æ®å·²æ”¹å˜ï¼Œæ˜¯å¦ä¿å­˜ï¼Ÿ') then
       self.SaveData;
   end;
   Action := caFree;
@@ -64,7 +64,7 @@ end;
 
 class procedure TfrmUserMgr.RegAuthority(aIntf: IAuthorityRegistrar);
 begin
-  aIntf.RegAuthorityItem(Key1, 'ÏµÍ³¹ÜÀí\È¨ÏŞ', 'ÓÃ»§¹ÜÀí', True);
+  aIntf.RegAuthorityItem(Key1, 'ç³»ç»Ÿç®¡ç†\æƒé™', 'ç”¨æˆ·ç®¡ç†', True);
 end;
 
 procedure TfrmUserMgr.HandleAuthority(const Key: String; aEnable: Boolean);
@@ -72,7 +72,7 @@ begin
   if Key = Key1 then
   begin
     if not aEnable then
-      raise Exception.Create('¶Ô²»Æğ£¬ÄãÃ»ÓĞÈ¨ÏŞ£¡');
+      raise Exception.Create('å¯¹ä¸èµ·ï¼Œä½ æ²¡æœ‰æƒé™ï¼');
   end;
 end;
 
@@ -81,7 +81,7 @@ begin
   inherited;
   frmEdtUser := TfrmEdtUser.Create(nil);
   try
-    frmEdtUser.Caption := 'ĞÂÔöÓÃ»§';
+    frmEdtUser.Caption := 'æ–°å¢ç”¨æˆ·';
     if frmEdtUser.ShowModal = mrOK then
     begin
       cds.Append;
@@ -103,7 +103,7 @@ begin
     exit;
   frmEdtUser := TfrmEdtUser.Create(nil);
   try
-    frmEdtUser.Caption := '±à¼­ÓÃ»§';
+    frmEdtUser.Caption := 'ç¼–è¾‘ç”¨æˆ·';
     frmEdtUser.UserName := cds.FieldByName('UserName').AsString;
     frmEdtUser.Psw := cds.FieldByName('Psw').AsString;
     frmEdtUser.RoleID := cds.FieldByName('RoleID').AsInteger;
@@ -179,7 +179,7 @@ begin
   inherited;
   if cds.IsEmpty then
     exit;
-  if sys.Dialogs.Confirm('ÓÃ»§¹ÜÀí', 'ÊÇ·ñÒªÉ¾³ıµ±Ç°ÓÃ»§£¿') then
+  if sys.Dialogs.Confirm('ç”¨æˆ·ç®¡ç†', 'æ˜¯å¦è¦åˆ é™¤å½“å‰ç”¨æˆ·ï¼Ÿ') then
     cds.Delete;
 end;
 

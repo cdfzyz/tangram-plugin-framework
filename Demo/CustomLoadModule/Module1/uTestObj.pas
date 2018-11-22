@@ -1,4 +1,4 @@
-unit uTestObj;
+ï»¿unit uTestObj;
 
 interface
 
@@ -25,12 +25,12 @@ end;
 
 procedure TTestObj.test;
 begin
-  showmessage('ÄãºÃ£¡');
+  showmessage('ä½ å¥½ï¼');
 end;
 
 var Factory: TObject;
 initialization
   Factory := TIntfFactory.Create(ITest, @Create_TestObj);
 finalization
-  Factory.Free;//¶¯Ì¬Ğ¶ÔØÄ£¿é¼ÇµÃÊÍ·Å¹¤³§Àà
+  Factory.Free;//åŠ¨æ€å¸è½½æ¨¡å—è®°å¾—é‡Šæ”¾å·¥å‚ç±»
 end.

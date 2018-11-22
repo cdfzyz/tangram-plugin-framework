@@ -1,4 +1,4 @@
-unit uMain;
+ï»¿unit uMain;
 
 interface
 
@@ -38,20 +38,20 @@ uses SysSvc, SysFactory, regintf, ObjRefIntf;
 procedure TFrmMain.Button1Click(Sender: TObject);
 var Intf: IIntf2;
 begin
-  Intf := SysService as IIntf2; //»ñÈ¡IIntf2½Ó¿Ú,IIntf2ÊÇDLLÄ£¿éÀïÊµÏÖµÄ
+  Intf := SysService as IIntf2; //è·å–IIntf2æ¥å£,IIntf2æ˜¯DLLæ¨¡å—é‡Œå®ç°çš„
   Intf.ShowDLlForm;
 end;
 
 procedure TFrmMain.Button2Click(Sender: TObject);
 var Intf: IIntf3;
 begin
-  Intf := SysService as IIntf3; //»ñÈ¡IIntf3½Ó¿Ú,IIntf3½Ó¿ÚÊÇÔÚBPL°üÀïÊµÏÖµÄ
+  Intf := SysService as IIntf3; //è·å–IIntf3æ¥å£,IIntf3æ¥å£æ˜¯åœ¨BPLåŒ…é‡Œå®ç°çš„
   Intf.ShowBPLform;
 end;
 
 procedure TFrmMain.FormCreate(Sender: TObject);
 begin
-  //×¢Òâ£ºÕâÀï×¢²áÖ÷´°ÌåÊµÏÖµÄIIntf1½Ó¿Ú£¬ÕâÑùÆäËûÄ£¿é²ÅÄÜÊ¹ÓÃ
+  //æ³¨æ„ï¼šè¿™é‡Œæ³¨å†Œä¸»çª—ä½“å®ç°çš„IIntf1æ¥å£ï¼Œè¿™æ ·å…¶ä»–æ¨¡å—æ‰èƒ½ä½¿ç”¨
   TObjFactory.Create(IIntf1, self);
 end;
 

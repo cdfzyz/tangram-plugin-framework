@@ -1,8 +1,8 @@
-{------------------------------------
-  ¹¦ÄÜËµÃ÷£ºÊµÏÖIProgressForm ½Ó¿Ú(µÈ´ı´°¿Ú)
-  ´´½¨ÈÕÆÚ£º2008.12.12
-  ×÷Õß£ºWZW
-  °æÈ¨£ºWZW
+ï»¿{------------------------------------
+  åŠŸèƒ½è¯´æ˜ï¼šå®ç°IProgressForm æ¥å£(ç­‰å¾…çª—å£)
+  åˆ›å»ºæ—¥æœŸï¼š2008.12.12
+  ä½œè€…ï¼šWZW
+  ç‰ˆæƒï¼šWZW
 -------------------------------------}
 unit ProgressFormObj;
 
@@ -41,7 +41,7 @@ constructor TProgressFormObj.Create;
 //var err:string;
 begin
   FProgressForm := nil;
-  //È¡µÃIMainForm½Ó¿Ú
+  //å–å¾—IMainFormæ¥å£
   //sys.GetSpecifyIntf(IMainForm,FMainFormIntf,err);
 end;
 
@@ -50,7 +50,7 @@ begin
   if FProgressForm = nil then
   begin
     FProgressForm := Tfrm_ProgressForm.Create(nil);
-    //FMainFormIntf.DisableExit;//²»ÔÊĞíÍË³ö³ÌĞò
+    //FMainFormIntf.DisableExit;//ä¸å…è®¸é€€å‡ºç¨‹åº
   end;
   FProgressForm.Show;
 end;
@@ -64,7 +64,7 @@ end;
 
 function TProgressFormObj.GetComments: String;
 begin
-  Result := '×ö³¤Ê±¼ä²Ù×÷Ê±¿ÉÒÔÍ¨¹ı±¾½Ó¿ÚÏÔÊ¾Ò»¸öµÈ´ı´°¿Ú¡£';
+  Result := 'åšé•¿æ—¶é—´æ“ä½œæ—¶å¯ä»¥é€šè¿‡æœ¬æ¥å£æ˜¾ç¤ºä¸€ä¸ªç­‰å¾…çª—å£ã€‚';
 end;
 
 function TProgressFormObj.GetModuleName: String;
@@ -74,7 +74,7 @@ end;
 
 function TProgressFormObj.GetTitle: String;
 begin
-  Result := '½ø¶È´°½Ó¿Ú(IProgressForm)';
+  Result := 'è¿›åº¦çª—æ¥å£(IProgressForm)';
 end;
 
 function TProgressFormObj.GetVersion: String;
@@ -86,7 +86,7 @@ procedure TProgressFormObj.Hide;
 begin
   if assigned(FProgressForm) then
   begin
-    //FMainFormIntf.EnableExit;//ÔÊĞíÍË³ö³ÌĞò
+    //FMainFormIntf.EnableExit;//å…è®¸é€€å‡ºç¨‹åº
     FProgressForm.Hide;
     FProgressForm.Free;
     FProgressForm := nil;

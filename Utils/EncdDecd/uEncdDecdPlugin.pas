@@ -1,4 +1,4 @@
-unit uEncdDecdPlugin;
+ï»¿unit uEncdDecdPlugin;
 
 interface
 
@@ -21,7 +21,7 @@ type
 implementation
 
 const
-  InstallKey = 'SYSTEM\LOADMODULE\UTILS';//ÕâÀïÒª¸Ä³ÉÏàÓ¦µÄKEY
+  InstallKey = 'SYSTEM\LOADMODULE\UTILS';//è¿™é‡Œè¦æ”¹æˆç›¸åº”çš„KEY
 { TEncdDecdPlugin }
 
 constructor TEncdDecdPlugin.Create;
@@ -56,13 +56,13 @@ end;
 
 class procedure TEncdDecdPlugin.RegisterModule(Reg: IRegistry);
 begin
-  //×¢²á°ü
+  //æ³¨å†ŒåŒ…
   DefaultRegisterModule(Reg, InstallKey);
 end;
 
 class procedure TEncdDecdPlugin.UnRegisterModule(Reg: IRegistry);
 begin
-  //È¡Ïû×¢²á°ü
+  //å–æ¶ˆæ³¨å†ŒåŒ…
   DefaultUnRegisterModule(Reg, InstallKey);
 end;
 

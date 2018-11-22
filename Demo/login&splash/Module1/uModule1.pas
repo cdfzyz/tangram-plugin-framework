@@ -1,4 +1,4 @@
-unit uModule1;
+ï»¿unit uModule1;
 
 interface
 
@@ -31,24 +31,24 @@ const
 constructor TUserModule.Create;
 begin
   inherited;
-  //µ±Ç°Ä£¿é¼ÓÔØºóÖ´ĞĞ£¬²»ÒªÔÚÕâÀïÈ¡½Ó¿Ú...
+  //å½“å‰æ¨¡å—åŠ è½½åæ‰§è¡Œï¼Œä¸è¦åœ¨è¿™é‡Œå–æ¥å£...
 end;
 
 destructor TUserModule.Destroy;
 begin
-  //µ±Ç°Ä£¿éĞ¶ÔØÇ°Ö´ĞĞ£¬²»ÒªÔÚÕâÀïÈ¡½Ó¿Ú...
+  //å½“å‰æ¨¡å—å¸è½½å‰æ‰§è¡Œï¼Œä¸è¦åœ¨è¿™é‡Œå–æ¥å£...
   inherited;
 end;
 
 procedure TUserModule.Init;
 begin
-  //³õÊ¼»¯£¬ËùÓĞÄ£¿é¼ÓÔØÍê³Éºó»áÖ´ĞĞµ½ÕâÀï£¬ÔÚÕâÈ¡½Ó¿ÚÊÇ°²È«µÄ...
+  //åˆå§‹åŒ–ï¼Œæ‰€æœ‰æ¨¡å—åŠ è½½å®Œæˆåä¼šæ‰§è¡Œåˆ°è¿™é‡Œï¼Œåœ¨è¿™å–æ¥å£æ˜¯å®‰å…¨çš„...
   inherited;
 end;
 
 procedure TUserModule.final;
 begin
-  //ÖÕÊ¼»¯£¬Ğ¶ÔØÄ£¿éÇ°»áÖ´ĞĞµ½ÕâÀï£¬ÕâÀïÈ¡½Ó¿ÚÊÇ°²È«µÄ...
+  //ç»ˆå§‹åŒ–ï¼Œå¸è½½æ¨¡å—å‰ä¼šæ‰§è¡Œåˆ°è¿™é‡Œï¼Œè¿™é‡Œå–æ¥å£æ˜¯å®‰å…¨çš„...
   inherited;
 end;
 
@@ -60,13 +60,13 @@ end;
 
 class procedure TUserModule.RegisterModule(Reg: IRegistry);
 begin
-  //×¢²áÄ£¿é
+  //æ³¨å†Œæ¨¡å—
   DefaultRegisterModule(Reg, InstallKey);
 end;
 
 class procedure TUserModule.UnRegisterModule(Reg: IRegistry);
 begin
-  //È¡Ïû×¢²áÄ£¿é
+  //å–æ¶ˆæ³¨å†Œæ¨¡å—
   DefaultUnRegisterModule(Reg, InstallKey);
 end;
 

@@ -1,8 +1,8 @@
-{------------------------------------
-  ¹¦ÄÜËµÃ÷£ºÆ½Ì¨Ö÷´°Ìå
-  ´´½¨ÈÕÆÚ£º2008/11/17
-  ×÷Õß£ºwzw
-  °æÈ¨£ºwzw
+ï»¿{------------------------------------
+  åŠŸèƒ½è¯´æ˜ï¼šå¹³å°ä¸»çª—ä½“
+  åˆ›å»ºæ—¥æœŸï¼š2008/11/17
+  ä½œè€…ï¼šwzw
+  ç‰ˆæƒï¼šwzw
 -------------------------------------}
 unit uMain;
 
@@ -34,19 +34,19 @@ type
     procedure HandleException(Sender: TObject; E: Exception);
   protected
     {IMainForm}
-    //×¢²áÆÕÍ¨²Ëµ¥
+    //æ³¨å†Œæ™®é€šèœå•
     function CreateMenu(const Path: string; MenuClick: TNotifyEvent): TObject;
-    //È¡Ïû×¢²á²Ëµ¥
+    //å–æ¶ˆæ³¨å†Œèœå•
     procedure DeleteMenu(const Path: string);
-    //´´½¨¹¤¾ßÀ¸
+    //åˆ›å»ºå·¥å…·æ 
     function CreateToolButton(const aCaption: String; onClick: TNotifyEvent; Hint: String = ''): TObject;
-    //×¢²á¿ì½İ²Ëµ¥
+    //æ³¨å†Œå¿«æ·èœå•
     procedure RegShortCut(const aCaption: string; onClick: TShortCutClick);
-    //ÏÔÊ¾×´Ì¬
+    //æ˜¾ç¤ºçŠ¶æ€
     procedure ShowStatus(PnlIndex: Integer; const Msg: string);
-    //ÍË³ö³ÌĞò
+    //é€€å‡ºç¨‹åº
     procedure ExitApplication;
-    //¸øImageListÌí¼ÓÍ¼±ê
+    //ç»™ImageListæ·»åŠ å›¾æ ‡
     function AddImage(Img: TGraphic): Integer;
     {IFormMgr}
     function FindForm(const FormClassName: string): TForm;
@@ -74,15 +74,15 @@ var SvcInfo: TSvcInfoRec;
 begin
   SvcInfo.ModuleName := ExtractFileName(ParamStr(0));
   SvcInfo.GUID := GUIDToString(IMainForm);
-  SvcInfo.Title := 'Ö÷´°Ìå½Ó¿Ú(IMainForm)';
+  SvcInfo.Title := 'ä¸»çª—ä½“æ¥å£(IMainForm)';
   SvcInfo.Version := '20100421.001';
-  SvcInfo.Comments := '·â×°Ò»Ğ©Ö÷´°ÌåµÄ²Ù×÷£¬±ÈÈç´´½¨²Ëµ¥¡¢ÔÚ×´Ì¬ÏÔÊ¾ĞÅÏ¢»òÍË³öÏµÍ³µÈ¡£';
+  SvcInfo.Comments := 'å°è£…ä¸€äº›ä¸»çª—ä½“çš„æ“ä½œï¼Œæ¯”å¦‚åˆ›å»ºèœå•ã€åœ¨çŠ¶æ€æ˜¾ç¤ºä¿¡æ¯æˆ–é€€å‡ºç³»ç»Ÿç­‰ã€‚';
   Intf.SvcInfo(SvcInfo);
 
   SvcInfo.GUID := GUIDToString(IFormMgr);
-  SvcInfo.Title := '´°Ìå¹ÜÀí½Ó¿Ú(IFormMgr)';
+  SvcInfo.Title := 'çª—ä½“ç®¡ç†æ¥å£(IFormMgr)';
   SvcInfo.Version := '20100421.001';
-  SvcInfo.Comments := '·â×°Ò»Ğ©´°ÌåµÄ²Ù×÷£¬±ÈÈçĞÂ½¨Ò»¸ö´°Ìå£¬²éÕÒÒÑ´´½¨µÄ´°ÌåµÈ¡£';
+  SvcInfo.Comments := 'å°è£…ä¸€äº›çª—ä½“çš„æ“ä½œï¼Œæ¯”å¦‚æ–°å»ºä¸€ä¸ªçª—ä½“ï¼ŒæŸ¥æ‰¾å·²åˆ›å»ºçš„çª—ä½“ç­‰ã€‚';
   Intf.SvcInfo(SvcInfo);
 end;
 
@@ -226,7 +226,7 @@ begin
   if aForm = Nil then
   begin
     frm_ShortCut := TFrm_Shortcut.Create(self);
-    //ÏÔÊ¾¿ì½İ·½Ê½(³£ÓÃ¹¦ÄÜ)
+    //æ˜¾ç¤ºå¿«æ·æ–¹å¼(å¸¸ç”¨åŠŸèƒ½)
     for i := 0 to FShortCutList.Count - 1 do
       frm_ShortCut.RegShotcutItem(PShortCutItem(FShortCutList[i]));
 
@@ -270,7 +270,7 @@ begin
   ToolButton := TToolButton.Create(self);
   ToolButton.Parent := self.ToolBar1;
   ToolButton.Left := ToolBar1.Buttons[ToolBar1.ButtonCount - 1].Left + ToolBar1.Buttons[ToolBar1.ButtonCount - 1].Width;
-  if aCaption = '-' then//ÊÇ·Ö¸ô
+  if aCaption = '-' then//æ˜¯åˆ†éš”
   begin
     ToolButton.Style := tbsDivider;
     ToolButton.Width := 8;

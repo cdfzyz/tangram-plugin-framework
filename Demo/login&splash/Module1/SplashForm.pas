@@ -1,4 +1,4 @@
-unit SplashForm;
+﻿unit SplashForm;
 
 interface
 

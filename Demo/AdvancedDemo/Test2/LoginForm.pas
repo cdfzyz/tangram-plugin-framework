@@ -1,4 +1,4 @@
-unit LoginForm;
+ï»¿unit LoginForm;
 
 interface
 
@@ -52,12 +52,12 @@ begin
       LoginUserInfo^.UserID := DataRecord.FieldValueAsInteger('ID');
       LoginUserInfo^.UserName := DataRecord.FieldValueAsString('UserName');
       LoginUserInfo^.RoleID := DataRecord.FieldValueAsInteger('RoleID');
-      LoginUserInfo^.IsAdmin := False;//×¢Òâ:ÕâÑù»¹Ã»²é³öÀ´...
+      LoginUserInfo^.IsAdmin := False;//æ³¨æ„:è¿™æ ·è¿˜æ²¡æŸ¥å‡ºæ¥...
       self.ModalResult := mrOK;
     end
-    else Sys.Dialogs.ShowError('ÃÜÂë´íÎó£¡');
+    else Sys.Dialogs.ShowError('å¯†ç é”™è¯¯ï¼');
   end
-  else Sys.Dialogs.Warning('ÇëÑ¡ÔñÒ»¸öÓÃ»§£¡');
+  else Sys.Dialogs.Warning('è¯·é€‰æ‹©ä¸€ä¸ªç”¨æˆ·ï¼');
 end;
 
 procedure Tfrm_Login.Label3Click(Sender: TObject);
@@ -85,7 +85,7 @@ begin
   inherited;
   if SysService.QueryInterface(IListFiller, FListFiller) = S_OK then
     FListFiller.FillList('[User]', 'UserName', self.cb_User.Items)
-  else sys.Dialogs.ShowError('ÎŞ·¨È¡µÃIListFiller½Ó¿Ú£¡');
+  else sys.Dialogs.ShowError('æ— æ³•å–å¾—IListFilleræ¥å£ï¼');
 end;
 
 end.

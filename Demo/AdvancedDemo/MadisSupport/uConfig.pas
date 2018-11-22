@@ -1,4 +1,4 @@
-unit uConfig;
+﻿unit uConfig;
 
 interface
 

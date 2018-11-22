@@ -1,8 +1,8 @@
-{------------------------------------
-  ¹¦ÄÜËµÃ÷£ºÊµÏÖIDBAccess½Ó¿Ú
-  ´´½¨ÈÕÆÚ£º2010/04/26
-  ×÷Õß£ºwzw
-  °æÈ¨£ºwzw
+ï»¿{------------------------------------
+  åŠŸèƒ½è¯´æ˜ï¼šå®ç°IDBAccessæ¥å£
+  åˆ›å»ºæ—¥æœŸï¼š2010/04/26
+  ä½œè€…ï¼šwzw
+  ç‰ˆæƒï¼šwzw
 -------------------------------------}
 unit DBAccess;
 
@@ -42,7 +42,7 @@ uses SysSvc, SysFactory, ActiveX;
 
 function TDBOperation.GetComments: String;
 begin
-  Result := 'ÓÃÓÚÊı¾İ¿â²Ù×÷';
+  Result := 'ç”¨äºæ•°æ®åº“æ“ä½œ';
 end;
 
 function TDBOperation.GetModuleName: String;
@@ -52,7 +52,7 @@ end;
 
 function TDBOperation.GetTitle: String;
 begin
-  Result := 'Êı¾İ¿â²Ù×÷½Ó¿Ú(IDBAccess)';
+  Result := 'æ•°æ®åº“æ“ä½œæ¥å£(IDBAccess)';
 end;
 
 function TDBOperation.GetVersion: String;

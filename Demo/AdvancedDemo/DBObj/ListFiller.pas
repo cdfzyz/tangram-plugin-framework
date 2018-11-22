@@ -1,8 +1,8 @@
-{------------------------------------
-  ¹¦ÄÜËµÃ÷£ºÊµÏÖIListFiller½Ó¿Ú
-  ´´½¨ÈÕÆÚ£º2010/05/17
-  ×÷Õß£ºwzw
-  °æÈ¨£ºwzw
+ï»¿{------------------------------------
+  åŠŸèƒ½è¯´æ˜ï¼šå®ç°IListFilleræ¥å£
+  åˆ›å»ºæ—¥æœŸï¼š2010/05/17
+  ä½œè€…ï¼šwzw
+  ç‰ˆæƒï¼šwzw
 -------------------------------------}
 unit ListFiller;
 
@@ -42,7 +42,7 @@ end;
 
 function TListFiller.GetComments: String;
 begin
-  Result := 'ÓÃÓÚ°ÑÄ³¸ö×Ö¶ÎÌî³äµ½TStringListÖĞ';
+  Result := 'ç”¨äºæŠŠæŸä¸ªå­—æ®µå¡«å……åˆ°TStringListä¸­';
 end;
 
 function TListFiller.GetModuleName: String;
@@ -52,7 +52,7 @@ end;
 
 function TListFiller.GetTitle: String;
 begin
-  Result := 'ÁĞ±íÌî³ä½Ó¿Ú(IListFiller)';
+  Result := 'åˆ—è¡¨å¡«å……æ¥å£(IListFiller)';
 end;
 
 function TListFiller.GetVersion: String;

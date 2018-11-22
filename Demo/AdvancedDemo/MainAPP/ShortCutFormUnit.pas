@@ -1,8 +1,8 @@
-{------------------------------------
-  ¹¦ÄÜËµÃ÷£ºÆ½Ì¨³£ÓÃ¹¦ÄÜ´°Ìå£¬ÒªÊµÏÖIShortCutClick½Ó¿Ú
-  ´´½¨ÈÕÆÚ£º2008/11/19
-  ×÷Õß£ºwzw
-  °æÈ¨£ºwzw
+ï»¿{------------------------------------
+  åŠŸèƒ½è¯´æ˜ï¼šå¹³å°å¸¸ç”¨åŠŸèƒ½çª—ä½“ï¼Œè¦å®ç°IShortCutClickæ¥å£
+  åˆ›å»ºæ—¥æœŸï¼š2008/11/19
+  ä½œè€…ï¼šwzw
+  ç‰ˆæƒï¼šwzw
 -------------------------------------}
 unit ShortCutFormUnit;
 
@@ -28,7 +28,7 @@ type
     FCurShortCutPanel: TCustomFrame;
   protected
     {IShortCutClick}
-    //×¢²á¿ì½İ²Ëµ¥Ãæ°å
+    //æ³¨å†Œå¿«æ·èœå•é¢æ¿
     procedure RegPanel(FrameClass: TCustomFrameClass);
   public
     procedure RegShotcutItem(PItem: PShortCutItem);
@@ -90,7 +90,7 @@ begin
     newItem.Caption := String(PItem^.aCaption);
     newItem.ImageIndex := 0;
     newItem.Data := PItem;
-    //×Ô¶¯Ñ¡ÔñµÚÒ»Ïî
+    //è‡ªåŠ¨é€‰æ‹©ç¬¬ä¸€é¡¹
     if FCurShortCutPanel = Nil then
       newItem.Selected := True;
   end;

@@ -1,4 +1,4 @@
-unit uIntfObj3;
+锘縰nit uIntfObj3;
 
 interface
 
@@ -31,7 +31,7 @@ end;
 
 function TIntfObj3.GetComments: String;
 begin
-  Result := '测试BPL接口';
+  Result := '娴嬭瘯BPL鎺ュ彛';
 end;
 
 function TIntfObj3.GetModuleName: String;
@@ -41,7 +41,7 @@ end;
 
 function TIntfObj3.GetTitle: String;
 begin
-  Result := 'BPL里实现的接口(IIntf3)';
+  Result := 'BPL閲屽疄鐜扮殑鎺ュ彛(IIntf3)';
 end;
 
 function TIntfObj3.GetVersion: String;

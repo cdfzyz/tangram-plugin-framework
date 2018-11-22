@@ -1,8 +1,8 @@
-{------------------------------------
-  ¹¦ÄÜËµÃ÷£ºÆ½Ì¨ÅäÖÃ¹¤¾ß£¬ÀàËÆwindowsµÄregedit.exe
-  ´´½¨ÈÕÆÚ£º2008/11/15
-  ×÷Õß£ºwzw
-  °æÈ¨£ºwzw
+ï»¿{------------------------------------
+  åŠŸèƒ½è¯´æ˜ï¼šå¹³å°é…ç½®å·¥å…·ï¼Œç±»ä¼¼windowsçš„regedit.exe
+  åˆ›å»ºæ—¥æœŸï¼š2008/11/15
+  ä½œè€…ï¼šwzw
+  ç‰ˆæƒï¼šwzw
 -------------------------------------}
 unit uMain;
 
@@ -121,7 +121,7 @@ begin
         key := nodeInfo^.Key + '\' + KeyName;
       end;
       if Reg.OpenKey(key, True) then
-      begin//Ë¢ĞÂ
+      begin//åˆ·æ–°
         newNode := tv_reg.Items.AddChild(pNode, KeyName);
         newNode.ImageIndex := 0;
         newNode.SelectedIndex := 1;
@@ -152,19 +152,19 @@ begin
         begin
           try
             Reg.WriteString(aName, Value);
-            EumKeyValue(tv_reg.Selected);//Ë¢ĞÂ
+            EumKeyValue(tv_reg.Selected);//åˆ·æ–°
           except
             on E: Exception do
-              showmessageFmt('Ìí¼ÓÖµ³ö´í£¬´íÎó£º%s', [E.Message]);
+              showmessageFmt('æ·»åŠ å€¼å‡ºé”™ï¼Œé”™è¯¯ï¼š%s', [E.Message]);
           end;
         end
-        else showmessage('´ò¿ª½Úµã³ö´í£¬Î´ÖªÔ­Òò£¡');
+        else showmessage('æ‰“å¼€èŠ‚ç‚¹å‡ºé”™ï¼ŒæœªçŸ¥åŸå› ï¼');
       end;
     finally
       frm_editValue.Free;
     end;
   end
-  else showmessage('ÇëÏÈÔÚ×ó±ßÊ÷ĞÍÑ¡Ôñ½Úµã£¡');
+  else showmessage('è¯·å…ˆåœ¨å·¦è¾¹æ ‘å‹é€‰æ‹©èŠ‚ç‚¹ï¼');
 end;
 
 procedure Tfrm_Main.DeleteKey(node: TtreeNode);
@@ -172,14 +172,14 @@ var key: string;
 begin
   if assigned(node) then
   begin
-    if Application.MessageBox('È·¶¨É¾³ıµ±Ç°½ÚµãÂğ£¿', 'É¾³ı½Úµã', 1) = 1 then
+    if Application.MessageBox('ç¡®å®šåˆ é™¤å½“å‰èŠ‚ç‚¹å—ï¼Ÿ', 'åˆ é™¤èŠ‚ç‚¹', 1) = 1 then
     begin
       key := PNodeInfo(node.Data)^.Key;
       if Reg.DeleteKey(key) then
-      begin//Ë¢ĞÂ
+      begin//åˆ·æ–°
         node.Delete;
       end
-      else showmessage('É¾³ıÊ§°Ü£¬Î´ÖªµÀÔ­Òò£¡');
+      else showmessage('åˆ é™¤å¤±è´¥ï¼ŒæœªçŸ¥é“åŸå› ï¼');
     end;
   end;
 end;
@@ -189,7 +189,7 @@ var key, aName: string;
 begin
   if assigned(CurListItem) then
   begin
-    if application.MessageBox('È·¶¨ÒªÉ¾³ıµ±Ç°ÖµÂğ£¿', 'É¾³ıÊıÖµ', 1) = 1 then
+    if application.MessageBox('ç¡®å®šè¦åˆ é™¤å½“å‰å€¼å—ï¼Ÿ', 'åˆ é™¤æ•°å€¼', 1) = 1 then
     begin
       key := PNodeInfo(CurListItem.Data)^.Key;
       aName := CurListItem.Caption;
@@ -199,12 +199,12 @@ begin
         begin
           CurListItem.Delete;
         end
-        else showmessage('É¾³ıÖµ³ö´í£¬Î´ÖªÔ­Òò£¡');
+        else showmessage('åˆ é™¤å€¼å‡ºé”™ï¼ŒæœªçŸ¥åŸå› ï¼');
       end
-      else showmessage('´ò¿ª½ÚµãÊ±³ö´í£¬Î´ÖªÔ­Òò£¡');
+      else showmessage('æ‰“å¼€èŠ‚ç‚¹æ—¶å‡ºé”™ï¼ŒæœªçŸ¥åŸå› ï¼');
     end;
   end
-  else showmessage('ÇëÑ¡ÔñÒ»¸öÖµ²ÅÄÜÉ¾³ı£¡');
+  else showmessage('è¯·é€‰æ‹©ä¸€ä¸ªå€¼æ‰èƒ½åˆ é™¤ï¼');
 end;
 
 procedure Tfrm_Main.EditValue(CurListItem: TListItem);
@@ -212,7 +212,7 @@ var key, aName, Value: string;
 begin
   if not assigned(CurListItem) then
   begin
-    showmessage('ÇëÑ¡ÔñÒ»¸öÖµ²ÅÄÜ±à¼­£¡');
+    showmessage('è¯·é€‰æ‹©ä¸€ä¸ªå€¼æ‰èƒ½ç¼–è¾‘ï¼');
     exit;
   end;
   frm_editValue := Tfrm_editValue.Create(nil);
@@ -230,13 +230,13 @@ begin
       begin
         try
           Reg.WriteString(aName, Value);
-          EumKeyValue(tv_reg.Selected);//Ë¢ĞÂ
+          EumKeyValue(tv_reg.Selected);//åˆ·æ–°
         except
           on E: Exception do
-            showmessageFmt('±à¼­Öµ±£´æÊ±³ö´í£¬´íÎó£º%s', [E.Message]);
+            showmessageFmt('ç¼–è¾‘å€¼ä¿å­˜æ—¶å‡ºé”™ï¼Œé”™è¯¯ï¼š%s', [E.Message]);
         end;
       end
-      else showmessage('´ò¿ª½Úµã³ö´í£¬Î´ÖªÔ­Òò£¡');
+      else showmessage('æ‰“å¼€èŠ‚ç‚¹å‡ºé”™ï¼ŒæœªçŸ¥åŸå› ï¼');
     end;
   finally
     frm_editValue.Free;
@@ -312,7 +312,7 @@ var pNode, tmpNode: TtreeNode;
   i: integer;
 begin
   aList.Clear;
-  aList.Add('<ÎŞ>');
+  aList.Add('<æ— >');
   if assigned(node) then
   begin
     pNode := node.Parent;
@@ -343,7 +343,7 @@ end;
 
 procedure Tfrm_Main.FormCreate(Sender: TObject);
 begin
-  //ÔÚtreeViewÁĞ³öËùÓĞ×¢²á±íÏî
+  //åœ¨treeViewåˆ—å‡ºæ‰€æœ‰æ³¨å†Œè¡¨é¡¹
   Reg := SysService as IRegistry;
   tv_reg.Items.BeginUpdate;
   try

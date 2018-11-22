@@ -1,8 +1,8 @@
-{------------------------------------
-  ¹¦ÄÜËµÃ÷£ºÀ©Õ¹¹¤³§
-  ´´½¨ÈÕÆÚ£º2010/06/08
-  ×÷Õß£ºWZW
-  °æÈ¨£ºWZW
+ï»¿{------------------------------------
+  åŠŸèƒ½è¯´æ˜ï¼šæ‰©å±•å·¥å‚
+  åˆ›å»ºæ—¥æœŸï¼š2010/06/08
+  ä½œè€…ï¼šWZW
+  ç‰ˆæƒï¼šWZW
 -------------------------------------}
 unit SysFactoryEx;
 
@@ -15,7 +15,7 @@ uses
   SvcInfoIntf;
 
 type
-  //»ùÀà
+  //åŸºç±»
   TBaseFactoryEx = class(TFactory, ISvcInfoEx)
   private
     FIIDList: TStrings;
@@ -145,7 +145,7 @@ end;
 
 function TSingletonFactoryEx.GetIntf(const IID: TGUID; out Obj): HResult;
 begin
-  //if not Assigned(FIntfCreatorFunc) then//²»ÄÜÕâÑù£¬ÒòÎªºó´úTObjFactoryExÊ±FIntfCreatorFuncÎª¿Õ
+  //if not Assigned(FIntfCreatorFunc) then//ä¸èƒ½è¿™æ ·ï¼Œå› ä¸ºåä»£TObjFactoryExæ—¶FIntfCreatorFuncä¸ºç©º
   //  raise Exception.CreateFmt(Err_IntfCreatorFuncIsNil,[GUIDToString(IID)]);
 
   Result := E_NOINTERFACE;
@@ -258,7 +258,7 @@ begin
   if Instance = nil then
     raise Exception.CreateFmt(Err_InstanceIsNil, [GUIDToString(IIDs[0])]);
 
-  inherited Create(IIDs, nil, IntfRelease); //ÍùÉÏºóFIntfRef»á±»¸³Îªnil
+  inherited Create(IIDs, nil, IntfRelease); //å¾€ä¸ŠåFIntfRefä¼šè¢«èµ‹ä¸ºnil
   FOwnsObj := OwnsObj or IntfRelease or (Instance is TInterfacedObject);
   FInstance := Instance;
   FInstance.GetInterface(IInterface, FIntfRef);

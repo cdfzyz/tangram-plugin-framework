@@ -1,8 +1,8 @@
-{-----------------------------------
-  ¹¦ÄÜËµÃ÷£ºÈ¨ÏŞ°üµ¼³öµÄ²Ëµ¥
-  ´´½¨ÈÕÆÚ£º2010/05/15
-  ×÷Õß£ºwzw
-  °æÈ¨£ºwzw
+ï»¿{-----------------------------------
+  åŠŸèƒ½è¯´æ˜ï¼šæƒé™åŒ…å¯¼å‡ºçš„èœå•
+  åˆ›å»ºæ—¥æœŸï¼š2010/05/15
+  ä½œè€…ï¼šwzw
+  ç‰ˆæƒï¼šwzw
 -------------------------------------}
 unit uAuthorityPlugin;
 
@@ -58,7 +58,7 @@ var
 begin
   inherited;
   EventReg := SysService as IMenuEventBinder;
-  //°ó¶¨ÊÂ¼ş
+  //ç»‘å®šäº‹ä»¶
   EventReg.RegMenuEvent(Key_RoleMgr, self.RoleMgrClick);
   EventReg.RegMenuEvent(Key_UserMgr, self.UserMgrClick);
 end;
@@ -95,9 +95,9 @@ class procedure TAuthorityPlugin.RegisterModule(Reg: IRegistry);
 var
   ModuleFullName, ModuleName, Value: string;
 begin
-  //×¢²á²Ëµ¥
+  //æ³¨å†Œèœå•
   self.RegMenu(Reg as IMenuReg);
-  //×¢²á°ü
+  //æ³¨å†ŒåŒ…
   if Reg.OpenKey(InstallKey, True) then
   begin
     ModuleFullName := SysUtils.GetModuleName(HInstance);
@@ -110,17 +110,17 @@ end;
 
 class procedure TAuthorityPlugin.RegMenu(Reg: IMenuReg);
 begin
-  Reg.RegMenu(Key_RoleMgr, 'ÏµÍ³¹ÜÀí\È¨ÏŞ\½ÇÉ«¹ÜÀí');
-  Reg.RegMenu(Key_UserMgr, 'ÏµÍ³¹ÜÀí\È¨ÏŞ\ÓÃ»§¹ÜÀí');
+  Reg.RegMenu(Key_RoleMgr, 'ç³»ç»Ÿç®¡ç†\æƒé™\è§’è‰²ç®¡ç†');
+  Reg.RegMenu(Key_UserMgr, 'ç³»ç»Ÿç®¡ç†\æƒé™\ç”¨æˆ·ç®¡ç†');
 end;
 
 class procedure TAuthorityPlugin.UnRegisterModule(Reg: IRegistry);
 var
   ModuleName: string;
 begin
-  //È¡Ïû×¢²á²Ëµ¥
+  //å–æ¶ˆæ³¨å†Œèœå•
   self.UnRegMenu(Reg as IMenuReg);
-  //È¡Ïû×¢²á°ü
+  //å–æ¶ˆæ³¨å†ŒåŒ…
   if Reg.OpenKey(InstallKey) then
   begin
     ModuleName := ExtractFileName(SysUtils.GetModuleName(HInstance));

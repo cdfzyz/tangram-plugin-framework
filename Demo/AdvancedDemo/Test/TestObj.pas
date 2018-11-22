@@ -1,4 +1,4 @@
-unit TestObj;
+锘縰nit TestObj;
 
 interface
 
@@ -33,7 +33,7 @@ end;
 
 function TtestObj.GetComments: String;
 begin
-  Result := '测试接口，测试用的，在test.bpl包里实现。具体请看test包的TestObj单元';
+  Result := '娴嬭瘯鎺ュ彛锛屾祴璇曠敤鐨勶紝鍦╰est.bpl鍖呴噷瀹炵幇銆傚叿浣撹鐪媡est鍖呯殑TestObj鍗曞厓';
 end;
 
 function TtestObj.GetModuleName: String;
@@ -43,7 +43,7 @@ end;
 
 function TtestObj.GetTitle: String;
 begin
-  Result := '测试接口(ITest)';
+  Result := '娴嬭瘯鎺ュ彛(ITest)';
 end;
 
 function TtestObj.GetVersion: String;

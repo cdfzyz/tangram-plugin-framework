@@ -1,8 +1,8 @@
-{------------------------------------
-  ¹¦ÄÜËµÃ÷£ºTest2°üµ¼³öµÄ²Ëµ¥
-  ´´½¨ÈÕÆÚ£º2010.04.23
-  ×÷Õß£ºWZW
-  °æÈ¨£ºWZW
+ï»¿{------------------------------------
+  åŠŸèƒ½è¯´æ˜ï¼šTest2åŒ…å¯¼å‡ºçš„èœå•
+  åˆ›å»ºæ—¥æœŸï¼š2010.04.23
+  ä½œè€…ï¼šWZW
+  ç‰ˆæƒï¼šWZW
 -------------------------------------}
 unit Test2Plugin;
 
@@ -58,7 +58,7 @@ const
   ID_ToolButton1 = 'ID_C79B86D8-C0F4-4D7A-9968-CEE7B1D281D1';
   ID_ToolButton2 = 'ID_94A4A556-AA6B-43A5-AB7E-4CB0D7846CCF';
   ID_ToolLine = 'ID_D2EFC657-B620-4FD3-8DFC-7F934A3E3157';
-  //¾­¹ıBase64±àÂëºóµÄÍ¼±êÊı¾İ
+  //ç»è¿‡Base64ç¼–ç åçš„å›¾æ ‡æ•°æ®
   ImgData =
     'AAABAAEAEBAQAAAAAAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAwAAAAAAAAAAAAAAAAAAA'
     +
@@ -113,7 +113,7 @@ const
 
 procedure TTest2Plugin.Notify(Flags: Integer; Intf: IInterface; Param: Integer);
 begin
-  if Flags = Flags_RegAuthority then // ×¢²áÈ¨ÏŞ
+  if Flags = Flags_RegAuthority then // æ³¨å†Œæƒé™
   begin
     TFrmTestDB.RegistryAuthority;
     TForm3.RegistryAuthority;
@@ -124,8 +124,8 @@ class procedure TTest2Plugin.RegisterModule(Reg: IRegistry);
 var
   ModuleFullName, ModuleName, Value: string;
 begin
-  // MessageBox(GetActiveWindow,'ÒÑ¾­°²×°¹ıÁË£¡','aa',MB_OK+MB_ICONWARNING);
-  // ×¢²á²Ëµ¥
+  // MessageBox(GetActiveWindow,'å·²ç»å®‰è£…è¿‡äº†ï¼','aa',MB_OK+MB_ICONWARNING);
+  // æ³¨å†Œèœå•
   Self.RegMenu(Reg as IMenuReg);
 
   if Reg.OpenKey(InstallKey, True) then
@@ -142,7 +142,7 @@ class procedure TTest2Plugin.UnRegisterModule(Reg: IRegistry);
 var
   ModuleName: string;
 begin
-  // È¡Ïû×¢²á²Ëµ¥
+  // å–æ¶ˆæ³¨å†Œèœå•
   self.UnRegMenu(Reg as IMenuReg);
 
   if Reg.OpenKey(InstallKey) then
@@ -155,10 +155,10 @@ end;
 
 class procedure TTest2Plugin.RegMenu(Reg: IMenuReg);
 begin
-  Reg.RegMenu(ID_Test2Menu1, 'ÎÄ¼ş\Test2°ü');
-  Reg.RegToolItem(ID_ToolButton1, 'ÉèÖÃ', 'Êı¾İ¿âÁ¬½ÓÉèÖÃ£¡');
-  Reg.RegToolItem(ID_ToolLine, '-', ''); //¼ÓÒ»¸ö·Ö¸ôÏß
-  Reg.RegToolItem(ID_ToolButton2, '²âÊÔ2', 'ÕâÊÇTest2°ü×¢²áµÄ¹¤¾ßÀ¸£¡');
+  Reg.RegMenu(ID_Test2Menu1, 'æ–‡ä»¶\Test2åŒ…');
+  Reg.RegToolItem(ID_ToolButton1, 'è®¾ç½®', 'æ•°æ®åº“è¿æ¥è®¾ç½®ï¼');
+  Reg.RegToolItem(ID_ToolLine, '-', ''); //åŠ ä¸€ä¸ªåˆ†éš”çº¿
+  Reg.RegToolItem(ID_ToolButton2, 'æµ‹è¯•2', 'è¿™æ˜¯Test2åŒ…æ³¨å†Œçš„å·¥å…·æ ï¼');
 end;
 
 class procedure TTest2Plugin.UnRegMenu(Reg: IMenuReg);
@@ -174,8 +174,8 @@ var
   MainForm: IMainForm;
 begin
   MainForm := SysService as IMainForm;
-  MainForm.RegShortCut('½Ó¿ÚÊ¹ÓÃ', self.UseIntfClick);
-  MainForm.RegShortCut('Êı¾İ¿â²Ù×÷', self.UseDBClick);
+  MainForm.RegShortCut('æ¥å£ä½¿ç”¨', self.UseIntfClick);
+  MainForm.RegShortCut('æ•°æ®åº“æ“ä½œ', self.UseDBClick);
 end;
 
 function TTest2Plugin.CreateIconFromStrData(const StrData: string): TGraphic;
@@ -202,7 +202,7 @@ end;
 
 procedure TTest2Plugin.MenuOnclick(Sender: TObject);
 begin
-  sys.Dialogs.ShowMessage('Õâ¸öÊÇTest2°ü×¢²áµÄ²Ëµ¥£¡');
+  sys.Dialogs.ShowMessage('è¿™ä¸ªæ˜¯Test2åŒ…æ³¨å†Œçš„èœå•ï¼');
 end;
 
 procedure TTest2Plugin.UseIntfClick(pIntf: IShortCutClick);
@@ -212,7 +212,7 @@ end;
 
 procedure TTest2Plugin.ToolOnclick(Sender: TObject);
 begin
-  sys.Dialogs.ShowMessage('ÄãºÃ£¡');
+  sys.Dialogs.ShowMessage('ä½ å¥½ï¼');
 end;
 
 procedure TTest2Plugin.UseDBClick(pIntf: IShortCutClick);
@@ -245,19 +245,19 @@ begin
   MenuEventBinder := SysService as IMenuEventBinder;
 
   MenuEventBinder.RegMenuEvent(ID_Test2Menu1, self.MenuOnclick);
-  //µÚÒ»¸ö¹¤¾ßÀ¸°´Å¤
+  //ç¬¬ä¸€ä¸ªå·¥å…·æ æŒ‰æ‰­
   Icon := self.CreateIconFromStrData(ImgData2);
   try
     MenuEventBinder.RegToolEvent(ID_ToolButton1, self.DBConfigClick, Icon);
-      //°ó¶¨ÊÂ¼ş
+      //ç»‘å®šäº‹ä»¶
   finally
     Icon.Free;
   end;
-  //µÚ¶ş¸ö¹¤¾ßÀ¸°´Å¤
+  //ç¬¬äºŒä¸ªå·¥å…·æ æŒ‰æ‰­
   Icon := self.CreateIconFromStrData(ImgData);
   try
     MenuEventBinder.RegToolEvent(ID_ToolButton2, self.ToolOnclick, Icon);
-      //°ó¶¨ÊÂ¼ş
+      //ç»‘å®šäº‹ä»¶
   finally
     Icon.Free;
   end;

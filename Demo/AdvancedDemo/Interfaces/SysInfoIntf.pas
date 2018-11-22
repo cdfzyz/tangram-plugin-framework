@@ -1,8 +1,8 @@
-{------------------------------------
-  ¹¦ÄÜËµÃ÷£ºÏµÍ³ĞÅÏ¢½Ó¿Ú
-  ´´½¨ÈÕÆÚ£º2008/11/12
-  ×÷Õß£ºwzw
-  °æÈ¨£ºwzw
+ï»¿{------------------------------------
+  åŠŸèƒ½è¯´æ˜ï¼šç³»ç»Ÿä¿¡æ¯æ¥å£
+  åˆ›å»ºæ—¥æœŸï¼š2008/11/12
+  ä½œè€…ï¼šwzw
+  ç‰ˆæƒï¼šwzw
 -------------------------------------}
 unit SysInfoIntf;
 {$weakpackageunit on}
@@ -18,9 +18,9 @@ type
 
   ISysInfo = interface
     ['{E06C3E07-6865-405C-9EC6-6384BB4CB5DD}']
-    function RegistryFile: string;//×¢²á±íÎÄ¼ş
-    function AppPath: string;//³ÌĞòÄ¿Â¼
-    function ErrPath: string;//´íÎóÈÕÖ¾Ä¿Â¼
+    function RegistryFile: string;//æ³¨å†Œè¡¨æ–‡ä»¶
+    function AppPath: string;//ç¨‹åºç›®å½•
+    function ErrPath: string;//é”™è¯¯æ—¥å¿—ç›®å½•
 
     function LoginUserInfo: PLoginUserInfo;
   end;

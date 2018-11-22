@@ -1,4 +1,4 @@
-unit ExceptionHandle;
+﻿unit ExceptionHandle;
 
 interface
 

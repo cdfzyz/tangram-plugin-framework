@@ -1,4 +1,4 @@
-unit uEdtUser;
+ï»¿unit uEdtUser;
 
 interface
 
@@ -48,13 +48,13 @@ begin
   inherited;
   if edt_UserName.Text = '' then
   begin
-    sys.Dialogs.Warning('ÓÃ»§Ãû²»ÄÜÎª¿Õ£¡');
+    sys.Dialogs.Warning('ç”¨æˆ·åä¸èƒ½ä¸ºç©ºï¼');
     edt_UserName.SetFocus;
     exit;
   end;
   if cb_Role.ItemIndex = -1 then
   begin
-    sys.Dialogs.Warning('ÇëÑ¡Ôñ½ÇÉ«£¡');
+    sys.Dialogs.Warning('è¯·é€‰æ‹©è§’è‰²ï¼');
     cb_Role.SetFocus;
     exit;
   end;

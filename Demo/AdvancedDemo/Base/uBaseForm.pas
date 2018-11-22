@@ -1,8 +1,8 @@
-{------------------------------------
-  ¹¦ÄÜËµÃ÷£ºËùÓĞ´°ÌåµÄÖ÷ÏÈÀà
-  ĞŞ¸ÄÈÕÆÚ£º2009/05/11
-  ×÷Õß£ºwzw
-  °æÈ¨£ºwzw
+ï»¿{------------------------------------
+  åŠŸèƒ½è¯´æ˜ï¼šæ‰€æœ‰çª—ä½“çš„ä¸»å…ˆç±»
+  ä¿®æ”¹æ—¥æœŸï¼š2009/05/11
+  ä½œè€…ï¼šwzw
+  ç‰ˆæƒï¼šwzw
 -------------------------------------}
 unit uBaseForm;
 
@@ -35,7 +35,7 @@ type
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
-    class procedure RegistryAuthority; //×¢²áÈ¨ÏŞ
+    class procedure RegistryAuthority; //æ³¨å†Œæƒé™
   end;
 
   TRegAuthorityPro = procedure(aIntf: IAuthorityRegistrar) of object;

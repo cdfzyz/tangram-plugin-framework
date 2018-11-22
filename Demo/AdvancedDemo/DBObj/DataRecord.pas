@@ -1,8 +1,8 @@
-{------------------------------------
-  ¹¦ÄÜËµÃ÷£ºÊµÏÖIDataRecord½Ó¿Ú
-  ´´½¨ÈÕÆÚ£º2010/05/17
-  ×÷Õß£ºwzw
-  °æÈ¨£ºwzw
+ï»¿{------------------------------------
+  åŠŸèƒ½è¯´æ˜ï¼šå®ç°IDataRecordæ¥å£
+  åˆ›å»ºæ—¥æœŸï¼š2010/05/17
+  ä½œè€…ï¼šwzw
+  ç‰ˆæƒï¼šwzw
 -------------------------------------}
 unit DataRecord;
 
@@ -72,12 +72,12 @@ end;
 
 function TDataRecord.GetComments: String;
 begin
-  Result := '¿ÉÒÔ°ÑÊı¾İ¼¯µ±×öÒ»¸ö¼ÇÂ¼µÄ¼¯ºÏ£¬¿ÉÒÔÓÃ±¾½Ó¿Ú¶Á³öÒ»Ìõ¼ÇÂ¼£¬²¢¿ÉÒÔĞ´»ØÊı¾İ¼¯¡£';
+  Result := 'å¯ä»¥æŠŠæ•°æ®é›†å½“åšä¸€ä¸ªè®°å½•çš„é›†åˆï¼Œå¯ä»¥ç”¨æœ¬æ¥å£è¯»å‡ºä¸€æ¡è®°å½•ï¼Œå¹¶å¯ä»¥å†™å›æ•°æ®é›†ã€‚';
 end;
 
 function TDataRecord.GetTitle: String;
 begin
-  Result := 'Êı¾İ¼ÇÂ¼½Ó¿Ú(IDataRecord)';
+  Result := 'æ•°æ®è®°å½•æ¥å£(IDataRecord)';
 end;
 
 procedure TDataRecord.ClearList;
@@ -266,7 +266,7 @@ function TDataRecord.GetFieldData(const FieldName: String): TDataItem;
 begin
   Result := FindFieldData(FieldName);
   if Result = nil then
-    raise Exception.CreateFmt('×Ö¶Î[%s]²»´æÔÚ£¡', [FieldName]);
+    raise Exception.CreateFmt('å­—æ®µ[%s]ä¸å­˜åœ¨ï¼', [FieldName]);
 end;
 
 function TDataRecord.FindFieldData(const FieldName: String): TDataItem;
